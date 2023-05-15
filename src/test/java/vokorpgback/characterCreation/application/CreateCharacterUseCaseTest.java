@@ -1,10 +1,9 @@
-package vokorpgback.characterCreation.application;
+package vokorpgback.charactercreation.application;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import vokorpgback.charactercreation.application.CreateCharacterUseCase;
 import vokorpgback.charactercreation.domain.model.Abilities;
 import vokorpgback.charactercreation.domain.model.Ability;
 import vokorpgback.charactercreation.domain.model.Identity;

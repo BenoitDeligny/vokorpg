@@ -1,4 +1,4 @@
-package vokorpgback.characterCreation.application;
+package vokorpgback.charactercreation.application;
 
 import java.util.ArrayList;
 import java.util.List;
