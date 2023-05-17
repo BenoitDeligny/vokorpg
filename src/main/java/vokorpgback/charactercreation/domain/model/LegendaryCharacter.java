@@ -1,6 +1,8 @@
 package vokorpgback.charactercreation.domain.model;
 
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public record LegendaryCharacter(
     String name,
@@ -11,8 +13,10 @@ public record LegendaryCharacter(
         this(name, rollForAge(), generateAbilities());
     }
 
-    // TODO
-    // How to test random assignements
+    public int fightingPower(Ability ability, int weaponBonus, int shieldBonus, List<Integer> miscellaneousBonus) {
+        return ability.value() + weaponBonus + shieldBonus + miscellaneousBonus.stream().collect(Collectors.summingInt(Integer::intValue));
+    }
+    
     private static int rollForAge() {
         Random roll = new Random();
         return 11 + (roll.nextInt(6) + 1);
@@ -21,4 +25,5 @@ public record LegendaryCharacter(
     private static Abilities generateAbilities() {
         return new Abilities(new Ability(), new Ability(), new Ability());
     }
+
 }

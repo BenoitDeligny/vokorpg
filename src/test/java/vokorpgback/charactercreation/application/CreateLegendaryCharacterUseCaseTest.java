@@ -1,5 +1,7 @@
 package vokorpgback.charactercreation.application;
 
+import java.util.Optional;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,10 +27,10 @@ public class CreateLegendaryCharacterUseCaseTest {
         LegendaryCharacterDto dto = new LegendaryCharacterDto("Name");
 
         // when
-        LegendaryCharacter expectedLegendaryCharacter = useCase.handle(dto);
+        Optional<LegendaryCharacter> expectedLegendaryCharacter = useCase.handle(dto);
 
         // then
-        Assertions.assertThat(repository.getInMemoryDatabase()).containsExactly(expectedLegendaryCharacter);
+        Assertions.assertThat(repository.getInMemoryDatabase()).containsExactly(expectedLegendaryCharacter.get());
     }
 
     @Test
@@ -37,12 +39,14 @@ public class CreateLegendaryCharacterUseCaseTest {
         LegendaryCharacterDto dto = new LegendaryCharacterDto("Name");
 
         // when
-        LegendaryCharacter actuaLegendaryCharacter = useCase.handle(dto);
+        Optional<LegendaryCharacter> actuaLegendaryCharacter = useCase.handle(dto);
 
         // then
         LegendaryCharacter expectedLegendaryCharacter = new LegendaryCharacter("Name");
-        Assertions.assertThat(expectedLegendaryCharacter.name()).isEqualTo(actuaLegendaryCharacter.name());
-        // HOW TO TEST RANDOM ASSIGNEMENTS ?
+        Assertions.assertThat(expectedLegendaryCharacter.name()).isEqualTo(actuaLegendaryCharacter.get().name());
+        // TODO
+        // Flaky tests
+        // Check how to test random assignment
         Assertions.assertThat(expectedLegendaryCharacter.age()).isBetween(12, 18);
         Assertions.assertThat(expectedLegendaryCharacter.abilities().strength().value()).isBetween(2, 7);
         Assertions.assertThat(expectedLegendaryCharacter.abilities().agility().value()).isBetween(2, 7);

@@ -1,11 +1,15 @@
 package vokorpgback.charactercreation.exposition;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import vokorpgback.charactercreation.application.CreateLegendaryCharacterUseCase;
+import vokorpgback.charactercreation.domain.model.LegendaryCharacter;
 import vokorpgback.charactercreation.exposition.dto.LegendaryCharacterDto;
 
-@Controller
+@RestController
 public class LegendaryCharacterController {
 
     private CreateLegendaryCharacterUseCase createLegendaryCharacterUseCase;
@@ -14,8 +18,9 @@ public class LegendaryCharacterController {
         this.createLegendaryCharacterUseCase = createLegendaryCharacterUseCase;
     }
 
-    public void createLegendaryCharacter(String name) {
-        createLegendaryCharacterUseCase.handle(toDto(name));
+    @PostMapping()
+    public @ResponseBody ResponseEntity<LegendaryCharacter> createLegendaryCharacter(String name) {
+        return ResponseEntity.of(createLegendaryCharacterUseCase.handle(toDto(name)));
     }
 
     private LegendaryCharacterDto toDto(String name) {
