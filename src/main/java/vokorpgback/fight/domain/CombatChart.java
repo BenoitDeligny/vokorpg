@@ -2,20 +2,22 @@ package vokorpgback.fight.domain;
 
 public enum CombatChart {
 
-    DEFEATED(Integer.MIN_VALUE, -1),
-    SERIOUSLY_INJURED(0, 3),
-    INJURED(4, 5),
-    DRAW(6, 8),
-    BEARLY_VICTORIOUS(9, 11),
-    ALMOST_VICTORIOUS(12, 14),
-    VICTORIOUS(15, Integer.MAX_VALUE);
+    DEFEATED(Integer.MIN_VALUE, -1, 0),
+    SERIOUSLY_INJURED(0, 3, -6),
+    INJURED(4, 5, -3),
+    DRAW(6, 8, 0),
+    BEARLY_VICTORIOUS(9, 11, +3),
+    ALMOST_VICTORIOUS(12, 14, +6),
+    VICTORIOUS(15, Integer.MAX_VALUE, 0);
 
     private int lowLimit;
     private int highLimit;
+    private int circumstanceBonus;
 
-    private CombatChart(int lowLimit, int highLimit) {
+    private CombatChart(int lowLimit, int highLimit, int circumstanceBonus) {
         this.lowLimit = lowLimit;
         this.highLimit = highLimit;
+        this.circumstanceBonus = circumstanceBonus;
     }
 
     public int getLowLimit() {
@@ -25,5 +27,8 @@ public enum CombatChart {
     public int getHighLimit() {
         return highLimit;
     }
-    
+
+    public int getCircumstanceBonus() {
+        return circumstanceBonus;
+    }
 }

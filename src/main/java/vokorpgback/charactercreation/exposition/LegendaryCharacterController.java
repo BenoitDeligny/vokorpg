@@ -13,7 +13,7 @@ import vokorpgback.charactercreation.exposition.dto.LegendaryCharacterDto;
 public class LegendaryCharacterController {
 
     private CreateLegendaryCharacterUseCase createLegendaryCharacterUseCase;
-    
+
     public LegendaryCharacterController(CreateLegendaryCharacterUseCase createLegendaryCharacterUseCase) {
         this.createLegendaryCharacterUseCase = createLegendaryCharacterUseCase;
     }

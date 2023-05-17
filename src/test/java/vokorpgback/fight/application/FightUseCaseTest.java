@@ -30,13 +30,10 @@ public class FightUseCaseTest {
                 new Abilities(
                         new Ability(7),
                         new Ability(7),
-                        new Ability(7)
-                )
-        );
+                        new Ability(7)));
 
         List<Monster> monsters = List.of(
-            new Monster(15)
-        );
+                new Monster(15));
 
         int attackRoll = 2;
 
@@ -57,13 +54,10 @@ public class FightUseCaseTest {
                 new Abilities(
                         new Ability(7),
                         new Ability(7),
-                        new Ability(7)
-                )
-        );
+                        new Ability(7)));
 
         List<Monster> monsters = List.of(
-            new Monster(7)
-        );
+                new Monster(7));
 
         int attackRoll = 1;
 
@@ -84,13 +78,10 @@ public class FightUseCaseTest {
                 new Abilities(
                         new Ability(7),
                         new Ability(7),
-                        new Ability(7)
-                )
-        );
+                        new Ability(7)));
 
         List<Monster> monsters = List.of(
-            new Monster(7)
-        );
+                new Monster(7));
 
         int attackRoll = 4;
 
@@ -101,7 +92,7 @@ public class FightUseCaseTest {
         // then
         Assertions.assertThat(combatResult).isEqualTo(CombatChart.INJURED);
     }
-    
+
     @Test
     void handle_shouldReturnDraw() {
         // given
@@ -111,13 +102,10 @@ public class FightUseCaseTest {
                 new Abilities(
                         new Ability(7),
                         new Ability(7),
-                        new Ability(7)
-                )
-        );
+                        new Ability(7)));
 
         List<Monster> monsters = List.of(
-            new Monster(7)
-        );
+                new Monster(7));
 
         int attackRoll = 6;
 
@@ -129,7 +117,6 @@ public class FightUseCaseTest {
         Assertions.assertThat(combatResult).isEqualTo(CombatChart.DRAW);
     }
 
-
     @Test
     void handle_shouldReturnBearlyVictorious() {
         // given
@@ -139,13 +126,10 @@ public class FightUseCaseTest {
                 new Abilities(
                         new Ability(10),
                         new Ability(7),
-                        new Ability(7)
-                )
-        );
+                        new Ability(7)));
 
         List<Monster> monsters = List.of(
-            new Monster(7)
-        );
+                new Monster(7));
 
         int attackRoll = 6;
 
@@ -166,13 +150,10 @@ public class FightUseCaseTest {
                 new Abilities(
                         new Ability(14),
                         new Ability(7),
-                        new Ability(7)
-                )
-        );
+                        new Ability(7)));
 
         List<Monster> monsters = List.of(
-            new Monster(7)
-        );
+                new Monster(7));
 
         int attackRoll = 6;
 
@@ -193,13 +174,10 @@ public class FightUseCaseTest {
                 new Abilities(
                         new Ability(16),
                         new Ability(7),
-                        new Ability(7)
-                )
-        );
+                        new Ability(7)));
 
         List<Monster> monsters = List.of(
-            new Monster(7)
-        );
+                new Monster(7));
 
         int attackRoll = 6;
 
@@ -209,5 +187,32 @@ public class FightUseCaseTest {
 
         // then
         Assertions.assertThat(combatResult).isEqualTo(CombatChart.VICTORIOUS);
+    }
+
+    @Test
+    void handle_shouldReturnDefeated_whenFightsAgainstMultipleMonsters() {
+        // given
+        LegendaryCharacter legendaryCharacter = new LegendaryCharacter(
+                "Name",
+                18,
+                new Abilities(
+                        new Ability(16),
+                        new Ability(7),
+                        new Ability(7)));
+
+        List<Monster> monsters = List.of(
+                new Monster(7),
+                new Monster(7),
+                new Monster(7),
+                new Monster(7));
+
+        int attackRoll = 6;
+
+        // when
+        // result = (16+6) - 28 = -7
+        CombatChart combatResult = useCase.handle(legendaryCharacter, monsters, attackRoll);
+
+        // then
+        Assertions.assertThat(combatResult).isEqualTo(CombatChart.DEFEATED);
     }
 }

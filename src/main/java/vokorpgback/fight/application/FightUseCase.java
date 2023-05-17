@@ -9,7 +9,6 @@ import static vokorpgback.fight.domain.CombatChart.SERIOUSLY_INJURED;
 import static vokorpgback.fight.domain.CombatChart.VICTORIOUS;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -21,6 +20,10 @@ import vokorpgback.fight.domain.Monster;
 @Service
 public class FightUseCase {
 
+    // TODO
+    // add the circumstance bonus from each previous turn
+    // add the choice of how many monster the character want to fight at the same
+    // time
     public CombatChart handle(LegendaryCharacter legendaryCharacter, List<Monster> monsters, int attackRoll) {
         return computeFightingResult(computeLegendaryCharacterFightingPower(legendaryCharacter, attackRoll),
                 computeMonstersFightingPower(monsters));
@@ -28,7 +31,7 @@ public class FightUseCase {
 
     private CombatChart computeFightingResult(int legendaryCharacterFightingPower, int monstersFightingPower) {
         int result = legendaryCharacterFightingPower - monstersFightingPower;
-        
+
         if (isInDefeatedLimits(result)) {
             return DEFEATED;
         }
@@ -60,20 +63,17 @@ public class FightUseCase {
         return DRAW;
     }
 
-    
     private int computeLegendaryCharacterFightingPower(LegendaryCharacter legendaryCharacter, int attackRoll) {
         return legendaryCharacter.fightingPower(
-            legendaryCharacter.abilities().strength(),
-             0,
-              0,
-               List.of(0)
-        )
-        + attackRoll;
+                legendaryCharacter.abilities().strength(),
+                0,
+                0,
+                List.of(0)) + attackRoll;
     }
-    
+
     private int computeMonstersFightingPower(List<Monster> monsters) {
         return monsters.stream().map(Monster::fightingPower)
-        .collect(Collectors.summingInt(Integer::intValue));
+                .collect(Collectors.summingInt(Integer::intValue));
     }
 
     private boolean isInDefeatedLimits(int result) {

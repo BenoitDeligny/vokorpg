@@ -14,7 +14,7 @@ public class CreateLegendaryCharacterUseCase {
 
     @Autowired
     private LegendaryCharacterRepository repository;
-    
+
     public CreateLegendaryCharacterUseCase(LegendaryCharacterRepository legendaryCharacterRepository) {
         this.repository = legendaryCharacterRepository;
     }

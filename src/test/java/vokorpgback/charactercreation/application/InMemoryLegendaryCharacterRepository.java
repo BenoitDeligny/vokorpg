@@ -6,7 +6,7 @@ import java.util.List;
 import vokorpgback.charactercreation.domain.model.LegendaryCharacter;
 import vokorpgback.charactercreation.domain.port.LegendaryCharacterRepository;
 
-public class InMemoryLegendaryCharacterRepository implements LegendaryCharacterRepository{
+public class InMemoryLegendaryCharacterRepository implements LegendaryCharacterRepository {
 
     private List<LegendaryCharacter> inMemoryDatabase = new ArrayList<LegendaryCharacter>();
 
@@ -19,5 +19,5 @@ public class InMemoryLegendaryCharacterRepository implements LegendaryCharacterR
     public List<LegendaryCharacter> getInMemoryDatabase() {
         return inMemoryDatabase;
     }
-    
+
 }

@@ -3,8 +3,7 @@ package vokorpgback.charactercreation.domain.model;
 import java.util.Random;
 
 public record Ability(
-    int value
-) {
+        int value) {
 
     public Ability() {
         this(rollForCharacterAbility());
