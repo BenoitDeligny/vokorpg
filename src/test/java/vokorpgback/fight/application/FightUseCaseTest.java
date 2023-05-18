@@ -21,6 +21,8 @@ public class FightUseCaseTest {
         useCase = new FightUseCase();
     }
 
+    // TODO
+    // fix it
     @Test
     void handle_shouldReturnDefeated() {
         // given
@@ -36,10 +38,11 @@ public class FightUseCaseTest {
                 new Monster(15));
 
         int attackRoll = 2;
+        int circumstanceModifier = 0;
 
         // when
         // result = (7+2) - 15 = -6
-        CombatChart combatResult = useCase.handle(legendaryCharacter, monsters, attackRoll);
+        CombatChart combatResult = useCase.handle(legendaryCharacter, monsters, attackRoll, circumstanceModifier);
 
         // then
         Assertions.assertThat(combatResult).isEqualTo(CombatChart.DEFEATED);
@@ -60,10 +63,11 @@ public class FightUseCaseTest {
                 new Monster(7));
 
         int attackRoll = 1;
+        int circumstanceModifier = 0;
 
         // when
         // result = (7+1) - 7 = 1
-        CombatChart combatResult = useCase.handle(legendaryCharacter, monsters, attackRoll);
+        CombatChart combatResult = useCase.handle(legendaryCharacter, monsters, attackRoll, circumstanceModifier);
 
         // then
         Assertions.assertThat(combatResult).isEqualTo(CombatChart.SERIOUSLY_INJURED);
@@ -84,10 +88,11 @@ public class FightUseCaseTest {
                 new Monster(7));
 
         int attackRoll = 4;
+        int circumstanceModifier = 0;
 
         // when
         // result = (7+4) - 7 = 4
-        CombatChart combatResult = useCase.handle(legendaryCharacter, monsters, attackRoll);
+        CombatChart combatResult = useCase.handle(legendaryCharacter, monsters, attackRoll, circumstanceModifier);
 
         // then
         Assertions.assertThat(combatResult).isEqualTo(CombatChart.INJURED);
@@ -108,10 +113,11 @@ public class FightUseCaseTest {
                 new Monster(7));
 
         int attackRoll = 6;
+        int circumstanceModifier = 0;
 
         // when
         // result = (7+6) - 7 = 6
-        CombatChart combatResult = useCase.handle(legendaryCharacter, monsters, attackRoll);
+        CombatChart combatResult = useCase.handle(legendaryCharacter, monsters, attackRoll, circumstanceModifier);
 
         // then
         Assertions.assertThat(combatResult).isEqualTo(CombatChart.DRAW);
@@ -132,10 +138,11 @@ public class FightUseCaseTest {
                 new Monster(7));
 
         int attackRoll = 6;
+        int circumstanceModifier = 0;
 
         // when
         // result = (10+6) - 7 = 9
-        CombatChart combatResult = useCase.handle(legendaryCharacter, monsters, attackRoll);
+        CombatChart combatResult = useCase.handle(legendaryCharacter, monsters, attackRoll, circumstanceModifier);
 
         // then
         Assertions.assertThat(combatResult).isEqualTo(CombatChart.BEARLY_VICTORIOUS);
@@ -156,10 +163,11 @@ public class FightUseCaseTest {
                 new Monster(7));
 
         int attackRoll = 6;
+        int circumstanceModifier = 0;
 
         // when
         // result = (12+6) - 7 = 13
-        CombatChart combatResult = useCase.handle(legendaryCharacter, monsters, attackRoll);
+        CombatChart combatResult = useCase.handle(legendaryCharacter, monsters, attackRoll, circumstanceModifier);
 
         // then
         Assertions.assertThat(combatResult).isEqualTo(CombatChart.ALMOST_VICTORIOUS);
@@ -180,10 +188,11 @@ public class FightUseCaseTest {
                 new Monster(7));
 
         int attackRoll = 6;
+        int circumstanceModifier = 0;
 
         // when
         // result = (16+6) - 7 = 15
-        CombatChart combatResult = useCase.handle(legendaryCharacter, monsters, attackRoll);
+        CombatChart combatResult = useCase.handle(legendaryCharacter, monsters, attackRoll, circumstanceModifier);
 
         // then
         Assertions.assertThat(combatResult).isEqualTo(CombatChart.VICTORIOUS);
@@ -207,10 +216,11 @@ public class FightUseCaseTest {
                 new Monster(7));
 
         int attackRoll = 6;
+        int circumstanceModifier = 0;
 
         // when
         // result = (16+6) - 28 = -7
-        CombatChart combatResult = useCase.handle(legendaryCharacter, monsters, attackRoll);
+        CombatChart combatResult = useCase.handle(legendaryCharacter, monsters, attackRoll, circumstanceModifier);
 
         // then
         Assertions.assertThat(combatResult).isEqualTo(CombatChart.DEFEATED);

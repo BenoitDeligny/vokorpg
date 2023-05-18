@@ -12,12 +12,12 @@ public enum CombatChart {
 
     private int lowLimit;
     private int highLimit;
-    private int circumstanceBonus;
+    private int circumstanceModifier;
 
-    private CombatChart(int lowLimit, int highLimit, int circumstanceBonus) {
+    private CombatChart(int lowLimit, int highLimit, int circumstanceModifier) {
         this.lowLimit = lowLimit;
         this.highLimit = highLimit;
-        this.circumstanceBonus = circumstanceBonus;
+        this.circumstanceModifier = circumstanceModifier;
     }
 
     public int getLowLimit() {
@@ -28,7 +28,7 @@ public enum CombatChart {
         return highLimit;
     }
 
-    public int getCircumstanceBonus() {
-        return circumstanceBonus;
+    public int getCircumstanceModifier() {
+        return circumstanceModifier;
     }
 }

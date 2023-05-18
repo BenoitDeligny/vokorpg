@@ -9,12 +9,19 @@ public record LegendaryCharacter(
         int age,
         Abilities abilities) {
     public LegendaryCharacter(String name) {
-        this(name, rollForAge(), generateAbilities());
+        this(
+                name,
+                rollForAge(),
+                generateAbilities());
     }
 
     public int fightingPower(Ability ability, int weaponBonus, int shieldBonus, List<Integer> miscellaneousBonus) {
-        return ability.value() + weaponBonus + shieldBonus
-                + miscellaneousBonus.stream().collect(Collectors.summingInt(Integer::intValue));
+        return ability.value() +
+                weaponBonus +
+                shieldBonus +
+                miscellaneousBonus
+                        .stream()
+                        .collect(Collectors.summingInt(Integer::intValue));
     }
 
     private static int rollForAge() {

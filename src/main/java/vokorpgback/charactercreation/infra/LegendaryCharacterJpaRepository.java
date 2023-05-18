@@ -10,8 +10,7 @@ public class LegendaryCharacterJpaRepository implements LegendaryCharacterReposi
 
     @Override
     public LegendaryCharacter create(LegendaryCharacter legendaryCharacter) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'create'");
+        return legendaryCharacter;
     }
 
 }

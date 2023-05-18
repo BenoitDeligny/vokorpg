@@ -9,24 +9,28 @@ import static vokorpgback.fight.domain.CombatChart.SERIOUSLY_INJURED;
 import static vokorpgback.fight.domain.CombatChart.VICTORIOUS;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import vokorpgback.charactercreation.domain.model.LegendaryCharacter;
 import vokorpgback.fight.domain.CombatChart;
-import vokorpgback.fight.domain.Monster;
+import vokorpgback.fight.exposition.dto.FightingCharacterDto;
+import vokorpgback.fight.exposition.dto.FightingMonsterDto;
 
 @Service
 public class FightUseCase {
 
     // TODO
-    // add the circumstance bonus from each previous turn
+    // use domain objects
     // add the choice of how many monster the character want to fight at the same
     // time
-    public CombatChart handle(LegendaryCharacter legendaryCharacter, List<Monster> monsters, int attackRoll) {
-        return computeFightingResult(computeLegendaryCharacterFightingPower(legendaryCharacter, attackRoll),
-                computeMonstersFightingPower(monsters));
+    public Optional<CombatChart> handle(
+            FightingCharacterDto fightingCharacterDto,
+            List<FightingMonsterDto> monsters) {
+        return Optional.of(computeFightingResult(
+                computeLegendaryCharacterFightingPower(fightingCharacterDto),
+                computeMonstersFightingPower(monsters)));
     }
 
     private CombatChart computeFightingResult(int legendaryCharacterFightingPower, int monstersFightingPower) {
@@ -63,16 +67,13 @@ public class FightUseCase {
         return DRAW;
     }
 
-    private int computeLegendaryCharacterFightingPower(LegendaryCharacter legendaryCharacter, int attackRoll) {
-        return legendaryCharacter.fightingPower(
-                legendaryCharacter.abilities().strength(),
-                0,
-                0,
-                List.of(0)) + attackRoll;
+    private int computeLegendaryCharacterFightingPower(
+            FightingCharacterDto fightingCharacterDto) {
+        return fightingCharacterDto.computeTotalFightingPower();
     }
 
-    private int computeMonstersFightingPower(List<Monster> monsters) {
-        return monsters.stream().map(Monster::fightingPower)
+    private int computeMonstersFightingPower(List<FightingMonsterDto> monsters) {
+        return monsters.stream().map(FightingMonsterDto::getFightingPower)
                 .collect(Collectors.summingInt(Integer::intValue));
     }
 

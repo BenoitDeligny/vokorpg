@@ -21,6 +21,8 @@ public class CreateLegendaryCharacterUseCaseTest {
         useCase = new CreateLegendaryCharacterUseCase(repository);
     }
 
+    // TODO
+    // fix it
     @Test
     void handle_should_createLegendaryCharacter() {
         // given
