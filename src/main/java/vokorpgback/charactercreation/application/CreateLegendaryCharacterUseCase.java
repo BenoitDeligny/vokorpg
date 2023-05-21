@@ -2,28 +2,34 @@ package vokorpgback.charactercreation.application;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import vokorpgback.charactercreation.domain.model.Abilities;
+import vokorpgback.charactercreation.domain.model.Ability;
 import vokorpgback.charactercreation.domain.model.LegendaryCharacter;
 import vokorpgback.charactercreation.domain.port.LegendaryCharacterRepository;
-import vokorpgback.charactercreation.exposition.dto.LegendaryCharacterDto;
+import vokorpgback.utils.diceroll.DiceRoll;
 
-@Service
 public class CreateLegendaryCharacterUseCase {
 
-    @Autowired
     private LegendaryCharacterRepository repository;
 
-    public CreateLegendaryCharacterUseCase(LegendaryCharacterRepository legendaryCharacterRepository) {
-        this.repository = legendaryCharacterRepository;
+    private DiceRoll diceRoll;
+
+    public CreateLegendaryCharacterUseCase(LegendaryCharacterRepository repository, DiceRoll diceRoll) {
+        this.repository = repository;
+        this.diceRoll = diceRoll;
     }
 
-    public Optional<LegendaryCharacter> handle(LegendaryCharacterDto dto) {
-        return Optional.of(repository.create(toDomain(dto)));
+    public Optional<LegendaryCharacter> handle(String name) {
+        return Optional.of(repository.create(toDomain(name)));
     }
 
-    private LegendaryCharacter toDomain(LegendaryCharacterDto dto) {
-        return new LegendaryCharacter(dto.getName());
+    private LegendaryCharacter toDomain(String name) {
+        return new LegendaryCharacter(
+                name,
+                diceRoll.ageRoll(),
+                new Abilities(
+                        new Ability(diceRoll.strengthRoll()),
+                        new Ability(diceRoll.agilityRoll()),
+                        new Ability(diceRoll.perceptionRoll())));
     }
 }

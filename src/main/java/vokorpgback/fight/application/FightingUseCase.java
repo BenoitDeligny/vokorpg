@@ -12,25 +12,57 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.stereotype.Service;
-
 import vokorpgback.fight.domain.CombatChart;
+import vokorpgback.fight.domain.FightingCharacter;
+import vokorpgback.fight.domain.FightingMonster;
 import vokorpgback.fight.exposition.dto.FightingCharacterDto;
 import vokorpgback.fight.exposition.dto.FightingMonsterDto;
+import vokorpgback.utils.diceroll.DiceRoll;
 
-@Service
-public class FightUseCase {
+public class FightingUseCase {
 
-    // TODO
-    // use domain objects
-    // add the choice of how many monster the character want to fight at the same
-    // time
+    private DiceRoll diceRoll;
+
+    public FightingUseCase(DiceRoll diceRoll) {
+        this.diceRoll = diceRoll;
+    }
+
     public Optional<CombatChart> handle(
             FightingCharacterDto fightingCharacterDto,
-            List<FightingMonsterDto> monsters) {
-        return Optional.of(computeFightingResult(
-                computeLegendaryCharacterFightingPower(fightingCharacterDto),
-                computeMonstersFightingPower(monsters)));
+            List<FightingMonsterDto> monsters,
+            int numberOfMonstersFaced) {
+        return Optional.of(
+                computeFightingResult(
+                        computeLegendaryCharacterFightingPower(toFightingCharacter(fightingCharacterDto)),
+                        computeMonstersTotalFightingPower(toFightingMonsters(monsters), numberOfMonstersFaced)));
+    }
+
+    private int computeLegendaryCharacterFightingPower(FightingCharacter fightingCharacter) {
+        return fightingCharacter.computeTotalFightingPower() + diceRoll.attackRoll();
+    }
+
+    private FightingCharacter toFightingCharacter(FightingCharacterDto dto) {
+        return new FightingCharacter(dto.getFightingPower(), dto.getCircumstanceModifier());
+    }
+
+    private int computeMonstersTotalFightingPower(List<FightingMonster> monsters, int numberOfMonstersFaced) {
+        List<FightingMonster> monstersFaced = monsters.subList(0, numberOfMonstersFaced);
+
+        return monstersFaced
+                .stream()
+                .map(FightingMonster::fightingPower)
+                .collect(Collectors.summingInt(Integer::intValue));
+    }
+
+    private List<FightingMonster> toFightingMonsters(List<FightingMonsterDto> dtoList) {
+        return dtoList
+                .stream()
+                .map(this::toFightingMonster)
+                .toList();
+    }
+
+    private FightingMonster toFightingMonster(FightingMonsterDto dto) {
+        return new FightingMonster(dto.getFightingPower());
     }
 
     private CombatChart computeFightingResult(int legendaryCharacterFightingPower, int monstersFightingPower) {
@@ -65,16 +97,6 @@ public class FightUseCase {
         }
 
         return DRAW;
-    }
-
-    private int computeLegendaryCharacterFightingPower(
-            FightingCharacterDto fightingCharacterDto) {
-        return fightingCharacterDto.computeTotalFightingPower();
-    }
-
-    private int computeMonstersFightingPower(List<FightingMonsterDto> monsters) {
-        return monsters.stream().map(FightingMonsterDto::getFightingPower)
-                .collect(Collectors.summingInt(Integer::intValue));
     }
 
     private boolean isInDefeatedLimits(int result) {

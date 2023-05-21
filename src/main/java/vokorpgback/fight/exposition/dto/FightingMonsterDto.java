@@ -6,4 +6,9 @@ public class FightingMonsterDto {
     public int getFightingPower() {
         return fightingPower;
     }
+
+    public void setFightingPower(int fightingPower) {
+        this.fightingPower = fightingPower;
+    }
+    
 }

@@ -1,228 +1,266 @@
 package vokorpgback.fight.application;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import vokorpgback.charactercreation.domain.model.Abilities;
-import vokorpgback.charactercreation.domain.model.Ability;
-import vokorpgback.charactercreation.domain.model.LegendaryCharacter;
+import vokorpgback.commons.FakeDiceRoll;
 import vokorpgback.fight.domain.CombatChart;
-import vokorpgback.fight.domain.Monster;
+import vokorpgback.fight.exposition.dto.FightingCharacterDto;
+import vokorpgback.fight.exposition.dto.FightingMonsterDto;
 
 public class FightUseCaseTest {
 
-    private FightUseCase useCase;
+    private FightingUseCase useCase;
+
+    private FakeDiceRoll fakeDiceRoll;
 
     @BeforeEach
     void setUp() {
-        useCase = new FightUseCase();
+        fakeDiceRoll = new FakeDiceRoll();
+        useCase = new FightingUseCase(fakeDiceRoll);
     }
 
-    // TODO
-    // fix it
     @Test
     void handle_shouldReturnDefeated() {
         // given
-        LegendaryCharacter legendaryCharacter = new LegendaryCharacter(
-                "Name",
-                18,
-                new Abilities(
-                        new Ability(7),
-                        new Ability(7),
-                        new Ability(7)));
+        FightingCharacterDto fightingCharacter = new FightingCharacterDto();
+        fightingCharacter.setFightingPower(5);
+        fightingCharacter.setCircumstanceModifier(0);
 
-        List<Monster> monsters = List.of(
-                new Monster(15));
+        FightingMonsterDto fightingMonster1 = new FightingMonsterDto();
+        fightingMonster1.setFightingPower(9);
 
-        int attackRoll = 2;
-        int circumstanceModifier = 0;
+        FightingMonsterDto fightingMonster2 = new FightingMonsterDto();
+        fightingMonster2.setFightingPower(999);
+
+        List<FightingMonsterDto> fightingMonsters = List.of(fightingMonster1, fightingMonster2);
+
+        int numberOfMonstersFaced = 1;
 
         // when
-        // result = (7+2) - 15 = -6
-        CombatChart combatResult = useCase.handle(legendaryCharacter, monsters, attackRoll, circumstanceModifier);
+        Optional<CombatChart> combatResult = useCase.handle(fightingCharacter, fightingMonsters, numberOfMonstersFaced);
 
         // then
-        Assertions.assertThat(combatResult).isEqualTo(CombatChart.DEFEATED);
+        Assertions.assertThat(combatResult.get()).isEqualTo(CombatChart.DEFEATED);
     }
 
     @Test
     void handle_shouldReturnSeriouslyInjured() {
         // given
-        LegendaryCharacter legendaryCharacter = new LegendaryCharacter(
-                "Name",
-                18,
-                new Abilities(
-                        new Ability(7),
-                        new Ability(7),
-                        new Ability(7)));
+        FightingCharacterDto fightingCharacter = new FightingCharacterDto();
+        fightingCharacter.setFightingPower(5);
+        fightingCharacter.setCircumstanceModifier(0);
 
-        List<Monster> monsters = List.of(
-                new Monster(7));
+        FightingMonsterDto fightingMonster1 = new FightingMonsterDto();
+        fightingMonster1.setFightingPower(8);
 
-        int attackRoll = 1;
-        int circumstanceModifier = 0;
+        FightingMonsterDto fightingMonster2 = new FightingMonsterDto();
+        fightingMonster2.setFightingPower(999);
+
+        List<FightingMonsterDto> fightingMonsters = List.of(fightingMonster1, fightingMonster2);
+
+        int numberOfMonstersFaced = 1;
 
         // when
-        // result = (7+1) - 7 = 1
-        CombatChart combatResult = useCase.handle(legendaryCharacter, monsters, attackRoll, circumstanceModifier);
+        Optional<CombatChart> combatResult = useCase.handle(fightingCharacter, fightingMonsters, numberOfMonstersFaced);
 
         // then
-        Assertions.assertThat(combatResult).isEqualTo(CombatChart.SERIOUSLY_INJURED);
+        Assertions.assertThat(combatResult.get()).isEqualTo(CombatChart.SERIOUSLY_INJURED);
     }
 
     @Test
     void handle_shouldReturnInjured() {
         // given
-        LegendaryCharacter legendaryCharacter = new LegendaryCharacter(
-                "Name",
-                18,
-                new Abilities(
-                        new Ability(7),
-                        new Ability(7),
-                        new Ability(7)));
+        FightingCharacterDto fightingCharacter = new FightingCharacterDto();
+        fightingCharacter.setFightingPower(7);
+        fightingCharacter.setCircumstanceModifier(0);
 
-        List<Monster> monsters = List.of(
-                new Monster(7));
+        FightingMonsterDto fightingMonster1 = new FightingMonsterDto();
+        fightingMonster1.setFightingPower(5);
 
-        int attackRoll = 4;
-        int circumstanceModifier = 0;
+        FightingMonsterDto fightingMonster2 = new FightingMonsterDto();
+        fightingMonster2.setFightingPower(999);
+
+        List<FightingMonsterDto> fightingMonsters = List.of(fightingMonster1, fightingMonster2);
+
+        int numberOfMonstersFaced = 1;
 
         // when
-        // result = (7+4) - 7 = 4
-        CombatChart combatResult = useCase.handle(legendaryCharacter, monsters, attackRoll, circumstanceModifier);
+        Optional<CombatChart> combatResult = useCase.handle(fightingCharacter, fightingMonsters, numberOfMonstersFaced);
 
         // then
-        Assertions.assertThat(combatResult).isEqualTo(CombatChart.INJURED);
+        Assertions.assertThat(combatResult.get()).isEqualTo(CombatChart.INJURED);
     }
 
     @Test
     void handle_shouldReturnDraw() {
         // given
-        LegendaryCharacter legendaryCharacter = new LegendaryCharacter(
-                "Name",
-                18,
-                new Abilities(
-                        new Ability(7),
-                        new Ability(7),
-                        new Ability(7)));
+        FightingCharacterDto fightingCharacter = new FightingCharacterDto();
+        fightingCharacter.setFightingPower(10);
+        fightingCharacter.setCircumstanceModifier(0);
 
-        List<Monster> monsters = List.of(
-                new Monster(7));
+        FightingMonsterDto fightingMonster1 = new FightingMonsterDto();
+        fightingMonster1.setFightingPower(5);
 
-        int attackRoll = 6;
-        int circumstanceModifier = 0;
+        FightingMonsterDto fightingMonster2 = new FightingMonsterDto();
+        fightingMonster2.setFightingPower(999);
+
+        List<FightingMonsterDto> fightingMonsters = List.of(fightingMonster1, fightingMonster2);
+
+        int numberOfMonstersFaced = 1;
 
         // when
-        // result = (7+6) - 7 = 6
-        CombatChart combatResult = useCase.handle(legendaryCharacter, monsters, attackRoll, circumstanceModifier);
+        Optional<CombatChart> combatResult = useCase.handle(fightingCharacter, fightingMonsters, numberOfMonstersFaced);
 
         // then
-        Assertions.assertThat(combatResult).isEqualTo(CombatChart.DRAW);
+        Assertions.assertThat(combatResult.get()).isEqualTo(CombatChart.DRAW);
     }
 
     @Test
     void handle_shouldReturnBearlyVictorious() {
         // given
-        LegendaryCharacter legendaryCharacter = new LegendaryCharacter(
-                "Name",
-                18,
-                new Abilities(
-                        new Ability(10),
-                        new Ability(7),
-                        new Ability(7)));
+        FightingCharacterDto fightingCharacter = new FightingCharacterDto();
+        fightingCharacter.setFightingPower(12);
+        fightingCharacter.setCircumstanceModifier(0);
 
-        List<Monster> monsters = List.of(
-                new Monster(7));
+        FightingMonsterDto fightingMonster1 = new FightingMonsterDto();
+        fightingMonster1.setFightingPower(5);
 
-        int attackRoll = 6;
-        int circumstanceModifier = 0;
+        FightingMonsterDto fightingMonster2 = new FightingMonsterDto();
+        fightingMonster2.setFightingPower(999);
+
+        List<FightingMonsterDto> fightingMonsters = List.of(fightingMonster1, fightingMonster2);
+
+        int numberOfMonstersFaced = 1;
 
         // when
-        // result = (10+6) - 7 = 9
-        CombatChart combatResult = useCase.handle(legendaryCharacter, monsters, attackRoll, circumstanceModifier);
+        Optional<CombatChart> combatResult = useCase.handle(fightingCharacter, fightingMonsters, numberOfMonstersFaced);
 
         // then
-        Assertions.assertThat(combatResult).isEqualTo(CombatChart.BEARLY_VICTORIOUS);
+        Assertions.assertThat(combatResult.get()).isEqualTo(CombatChart.BEARLY_VICTORIOUS);
     }
 
     @Test
     void handle_shouldReturnAlmostVictorious() {
         // given
-        LegendaryCharacter legendaryCharacter = new LegendaryCharacter(
-                "Name",
-                18,
-                new Abilities(
-                        new Ability(14),
-                        new Ability(7),
-                        new Ability(7)));
+        FightingCharacterDto fightingCharacter = new FightingCharacterDto();
+        fightingCharacter.setFightingPower(14);
+        fightingCharacter.setCircumstanceModifier(0);
 
-        List<Monster> monsters = List.of(
-                new Monster(7));
+        FightingMonsterDto fightingMonster1 = new FightingMonsterDto();
+        fightingMonster1.setFightingPower(5);
 
-        int attackRoll = 6;
-        int circumstanceModifier = 0;
+        FightingMonsterDto fightingMonster2 = new FightingMonsterDto();
+        fightingMonster2.setFightingPower(999);
+
+        List<FightingMonsterDto> fightingMonsters = List.of(fightingMonster1, fightingMonster2);
+
+        int numberOfMonstersFaced = 1;
 
         // when
-        // result = (12+6) - 7 = 13
-        CombatChart combatResult = useCase.handle(legendaryCharacter, monsters, attackRoll, circumstanceModifier);
+        Optional<CombatChart> combatResult = useCase.handle(fightingCharacter, fightingMonsters, numberOfMonstersFaced);
 
         // then
-        Assertions.assertThat(combatResult).isEqualTo(CombatChart.ALMOST_VICTORIOUS);
+        Assertions.assertThat(combatResult.get()).isEqualTo(CombatChart.ALMOST_VICTORIOUS);
     }
 
     @Test
     void handle_shouldReturnVictorious() {
         // given
-        LegendaryCharacter legendaryCharacter = new LegendaryCharacter(
-                "Name",
-                18,
-                new Abilities(
-                        new Ability(16),
-                        new Ability(7),
-                        new Ability(7)));
+        FightingCharacterDto fightingCharacter = new FightingCharacterDto();
+        fightingCharacter.setFightingPower(16);
+        fightingCharacter.setCircumstanceModifier(0);
 
-        List<Monster> monsters = List.of(
-                new Monster(7));
+        FightingMonsterDto fightingMonster1 = new FightingMonsterDto();
+        fightingMonster1.setFightingPower(3);
 
-        int attackRoll = 6;
-        int circumstanceModifier = 0;
+        FightingMonsterDto fightingMonster2 = new FightingMonsterDto();
+        fightingMonster2.setFightingPower(999);
+
+        List<FightingMonsterDto> fightingMonsters = List.of(fightingMonster1, fightingMonster2);
+
+        int numberOfMonstersFaced = 1;
 
         // when
-        // result = (16+6) - 7 = 15
-        CombatChart combatResult = useCase.handle(legendaryCharacter, monsters, attackRoll, circumstanceModifier);
+        Optional<CombatChart> combatResult = useCase.handle(fightingCharacter, fightingMonsters, numberOfMonstersFaced);
 
         // then
-        Assertions.assertThat(combatResult).isEqualTo(CombatChart.VICTORIOUS);
+        Assertions.assertThat(combatResult.get()).isEqualTo(CombatChart.VICTORIOUS);
     }
 
     @Test
     void handle_shouldReturnDefeated_whenFightsAgainstMultipleMonsters() {
         // given
-        LegendaryCharacter legendaryCharacter = new LegendaryCharacter(
-                "Name",
-                18,
-                new Abilities(
-                        new Ability(16),
-                        new Ability(7),
-                        new Ability(7)));
+        FightingCharacterDto fightingCharacter = new FightingCharacterDto();
+        fightingCharacter.setFightingPower(10);
+        fightingCharacter.setCircumstanceModifier(0);
 
-        List<Monster> monsters = List.of(
-                new Monster(7),
-                new Monster(7),
-                new Monster(7),
-                new Monster(7));
+        FightingMonsterDto fightingMonster1 = new FightingMonsterDto();
+        fightingMonster1.setFightingPower(7);
 
-        int attackRoll = 6;
-        int circumstanceModifier = 0;
+        FightingMonsterDto fightingMonster2 = new FightingMonsterDto();
+        fightingMonster2.setFightingPower(7);
+
+        List<FightingMonsterDto> fightingMonsters = List.of(fightingMonster1, fightingMonster2);
+
+        int numberOfMonstersFaced = 2;
 
         // when
-        // result = (16+6) - 28 = -7
-        CombatChart combatResult = useCase.handle(legendaryCharacter, monsters, attackRoll, circumstanceModifier);
+        Optional<CombatChart> combatResult = useCase.handle(fightingCharacter, fightingMonsters, numberOfMonstersFaced);
 
         // then
-        Assertions.assertThat(combatResult).isEqualTo(CombatChart.DEFEATED);
+        Assertions.assertThat(combatResult.get()).isEqualTo(CombatChart.DEFEATED);
+    }
+
+    @Test
+    void handle_shouldReturnDraw_whenFightsAgainstMultipleMonsters() {
+        // given
+        FightingCharacterDto fightingCharacter = new FightingCharacterDto();
+        fightingCharacter.setFightingPower(18);
+        fightingCharacter.setCircumstanceModifier(0);
+
+        FightingMonsterDto fightingMonster1 = new FightingMonsterDto();
+        fightingMonster1.setFightingPower(7);
+
+        FightingMonsterDto fightingMonster2 = new FightingMonsterDto();
+        fightingMonster2.setFightingPower(7);
+
+        List<FightingMonsterDto> fightingMonsters = List.of(fightingMonster1, fightingMonster2);
+
+        int numberOfMonstersFaced = 2;
+
+        // when
+        Optional<CombatChart> combatResult = useCase.handle(fightingCharacter, fightingMonsters, numberOfMonstersFaced);
+
+        // then
+        Assertions.assertThat(combatResult.get()).isEqualTo(CombatChart.DRAW);
+    }
+
+    @Test
+    void handle_shouldReturnVictorious_whenFightsAgainstMultipleMonsters() {
+        // given
+        FightingCharacterDto fightingCharacter = new FightingCharacterDto();
+        fightingCharacter.setFightingPower(30);
+        fightingCharacter.setCircumstanceModifier(0);
+
+        FightingMonsterDto fightingMonster1 = new FightingMonsterDto();
+        fightingMonster1.setFightingPower(7);
+
+        FightingMonsterDto fightingMonster2 = new FightingMonsterDto();
+        fightingMonster2.setFightingPower(7);
+
+        List<FightingMonsterDto> fightingMonsters = List.of(fightingMonster1, fightingMonster2);
+
+        int numberOfMonstersFaced = 2;
+
+        // when
+        Optional<CombatChart> combatResult = useCase.handle(fightingCharacter, fightingMonsters, numberOfMonstersFaced);
+
+        // then
+        Assertions.assertThat(combatResult.get()).isEqualTo(CombatChart.VICTORIOUS);
     }
 }

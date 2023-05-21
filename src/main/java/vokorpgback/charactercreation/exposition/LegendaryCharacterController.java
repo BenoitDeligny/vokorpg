@@ -25,12 +25,15 @@ public class LegendaryCharacterController {
         this.createLegendaryCharacterUseCase = createLegendaryCharacterUseCase;
     }
 
+    // TODO
+    // add validation @NonNull and @Validated
+    // controller should not send domain object ?
     @PostMapping(value = "/legendaryCharacter", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<LegendaryCharacter> createLegendaryCharacter(
             @RequestBody LegendaryCharacterDto legendaryCharacterDto) {
         Optional<LegendaryCharacter> legendaryCharacterCreated = createLegendaryCharacterUseCase
-                .handle(legendaryCharacterDto);
+                .handle(legendaryCharacterDto.getName());
 
         return ResponseEntity.of(legendaryCharacterCreated);
     }
