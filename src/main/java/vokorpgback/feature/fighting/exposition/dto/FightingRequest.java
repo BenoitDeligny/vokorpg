@@ -1,4 +1,4 @@
-package vokorpgback.feature.fight.exposition.dto;
+package vokorpgback.feature.fighting.exposition.dto;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-public class FightingDto {
+public class FightingRequest {
 
     @NotNull(message = "The fighting character should not be null")
     private FightingCharacterDto fightingCharacter;

@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 import vokorpgback.feature.charactercreation.application.CreateLegendaryCharacterUseCase;
 import vokorpgback.feature.charactercreation.domain.model.LegendaryCharacter;
-import vokorpgback.feature.charactercreation.exposition.dto.LegendaryCharacterDto;
+import vokorpgback.feature.charactercreation.exposition.dto.LegendaryCharacterRequest;
+import vokorpgback.feature.charactercreation.exposition.dto.LegendaryCharacterResponse;
 
 @RestController
 @RequestMapping("")
@@ -26,15 +27,29 @@ public class LegendaryCharacterController {
         this.createLegendaryCharacterUseCase = createLegendaryCharacterUseCase;
     }
 
-    // TODO
-    // add validation @NonNull and @Validated
-    // controller should not send domain object ?
     @PostMapping(value = "/legendaryCharacter", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<LegendaryCharacter> createLegendaryCharacter(@Valid @RequestBody LegendaryCharacterDto legendaryCharacterDto) {
+    public ResponseEntity<LegendaryCharacterResponse> createLegendaryCharacter(
+            @Valid @RequestBody LegendaryCharacterRequest legendaryCharacterRequest) {
+                
         Optional<LegendaryCharacter> legendaryCharacterCreated = createLegendaryCharacterUseCase
-                .handle(legendaryCharacterDto.getName());
+                .handle(legendaryCharacterRequest.getName());
 
-        return ResponseEntity.of(legendaryCharacterCreated);
+        return ResponseEntity.of(toResponse(legendaryCharacterCreated));
+    }
+
+    // TODO
+    // add specific exception
+    private Optional<LegendaryCharacterResponse> toResponse(Optional<LegendaryCharacter> legendaryCharacter) {
+        if (legendaryCharacter.isEmpty()) {
+            throw new RuntimeException("No character was created");
+        }
+
+        return Optional.ofNullable(new LegendaryCharacterResponse(
+                legendaryCharacter.get().name(),
+                legendaryCharacter.get().age(),
+                legendaryCharacter.get().abilities().strength().value(),
+                legendaryCharacter.get().abilities().agility().value(),
+                legendaryCharacter.get().abilities().perception().value()));
     }
 }

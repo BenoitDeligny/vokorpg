@@ -1,4 +1,4 @@
-package vokorpgback.feature.fight.domain;
+package vokorpgback.feature.fighting.domain;
 
 public enum CombatChart {
 

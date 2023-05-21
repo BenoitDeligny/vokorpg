@@ -1,4 +1,4 @@
-package vokorpgback.feature.fight.exposition.dto;
+package vokorpgback.feature.fighting.exposition.dto;
 
 public class FightingMonsterDto {
     private int fightingPower;

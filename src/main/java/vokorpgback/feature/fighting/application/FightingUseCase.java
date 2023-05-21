@@ -1,22 +1,22 @@
-package vokorpgback.feature.fight.application;
+package vokorpgback.feature.fighting.application;
 
-import static vokorpgback.feature.fight.domain.CombatChart.ALMOST_VICTORIOUS;
-import static vokorpgback.feature.fight.domain.CombatChart.BEARLY_VICTORIOUS;
-import static vokorpgback.feature.fight.domain.CombatChart.DEFEATED;
-import static vokorpgback.feature.fight.domain.CombatChart.DRAW;
-import static vokorpgback.feature.fight.domain.CombatChart.INJURED;
-import static vokorpgback.feature.fight.domain.CombatChart.SERIOUSLY_INJURED;
-import static vokorpgback.feature.fight.domain.CombatChart.VICTORIOUS;
+import static vokorpgback.feature.fighting.domain.CombatChart.ALMOST_VICTORIOUS;
+import static vokorpgback.feature.fighting.domain.CombatChart.BEARLY_VICTORIOUS;
+import static vokorpgback.feature.fighting.domain.CombatChart.DEFEATED;
+import static vokorpgback.feature.fighting.domain.CombatChart.DRAW;
+import static vokorpgback.feature.fighting.domain.CombatChart.INJURED;
+import static vokorpgback.feature.fighting.domain.CombatChart.SERIOUSLY_INJURED;
+import static vokorpgback.feature.fighting.domain.CombatChart.VICTORIOUS;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import vokorpgback.feature.fight.domain.CombatChart;
-import vokorpgback.feature.fight.domain.FightingCharacter;
-import vokorpgback.feature.fight.domain.FightingMonster;
-import vokorpgback.feature.fight.exposition.dto.FightingCharacterDto;
-import vokorpgback.feature.fight.exposition.dto.FightingMonsterDto;
+import vokorpgback.feature.fighting.domain.CombatChart;
+import vokorpgback.feature.fighting.domain.FightingCharacter;
+import vokorpgback.feature.fighting.domain.FightingMonster;
+import vokorpgback.feature.fighting.exposition.dto.FightingCharacterDto;
+import vokorpgback.feature.fighting.exposition.dto.FightingMonsterDto;
 import vokorpgback.utils.diceroll.DiceRoll;
 
 public class FightingUseCase {

@@ -1,4 +1,3 @@
-**TODO**
 1. La création de personnage  
     * Nom du personnage **DONE**  
     * Age du personnage (11 + D6) **DONE**  
