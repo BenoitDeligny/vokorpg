@@ -4,10 +4,11 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import vokorpgback.charactercreation.domain.model.Abilities;
-import vokorpgback.charactercreation.domain.model.Ability;
-import vokorpgback.charactercreation.domain.model.LegendaryCharacter;
 import vokorpgback.commons.FakeDiceRoll;
+import vokorpgback.feature.charactercreation.application.CreateLegendaryCharacterUseCase;
+import vokorpgback.feature.charactercreation.domain.model.Abilities;
+import vokorpgback.feature.charactercreation.domain.model.Ability;
+import vokorpgback.feature.charactercreation.domain.model.LegendaryCharacter;
 
 public class CreateLegendaryCharacterUseCaseTest {
 

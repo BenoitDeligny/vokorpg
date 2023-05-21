@@ -3,8 +3,8 @@ package vokorpgback.charactercreation.application;
 import java.util.ArrayList;
 import java.util.List;
 
-import vokorpgback.charactercreation.domain.model.LegendaryCharacter;
-import vokorpgback.charactercreation.domain.port.LegendaryCharacterRepository;
+import vokorpgback.feature.charactercreation.domain.model.LegendaryCharacter;
+import vokorpgback.feature.charactercreation.domain.port.LegendaryCharacterRepository;
 
 public class InMemoryLegendaryCharacterRepository implements LegendaryCharacterRepository {
 

@@ -8,9 +8,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import vokorpgback.commons.FakeDiceRoll;
-import vokorpgback.fight.domain.CombatChart;
-import vokorpgback.fight.exposition.dto.FightingCharacterDto;
-import vokorpgback.fight.exposition.dto.FightingMonsterDto;
+import vokorpgback.feature.fight.application.FightingUseCase;
+import vokorpgback.feature.fight.domain.CombatChart;
+import vokorpgback.feature.fight.exposition.dto.FightingCharacterDto;
+import vokorpgback.feature.fight.exposition.dto.FightingMonsterDto;
 
 public class FightUseCaseTest {
 
