@@ -31,12 +31,16 @@ public class CharacterController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<CharacterCreationResponse> createCharacter(
             @Valid @RequestBody CharacterCreationRequest characterCreationRequest) {
-                
-        Optional<Character> characterCreated = createCharacterUseCase
-                .handle(characterCreationRequest.getName(), characterCreationRequest.getMode());
+
+        Optional<Character> characterCreated = createCharacterUseCase.handle(
+                characterCreationRequest.getName(),
+                characterCreationRequest.getMode());
 
         return ResponseEntity.of(toCharacterCreationResponse(characterCreated));
     }
+
+    // TODO
+    // add an update method
 
     // TODO
     // add specific exception
