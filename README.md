@@ -31,9 +31,9 @@
     * On déduit la force de combat de l'adversaire à ce résultat **DONE**  
     * Check le tableau de combat **DONE**  
     * Combattre plusieurs adversaire  
-        * Nombre d'adversaire max = score d'Adresse  
-        * Une attaque pour X adversaire -> on déduit X fois force de combat  
-        * On consulte le tableau  
+        * Nombre d'adversaire max = score d'Adresse **DONE**
+        * Une attaque pour X adversaire -> on déduit X fois force de combat **DONE**  
+        * On consulte le tableau **DONE**  
     * On recommence jusqu'a fin  
     * !!! **IMPORTANT** !!! Check pour mettre en place un système de tour (les adversaires auront donc des attaques)  
 4. Gestion des Aventures ?  

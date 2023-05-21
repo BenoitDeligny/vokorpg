@@ -10,4 +10,12 @@ public interface DiceRoll {
     int perceptionRoll();
 
     int attackRoll();
+
+    int abilityIncreaseRoll();
+
+    int powerRoll();
+
+    int knowledgeRoll();
+
+    int relicRoll();
 }

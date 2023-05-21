@@ -1,13 +1,13 @@
-package vokorpgback.feature.charactercreation.exposition.dto;
+package vokorpgback.feature.character.exposition.dto;
 
-public class LegendaryCharacterResponse {
+public class CharacterCreationResponse {
     private String name;
     private int age;
     private int strength;
     private int agility;
     private int perception;
     
-    public LegendaryCharacterResponse(String name, int age, int strength, int agility, int perception) {
+    public CharacterCreationResponse(String name, int age, int strength, int agility, int perception) {
         this.name = name;
         this.age = age;
         this.strength = strength;

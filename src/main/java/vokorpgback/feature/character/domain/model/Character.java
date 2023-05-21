@@ -1,9 +1,9 @@
-package vokorpgback.feature.charactercreation.domain.model;
+package vokorpgback.feature.character.domain.model;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public record LegendaryCharacter(
+public record Character(
         String name,
         int age,
         Abilities abilities) {

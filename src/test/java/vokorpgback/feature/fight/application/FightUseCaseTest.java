@@ -1,4 +1,4 @@
-package vokorpgback.fight.application;
+package vokorpgback.feature.fight.application;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,7 +7,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import vokorpgback.commons.FakeDiceRoll;
+import vokorpgback.feature.commons.FakeDiceRollService;
 import vokorpgback.feature.fighting.application.FightingUseCase;
 import vokorpgback.feature.fighting.domain.CombatChart;
 import vokorpgback.feature.fighting.exposition.dto.FightingCharacterDto;
@@ -17,11 +17,11 @@ public class FightUseCaseTest {
 
     private FightingUseCase useCase;
 
-    private FakeDiceRoll fakeDiceRoll;
+    private FakeDiceRollService fakeDiceRoll;
 
     @BeforeEach
     void setUp() {
-        fakeDiceRoll = new FakeDiceRoll();
+        fakeDiceRoll = new FakeDiceRollService();
         useCase = new FightingUseCase(fakeDiceRoll);
     }
 

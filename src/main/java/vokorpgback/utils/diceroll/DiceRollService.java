@@ -33,4 +33,34 @@ public class DiceRollService implements DiceRoll {
     public int attackRoll() {
         return roll.nextInt(6) + 1;
     }
+
+    @Override
+    public int abilityIncreaseRoll() {
+        int roll1 = roll.nextInt(6) + 1;
+        int roll2 = roll.nextInt(6) + 1;
+        int roll3 = roll.nextInt(6) + 1;
+
+        return roll1 + roll2 + roll3;
+    }
+
+    @Override
+    public int powerRoll() {
+        int roll1 = roll.nextInt(6) + 1;
+        int roll2 = roll.nextInt(6) + 1;
+
+        return roll1 + roll2;
+    }
+
+    @Override
+    public int knowledgeRoll() {
+        int roll1 = roll.nextInt(6) + 1;
+        int roll2 = roll.nextInt(6) + 1;
+
+        return roll1 + roll2;
+    }
+
+    @Override
+    public int relicRoll() {
+        return roll.nextInt(6) + 1;
+    }
 }

@@ -1,4 +1,4 @@
-package vokorpgback.feature.charactercreation.domain.model;
+package vokorpgback.feature.character.domain.model;
 
 public record Abilities(
         Ability strength,

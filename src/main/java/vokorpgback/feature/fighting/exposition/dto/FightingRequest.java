@@ -26,6 +26,11 @@ public class FightingRequest {
     }
 
     public int getNumberOfMonstersFaced() {
+        if (numberOfMonstersFaced > fightingCharacter.getAgility()) {
+            // TODO
+            // add specific exception
+            throw new RuntimeException("You can't fight more monsters than your agility score at the same time.");
+        }
         return numberOfMonstersFaced;
     }
 
