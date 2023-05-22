@@ -1,6 +1,11 @@
 package vokorpgback.feature.fighting.domain;
 
 public record FightingMonster(
-                int fightingPower) {
+        int maxFightingPower,
+        int remainingFightingPower,
+        int damageDices) {
 
+    public boolean isDead() {
+        return remainingFightingPower <= 0;
+    }
 }

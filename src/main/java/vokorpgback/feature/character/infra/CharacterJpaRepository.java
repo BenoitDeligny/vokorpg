@@ -2,21 +2,39 @@ package vokorpgback.feature.character.infra;
 
 import org.springframework.stereotype.Repository;
 
-import vokorpgback.feature.character.domain.model.Character;
-import vokorpgback.feature.character.domain.port.CharacterRepository;
+import vokorpgback.feature.character.domain.model.LegendaryCharacter;
+import vokorpgback.feature.character.domain.port.CharacterStorage;
+import vokorpgback.feature.character.infra.entity.CharacterEntity;
 
 @Repository
-public class CharacterJpaRepository implements CharacterRepository {
+public class CharacterJpaRepository implements CharacterStorage {
+
+    private CharacterRepository jpaRepository;
+
+    public CharacterJpaRepository(CharacterRepository jpaRepository) {
+        this.jpaRepository = jpaRepository;
+    }
 
     @Override
-    public Character create(Character character) {
+    public LegendaryCharacter create(LegendaryCharacter character) {
+        jpaRepository.save(toEntity(character));
         return character;
     }
 
     @Override
-    public Character update(Character character) {
+    public LegendaryCharacter update(LegendaryCharacter character) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 
+    private CharacterEntity toEntity(LegendaryCharacter character) {
+        return new CharacterEntity(
+            character.name(),
+            character.age(),
+            character.abilities().strength().value(),
+            character.abilities().agility().value(),
+            character.abilities().perception().value(),
+            character.totalPower()
+        );
+    }
 }

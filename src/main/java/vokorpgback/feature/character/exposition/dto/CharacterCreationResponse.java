@@ -6,13 +6,15 @@ public class CharacterCreationResponse {
     private int strength;
     private int agility;
     private int perception;
+    private int totalPower;
     
-    public CharacterCreationResponse(String name, int age, int strength, int agility, int perception) {
+    public CharacterCreationResponse(String name, int age, int strength, int agility, int perception, int totalPower) {
         this.name = name;
         this.age = age;
         this.strength = strength;
         this.agility = agility;
         this.perception = perception;
+        this.totalPower = totalPower;
     }
     
     public String getName() {
@@ -30,5 +32,7 @@ public class CharacterCreationResponse {
     public int getPerception() {
         return perception;
     }
-    
+    public int getTotalPower() {
+        return totalPower;
+    }
 }

@@ -1,27 +1,35 @@
-package vokorpgback.feature.commons;
+package vokorpgback.commons;
 
 import vokorpgback.utils.diceroll.DiceRoll;
 
 public class FakeDiceRollService implements DiceRoll {
 
     @Override
-    public int ageRoll() {
-        return 18;
+    public int diceRolls(int numberOfDice) {
+        return 3 * numberOfDice;
     }
 
+    // TODO
+    // remove those methods
+    // add public in implementation that call the diceRolls one
     @Override
-    public int strengthRoll() {
+    public int ageRoll() {
         return 4;
     }
 
     @Override
+    public int strengthRoll() {
+        return 3;
+    }
+
+    @Override
     public int agilityRoll() {
-        return 6;
+        return 4;
     }
 
     @Override
     public int perceptionRoll() {
-        return 2;
+        return 5;
     }
 
     @Override

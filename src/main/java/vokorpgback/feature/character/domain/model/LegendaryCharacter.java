@@ -3,10 +3,11 @@ package vokorpgback.feature.character.domain.model;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public record Character(
+public record LegendaryCharacter(
         String name,
         int age,
-        Abilities abilities) {
+        Abilities abilities,
+        int totalPower) {
 
     public int computeFightingPower(Ability ability, int weaponBonus, int shieldBonus, List<Integer> miscellaneousBonus) {
         return ability.value() +

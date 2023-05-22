@@ -7,9 +7,9 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import vokorpgback.feature.commons.FakeDiceRollService;
+import vokorpgback.commons.FakeDiceRollService;
 import vokorpgback.feature.fighting.application.FightingUseCase;
-import vokorpgback.feature.fighting.domain.CombatChart;
+import vokorpgback.feature.fighting.domain.FightingMonster;
 import vokorpgback.feature.fighting.exposition.dto.FightingCharacterDto;
 import vokorpgback.feature.fighting.exposition.dto.FightingMonsterDto;
 
@@ -25,243 +25,87 @@ public class FightUseCaseTest {
         useCase = new FightingUseCase(fakeDiceRoll);
     }
 
+    // TODO
+    // this is not the final testing
+    // should implement the full response
     @Test
-    void handle_shouldReturnDefeated() {
+    void handle_should_killThreeMonsters() {
         // given
-        FightingCharacterDto fightingCharacter = new FightingCharacterDto();
-        fightingCharacter.setFightingPower(5);
-        fightingCharacter.setCircumstanceModifier(0);
+        FightingCharacterDto fightingCharacterDto = new FightingCharacterDto();
+        fightingCharacterDto.setMaxFightingPower(15);
+        fightingCharacterDto.setRemainingFightingPower(15);
+        fightingCharacterDto.setDamageDices(3);
 
-        FightingMonsterDto fightingMonster1 = new FightingMonsterDto();
-        fightingMonster1.setFightingPower(9);
+        FightingMonsterDto fightingMonsterDto = new FightingMonsterDto();
+        fightingMonsterDto.setMaxFightingPower(3);
+        fightingMonsterDto.setRemainingFightingPower(3);
 
-        FightingMonsterDto fightingMonster2 = new FightingMonsterDto();
-        fightingMonster2.setFightingPower(999);
+        FightingMonsterDto fightingMonsterDto2 = new FightingMonsterDto();
+        fightingMonsterDto2.setMaxFightingPower(3);
+        fightingMonsterDto2.setRemainingFightingPower(3);
 
-        List<FightingMonsterDto> fightingMonsters = List.of(fightingMonster1, fightingMonster2);
+        FightingMonsterDto fightingMonsterDto3 = new FightingMonsterDto();
+        fightingMonsterDto3.setMaxFightingPower(3);
+        fightingMonsterDto3.setRemainingFightingPower(3);
 
-        int numberOfMonstersFaced = 1;
+        FightingMonsterDto fightingMonsterDto4 = new FightingMonsterDto();
+        fightingMonsterDto4.setMaxFightingPower(3);
+        fightingMonsterDto4.setRemainingFightingPower(3);
+
+        int numberOfMonstersFaced = fightingCharacterDto.getDamageDices();
+
+        FightingMonster expectedFightingMonster = new FightingMonster(3, 3, 0);
 
         // when
-        Optional<CombatChart> combatResult = useCase.handle(fightingCharacter, fightingMonsters, numberOfMonstersFaced);
+        Optional<List<FightingMonster>> remaingingFightingMonsters = useCase.handle(fightingCharacterDto,
+                List.of(fightingMonsterDto, fightingMonsterDto2, fightingMonsterDto3, fightingMonsterDto4),
+                numberOfMonstersFaced);
 
         // then
-        Assertions.assertThat(combatResult.get()).isEqualTo(CombatChart.DEFEATED);
+        Assertions.assertThat(remaingingFightingMonsters.get()).containsExactly(expectedFightingMonster);
     }
 
     @Test
-    void handle_shouldReturnSeriouslyInjured() {
+    void handle_should_notKillMonster() {
         // given
-        FightingCharacterDto fightingCharacter = new FightingCharacterDto();
-        fightingCharacter.setFightingPower(5);
-        fightingCharacter.setCircumstanceModifier(0);
+        FightingCharacterDto fightingCharacterDto = new FightingCharacterDto();
+        fightingCharacterDto.setMaxFightingPower(5);
+        fightingCharacterDto.setRemainingFightingPower(5);
+        fightingCharacterDto.setDamageDices(3);
 
-        FightingMonsterDto fightingMonster1 = new FightingMonsterDto();
-        fightingMonster1.setFightingPower(8);
+        FightingMonsterDto fightingMonsterDto = new FightingMonsterDto();
+        fightingMonsterDto.setMaxFightingPower(25);
+        fightingMonsterDto.setRemainingFightingPower(25);
 
-        FightingMonsterDto fightingMonster2 = new FightingMonsterDto();
-        fightingMonster2.setFightingPower(999);
+        FightingMonsterDto fightingMonsterDto2 = new FightingMonsterDto();
+        fightingMonsterDto2.setMaxFightingPower(25);
+        fightingMonsterDto2.setRemainingFightingPower(25);
 
-        List<FightingMonsterDto> fightingMonsters = List.of(fightingMonster1, fightingMonster2);
+        FightingMonsterDto fightingMonsterDto3 = new FightingMonsterDto();
+        fightingMonsterDto3.setMaxFightingPower(25);
+        fightingMonsterDto3.setRemainingFightingPower(25);
 
-        int numberOfMonstersFaced = 1;
+        FightingMonsterDto fightingMonsterDto4 = new FightingMonsterDto();
+        fightingMonsterDto4.setMaxFightingPower(25);
+        fightingMonsterDto4.setRemainingFightingPower(25);
+
+        int numberOfMonstersFaced = fightingCharacterDto.getDamageDices();
+
+        FightingMonster expectedFightingMonster = new FightingMonster(25, 16, 0);
+        FightingMonster expectedFightingMonster2 = new FightingMonster(25, 16, 0);
+        FightingMonster expectedFightingMonster3 = new FightingMonster(25, 16, 0);
+        FightingMonster expectedFightingMonster4 = new FightingMonster(25, 25, 0);
 
         // when
-        Optional<CombatChart> combatResult = useCase.handle(fightingCharacter, fightingMonsters, numberOfMonstersFaced);
+        Optional<List<FightingMonster>> remaingingFightingMonsters = useCase.handle(fightingCharacterDto,
+                List.of(fightingMonsterDto, fightingMonsterDto2, fightingMonsterDto3, fightingMonsterDto4),
+                numberOfMonstersFaced);
 
         // then
-        Assertions.assertThat(combatResult.get()).isEqualTo(CombatChart.SERIOUSLY_INJURED);
-    }
-
-    @Test
-    void handle_shouldReturnInjured() {
-        // given
-        FightingCharacterDto fightingCharacter = new FightingCharacterDto();
-        fightingCharacter.setFightingPower(7);
-        fightingCharacter.setCircumstanceModifier(0);
-
-        FightingMonsterDto fightingMonster1 = new FightingMonsterDto();
-        fightingMonster1.setFightingPower(5);
-
-        FightingMonsterDto fightingMonster2 = new FightingMonsterDto();
-        fightingMonster2.setFightingPower(999);
-
-        List<FightingMonsterDto> fightingMonsters = List.of(fightingMonster1, fightingMonster2);
-
-        int numberOfMonstersFaced = 1;
-
-        // when
-        Optional<CombatChart> combatResult = useCase.handle(fightingCharacter, fightingMonsters, numberOfMonstersFaced);
-
-        // then
-        Assertions.assertThat(combatResult.get()).isEqualTo(CombatChart.INJURED);
-    }
-
-    @Test
-    void handle_shouldReturnDraw() {
-        // given
-        FightingCharacterDto fightingCharacter = new FightingCharacterDto();
-        fightingCharacter.setFightingPower(10);
-        fightingCharacter.setCircumstanceModifier(0);
-
-        FightingMonsterDto fightingMonster1 = new FightingMonsterDto();
-        fightingMonster1.setFightingPower(5);
-
-        FightingMonsterDto fightingMonster2 = new FightingMonsterDto();
-        fightingMonster2.setFightingPower(999);
-
-        List<FightingMonsterDto> fightingMonsters = List.of(fightingMonster1, fightingMonster2);
-
-        int numberOfMonstersFaced = 1;
-
-        // when
-        Optional<CombatChart> combatResult = useCase.handle(fightingCharacter, fightingMonsters, numberOfMonstersFaced);
-
-        // then
-        Assertions.assertThat(combatResult.get()).isEqualTo(CombatChart.DRAW);
-    }
-
-    @Test
-    void handle_shouldReturnBearlyVictorious() {
-        // given
-        FightingCharacterDto fightingCharacter = new FightingCharacterDto();
-        fightingCharacter.setFightingPower(12);
-        fightingCharacter.setCircumstanceModifier(0);
-
-        FightingMonsterDto fightingMonster1 = new FightingMonsterDto();
-        fightingMonster1.setFightingPower(5);
-
-        FightingMonsterDto fightingMonster2 = new FightingMonsterDto();
-        fightingMonster2.setFightingPower(999);
-
-        List<FightingMonsterDto> fightingMonsters = List.of(fightingMonster1, fightingMonster2);
-
-        int numberOfMonstersFaced = 1;
-
-        // when
-        Optional<CombatChart> combatResult = useCase.handle(fightingCharacter, fightingMonsters, numberOfMonstersFaced);
-
-        // then
-        Assertions.assertThat(combatResult.get()).isEqualTo(CombatChart.BEARLY_VICTORIOUS);
-    }
-
-    @Test
-    void handle_shouldReturnAlmostVictorious() {
-        // given
-        FightingCharacterDto fightingCharacter = new FightingCharacterDto();
-        fightingCharacter.setFightingPower(14);
-        fightingCharacter.setCircumstanceModifier(0);
-
-        FightingMonsterDto fightingMonster1 = new FightingMonsterDto();
-        fightingMonster1.setFightingPower(5);
-
-        FightingMonsterDto fightingMonster2 = new FightingMonsterDto();
-        fightingMonster2.setFightingPower(999);
-
-        List<FightingMonsterDto> fightingMonsters = List.of(fightingMonster1, fightingMonster2);
-
-        int numberOfMonstersFaced = 1;
-
-        // when
-        Optional<CombatChart> combatResult = useCase.handle(fightingCharacter, fightingMonsters, numberOfMonstersFaced);
-
-        // then
-        Assertions.assertThat(combatResult.get()).isEqualTo(CombatChart.ALMOST_VICTORIOUS);
-    }
-
-    @Test
-    void handle_shouldReturnVictorious() {
-        // given
-        FightingCharacterDto fightingCharacter = new FightingCharacterDto();
-        fightingCharacter.setFightingPower(16);
-        fightingCharacter.setCircumstanceModifier(0);
-
-        FightingMonsterDto fightingMonster1 = new FightingMonsterDto();
-        fightingMonster1.setFightingPower(3);
-
-        FightingMonsterDto fightingMonster2 = new FightingMonsterDto();
-        fightingMonster2.setFightingPower(999);
-
-        List<FightingMonsterDto> fightingMonsters = List.of(fightingMonster1, fightingMonster2);
-
-        int numberOfMonstersFaced = 1;
-
-        // when
-        Optional<CombatChart> combatResult = useCase.handle(fightingCharacter, fightingMonsters, numberOfMonstersFaced);
-
-        // then
-        Assertions.assertThat(combatResult.get()).isEqualTo(CombatChart.VICTORIOUS);
-    }
-
-    @Test
-    void handle_shouldReturnDefeated_whenFightsAgainstMultipleMonsters() {
-        // given
-        FightingCharacterDto fightingCharacter = new FightingCharacterDto();
-        fightingCharacter.setFightingPower(10);
-        fightingCharacter.setCircumstanceModifier(0);
-
-        FightingMonsterDto fightingMonster1 = new FightingMonsterDto();
-        fightingMonster1.setFightingPower(7);
-
-        FightingMonsterDto fightingMonster2 = new FightingMonsterDto();
-        fightingMonster2.setFightingPower(7);
-
-        List<FightingMonsterDto> fightingMonsters = List.of(fightingMonster1, fightingMonster2);
-
-        int numberOfMonstersFaced = 2;
-
-        // when
-        Optional<CombatChart> combatResult = useCase.handle(fightingCharacter, fightingMonsters, numberOfMonstersFaced);
-
-        // then
-        Assertions.assertThat(combatResult.get()).isEqualTo(CombatChart.DEFEATED);
-    }
-
-    @Test
-    void handle_shouldReturnDraw_whenFightsAgainstMultipleMonsters() {
-        // given
-        FightingCharacterDto fightingCharacter = new FightingCharacterDto();
-        fightingCharacter.setFightingPower(18);
-        fightingCharacter.setCircumstanceModifier(0);
-
-        FightingMonsterDto fightingMonster1 = new FightingMonsterDto();
-        fightingMonster1.setFightingPower(7);
-
-        FightingMonsterDto fightingMonster2 = new FightingMonsterDto();
-        fightingMonster2.setFightingPower(7);
-
-        List<FightingMonsterDto> fightingMonsters = List.of(fightingMonster1, fightingMonster2);
-
-        int numberOfMonstersFaced = 2;
-
-        // when
-        Optional<CombatChart> combatResult = useCase.handle(fightingCharacter, fightingMonsters, numberOfMonstersFaced);
-
-        // then
-        Assertions.assertThat(combatResult.get()).isEqualTo(CombatChart.DRAW);
-    }
-
-    @Test
-    void handle_shouldReturnVictorious_whenFightsAgainstMultipleMonsters() {
-        // given
-        FightingCharacterDto fightingCharacter = new FightingCharacterDto();
-        fightingCharacter.setFightingPower(30);
-        fightingCharacter.setCircumstanceModifier(0);
-
-        FightingMonsterDto fightingMonster1 = new FightingMonsterDto();
-        fightingMonster1.setFightingPower(7);
-
-        FightingMonsterDto fightingMonster2 = new FightingMonsterDto();
-        fightingMonster2.setFightingPower(7);
-
-        List<FightingMonsterDto> fightingMonsters = List.of(fightingMonster1, fightingMonster2);
-
-        int numberOfMonstersFaced = 2;
-
-        // when
-        Optional<CombatChart> combatResult = useCase.handle(fightingCharacter, fightingMonsters, numberOfMonstersFaced);
-
-        // then
-        Assertions.assertThat(combatResult.get()).isEqualTo(CombatChart.VICTORIOUS);
+        Assertions.assertThat(remaingingFightingMonsters.get()).containsExactly(
+                expectedFightingMonster,
+                expectedFightingMonster2,
+                expectedFightingMonster3,
+                expectedFightingMonster4);
     }
 }

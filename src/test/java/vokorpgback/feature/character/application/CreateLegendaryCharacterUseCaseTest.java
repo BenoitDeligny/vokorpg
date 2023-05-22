@@ -1,15 +1,11 @@
-package vokorpgback.feature.charactercreation.application;
+package vokorpgback.feature.character.application;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import vokorpgback.feature.character.application.CreateCharacterUseCase;
-import vokorpgback.feature.character.domain.model.Abilities;
-import vokorpgback.feature.character.domain.model.Ability;
-import vokorpgback.feature.character.domain.model.Character;
+import vokorpgback.commons.FakeDiceRollService;
 import vokorpgback.feature.character.infra.entity.CharacterEntity;
-import vokorpgback.feature.commons.FakeDiceRollService;
 
 public class CreateLegendaryCharacterUseCaseTest {
 
@@ -26,34 +22,38 @@ public class CreateLegendaryCharacterUseCaseTest {
     }
 
     @Test
-    void handle_should_createLegendaryCharacterInNormalMode() {
+    void handle_should_createCharacterInNormalMode() {
         // given
+
+        // when
+        useCase.handle("Name", "normal");
+
         CharacterEntity expectedCharacter = new CharacterEntity(
                 "Name",
                 18,
                 4,
+                5,
                 6,
-                2);
-
-        // when
-        useCase.handle("Name", "normal");
+                15);
 
         // then
         Assertions.assertThat(repository.getInMemoryDatabase()).containsExactly(expectedCharacter);
     }
 
     @Test
-    void handle_should_createLegendaryCharacterInEasyMode() {
+    void handle_should_createCharacterInEasyMode() {
         // given
-        CharacterEntity expectedCharacter = new CharacterEntity(
-                "Name",
-                18,
-                7,
-                9,
-                5);
 
         // when
         useCase.handle("Name", "easy");
+        
+        CharacterEntity expectedCharacter = new CharacterEntity(
+            "Name",
+            18,
+            7,
+            8,
+            9,
+            24);
 
         // then
         Assertions.assertThat(repository.getInMemoryDatabase()).containsExactly(expectedCharacter);

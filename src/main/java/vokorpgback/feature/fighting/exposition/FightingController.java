@@ -27,6 +27,8 @@ public class FightingController {
         this.fightUseCase = fightUseCase;
     }
 
+    // TODO
+    // refactor all the endpoint
     @PostMapping(value = "/fight", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<FightingResponse> fightAgainstMonsters(@Valid @RequestBody FightingRequest fightingRequest) {
@@ -34,7 +36,7 @@ public class FightingController {
         Optional<CombatChart> combatResult = fightUseCase.handle(
                 fightingRequest.getFightingCharacter(),
                 fightingRequest.getMonsters(),
-                fightingRequest.getNumberOfMonstersFaced());
+                fightingRequest.getFightingCharacter().getDamageDices());
 
         // TODO
         // add specific exception
@@ -44,7 +46,7 @@ public class FightingController {
 
         int remainingMonsters = computeRemainingMonsters(fightingRequest, combatResult.get());
 
-        return ResponseEntity.of(toResponse(combatResult.get(), remainingMonsters));
+        return ResponseEntity.of(toFightingResponse(combatResult.get(), remainingMonsters));
     }
 
     private int computeRemainingMonsters(FightingRequest request, CombatChart combatChart) {
@@ -54,7 +56,7 @@ public class FightingController {
         return request.getMonsters().size();
     }
 
-    private Optional<FightingResponse> toResponse(CombatChart combatChart, int remainingMonsters) {
+    private Optional<FightingResponse> toFightingResponse(CombatChart combatChart, int remainingMonsters) {
 
         return Optional.of(new FightingResponse(
                 combatChart.name(),

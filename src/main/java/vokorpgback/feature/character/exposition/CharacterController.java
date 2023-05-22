@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import vokorpgback.feature.character.application.CreateCharacterUseCase;
-import vokorpgback.feature.character.domain.model.Character;
+import vokorpgback.feature.character.domain.model.LegendaryCharacter;
 import vokorpgback.feature.character.exposition.dto.CharacterCreationRequest;
 import vokorpgback.feature.character.exposition.dto.CharacterCreationResponse;
 
@@ -32,7 +32,7 @@ public class CharacterController {
     public ResponseEntity<CharacterCreationResponse> createCharacter(
             @Valid @RequestBody CharacterCreationRequest characterCreationRequest) {
 
-        Optional<Character> characterCreated = createCharacterUseCase.handle(
+        Optional<LegendaryCharacter> characterCreated = createCharacterUseCase.handle(
                 characterCreationRequest.getName(),
                 characterCreationRequest.getMode());
 
@@ -44,7 +44,7 @@ public class CharacterController {
 
     // TODO
     // add specific exception
-    private Optional<CharacterCreationResponse> toCharacterCreationResponse(Optional<Character> character) {
+    private Optional<CharacterCreationResponse> toCharacterCreationResponse(Optional<LegendaryCharacter> character) {
         if (character.isEmpty()) {
             throw new RuntimeException("No character was created");
         }
@@ -54,6 +54,7 @@ public class CharacterController {
                 character.get().age(),
                 character.get().abilities().strength().value(),
                 character.get().abilities().agility().value(),
-                character.get().abilities().perception().value()));
+                character.get().abilities().perception().value(),
+                character.get().totalPower()));
     }
 }

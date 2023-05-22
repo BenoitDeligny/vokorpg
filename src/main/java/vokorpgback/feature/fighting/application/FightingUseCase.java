@@ -1,18 +1,10 @@
 package vokorpgback.feature.fighting.application;
 
-import static vokorpgback.feature.fighting.domain.CombatChart.ALMOST_VICTORIOUS;
-import static vokorpgback.feature.fighting.domain.CombatChart.BEARLY_VICTORIOUS;
-import static vokorpgback.feature.fighting.domain.CombatChart.DEFEATED;
-import static vokorpgback.feature.fighting.domain.CombatChart.DRAW;
-import static vokorpgback.feature.fighting.domain.CombatChart.INJURED;
-import static vokorpgback.feature.fighting.domain.CombatChart.SERIOUSLY_INJURED;
-import static vokorpgback.feature.fighting.domain.CombatChart.VICTORIOUS;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
-import vokorpgback.feature.fighting.domain.CombatChart;
 import vokorpgback.feature.fighting.domain.FightingCharacter;
 import vokorpgback.feature.fighting.domain.FightingMonster;
 import vokorpgback.feature.fighting.exposition.dto.FightingCharacterDto;
@@ -27,31 +19,54 @@ public class FightingUseCase {
         this.diceRoll = diceRoll;
     }
 
-    public Optional<CombatChart> handle(
+    // TODO
+    // this is not the final return
+    // implement the full response
+    // add the monster attacks after character's one
+    public Optional<List<FightingMonster>> handle(
             FightingCharacterDto fightingCharacterDto,
             List<FightingMonsterDto> monsters,
             int numberOfMonstersFaced) {
+
         return Optional.of(
-                computeFightingResult(
-                        computeLegendaryCharacterFightingPower(toFightingCharacter(fightingCharacterDto)),
-                        computeMonstersTotalFightingPower(toFightingMonsters(monsters), numberOfMonstersFaced)));
+                computeRemainingMonsters(
+                        toFightingMonsters(monsters),
+                        computeFightingCharacterDamages(toFightingCharacter(fightingCharacterDto)),
+                        numberOfMonstersFaced));
     }
 
-    private int computeLegendaryCharacterFightingPower(FightingCharacter fightingCharacter) {
-        return fightingCharacter.computeTotalFightingPower() + diceRoll.attackRoll();
+    private List<FightingMonster> computeRemainingMonsters(
+            List<FightingMonster> fightingMonsters,
+            int characterDamage,
+            int numberOfMonstersFaced) {
+
+        return IntStream.range(0, fightingMonsters.size())
+                .mapToObj(
+                        i -> applyDamagesToMonster(fightingMonsters.get(i), characterDamage, i, numberOfMonstersFaced))
+                .filter(monster -> isAliveOrInOriginalList(monster, fightingMonsters))
+                .collect(Collectors.toList());
     }
 
-    private FightingCharacter toFightingCharacter(FightingCharacterDto dto) {
-        return new FightingCharacter(dto.getFightingPower(), dto.getCircumstanceModifier());
+    private FightingMonster applyDamagesToMonster(
+            FightingMonster monster,
+            int characterDamage,
+            int index,
+            int numberOfMonstersFaced) {
+        if (index < numberOfMonstersFaced) {
+            return applyDamages(monster, characterDamage);
+        }
+        return monster;
+    }
+    
+    private FightingMonster applyDamages(FightingMonster monster, int characterDamage) {
+        return new FightingMonster(
+                monster.maxFightingPower(),
+                monster.remainingFightingPower() - characterDamage,
+                monster.damageDices());
     }
 
-    private int computeMonstersTotalFightingPower(List<FightingMonster> monsters, int numberOfMonstersFaced) {
-        List<FightingMonster> monstersFaced = monsters.subList(0, numberOfMonstersFaced);
-
-        return monstersFaced
-                .stream()
-                .map(FightingMonster::fightingPower)
-                .collect(Collectors.summingInt(Integer::intValue));
+    private boolean isAliveOrInOriginalList(FightingMonster monster, List<FightingMonster> fightingMonsters) {
+        return !monster.isDead() || fightingMonsters.contains(monster);
     }
 
     private List<FightingMonster> toFightingMonsters(List<FightingMonsterDto> dtoList) {
@@ -62,70 +77,16 @@ public class FightingUseCase {
     }
 
     private FightingMonster toFightingMonster(FightingMonsterDto dto) {
-        return new FightingMonster(dto.getFightingPower());
+        return new FightingMonster(dto.getMaxFightingPower(), dto.getRemainingFightingPower(), dto.getDamageDices());
     }
 
     // TODO
-    // all methods below should be in the enum ?
-    private CombatChart computeFightingResult(int legendaryCharacterFightingPower, int monstersFightingPower) {
-        int result = legendaryCharacterFightingPower - monstersFightingPower;
-
-        if (isInDefeatedLimits(result)) {
-            return DEFEATED;
-        }
-
-        if (isInSeriouslyInjuredLimits(result)) {
-            return SERIOUSLY_INJURED;
-        }
-
-        if (isInInjuredLimits(result)) {
-            return INJURED;
-        }
-
-        if (isInDrawLimits(result)) {
-            return DRAW;
-        }
-
-        if (isInBearlyVictoriousLimits(result)) {
-            return BEARLY_VICTORIOUS;
-        }
-
-        if (isInAlmotsVictoriousLimits(result)) {
-            return ALMOST_VICTORIOUS;
-        }
-
-        if (isInVictoriousLimits(result)) {
-            return VICTORIOUS;
-        }
-
-        return DRAW;
+    // add miscellaneous (gear, powers, relic, ...)
+    private int computeFightingCharacterDamages(FightingCharacter fightingCharacter) {
+        return diceRoll.diceRolls(fightingCharacter.damageDices());
     }
 
-    private boolean isInDefeatedLimits(int result) {
-        return result <= DEFEATED.getHighLimit();
-    }
-
-    private boolean isInSeriouslyInjuredLimits(int result) {
-        return (result >= SERIOUSLY_INJURED.getLowLimit() && result <= SERIOUSLY_INJURED.getHighLimit());
-    }
-
-    private boolean isInInjuredLimits(int result) {
-        return (result >= INJURED.getLowLimit() && result <= INJURED.getHighLimit());
-    }
-
-    private boolean isInDrawLimits(int result) {
-        return (result >= DRAW.getLowLimit() && result <= DRAW.getHighLimit());
-    }
-
-    private boolean isInBearlyVictoriousLimits(int result) {
-        return (result >= BEARLY_VICTORIOUS.getLowLimit() && result <= BEARLY_VICTORIOUS.getHighLimit());
-    }
-
-    private boolean isInAlmotsVictoriousLimits(int result) {
-        return (result >= ALMOST_VICTORIOUS.getLowLimit() && result <= ALMOST_VICTORIOUS.getHighLimit());
-    }
-
-    private boolean isInVictoriousLimits(int result) {
-        return result >= VICTORIOUS.getLowLimit();
+    private FightingCharacter toFightingCharacter(FightingCharacterDto dto) {
+        return new FightingCharacter(dto.getMaxFightingPower(), dto.getRemainingFightingPower(), dto.getDamageDices());
     }
 }

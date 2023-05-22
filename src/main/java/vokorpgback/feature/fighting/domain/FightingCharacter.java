@@ -1,11 +1,11 @@
 package vokorpgback.feature.fighting.domain;
 
 public record FightingCharacter(
-        int fightingPower,
-        int circumstanceModifier) {
+                int maxFightingPower,
+                int remainingFightingPower,
+                int damageDices) {
 
-    public int computeTotalFightingPower() {
-        return fightingPower + circumstanceModifier;
-    }
-
+        public boolean isDead() {
+                return remainingFightingPower <= 0;
+        }
 }
