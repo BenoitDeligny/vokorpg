@@ -11,7 +11,7 @@ import vokorpgback.feature.character.infra.entity.CharacterEntity;
 
 public class InMemoryCharacterRepository implements CharacterStorage {
 
-    private List<CharacterEntity> inMemoryDatabase = new ArrayList<CharacterEntity>();
+    private final List<CharacterEntity> inMemoryDatabase = new ArrayList<CharacterEntity>();
 
     @Override
     public LegendaryCharacter create(LegendaryCharacter character) {

@@ -7,11 +7,11 @@ import vokorpgback.feature.character.domain.port.CharacterStorage;
 import vokorpgback.feature.character.infra.entity.CharacterEntity;
 
 @Repository
-public class CharacterJpaRepository implements CharacterStorage {
+public class CharacterJpaStorage implements CharacterStorage {
 
-    private CharacterRepository jpaRepository;
+    private final CharacterRepository jpaRepository;
 
-    public CharacterJpaRepository(CharacterRepository jpaRepository) {
+    public CharacterJpaStorage(CharacterRepository jpaRepository) {
         this.jpaRepository = jpaRepository;
     }
 

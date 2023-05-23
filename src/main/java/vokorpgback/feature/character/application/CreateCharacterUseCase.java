@@ -11,9 +11,9 @@ import vokorpgback.utils.diceroll.DiceRoll;
 
 public class CreateCharacterUseCase {
 
-    private CharacterStorage repository;
+    private final CharacterStorage repository;
 
-    private DiceRoll diceRoll;
+    private final DiceRoll diceRoll;
 
     private final int BASE_AGE = 14;
 

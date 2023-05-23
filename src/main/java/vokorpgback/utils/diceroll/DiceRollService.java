@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DiceRollService implements DiceRoll {
 
-    private Random roll = new Random();
+    private final Random roll = new Random();
 
     @Override
     public int diceRolls(int numberOfDice) {

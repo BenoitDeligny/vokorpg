@@ -57,12 +57,12 @@ public class FightUseCaseTest {
         FightingMonster expectedFightingMonster = new FightingMonster(3, 3, 0);
 
         // when
-        Optional<List<FightingMonster>> remaingingFightingMonsters = useCase.handle(fightingCharacterDto,
+        Optional<List<FightingMonster>> remainingFightingMonsters = useCase.handle(fightingCharacterDto,
                 List.of(fightingMonsterDto, fightingMonsterDto2, fightingMonsterDto3, fightingMonsterDto4),
                 numberOfMonstersFaced);
 
         // then
-        Assertions.assertThat(remaingingFightingMonsters.get()).containsExactly(expectedFightingMonster);
+        Assertions.assertThat(remainingFightingMonsters.get()).containsExactly(expectedFightingMonster);
     }
 
     @Test
@@ -97,12 +97,12 @@ public class FightUseCaseTest {
         FightingMonster expectedFightingMonster4 = new FightingMonster(25, 25, 0);
 
         // when
-        Optional<List<FightingMonster>> remaingingFightingMonsters = useCase.handle(fightingCharacterDto,
+        Optional<List<FightingMonster>> remainingFightingMonsters = useCase.handle(fightingCharacterDto,
                 List.of(fightingMonsterDto, fightingMonsterDto2, fightingMonsterDto3, fightingMonsterDto4),
                 numberOfMonstersFaced);
 
         // then
-        Assertions.assertThat(remaingingFightingMonsters.get()).containsExactly(
+        Assertions.assertThat(remainingFightingMonsters.get()).containsExactly(
                 expectedFightingMonster,
                 expectedFightingMonster2,
                 expectedFightingMonster3,

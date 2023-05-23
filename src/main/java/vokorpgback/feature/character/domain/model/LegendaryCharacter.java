@@ -14,7 +14,6 @@ public record LegendaryCharacter(
                 weaponBonus +
                 shieldBonus +
                 miscellaneousBonus
-                        .stream()
-                        .collect(Collectors.summingInt(Integer::intValue));
+                        .stream().mapToInt(Integer::intValue).sum();
     }
 }

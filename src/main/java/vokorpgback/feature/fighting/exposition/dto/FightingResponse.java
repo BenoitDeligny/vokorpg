@@ -1,9 +1,9 @@
 package vokorpgback.feature.fighting.exposition.dto;
 
 public class FightingResponse {
-    private String combatResult;
-    private int circumstanceModifier;
-    private int remainingMonsters;
+    private final String combatResult;
+    private final int circumstanceModifier;
+    private final int remainingMonsters;
 
     public FightingResponse(String combatResult, int circumstanceModifier, int remainingMonsters) {
         this.combatResult = combatResult;

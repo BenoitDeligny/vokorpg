@@ -6,9 +6,9 @@ import vokorpgback.utils.diceroll.DiceRoll;
 
 public class UpdateCharacterUseCase {
     
-    private CharacterStorage repository;
+    private final CharacterStorage repository;
 
-    private DiceRoll diceRoll;
+    private final DiceRoll diceRoll;
 
     public UpdateCharacterUseCase(CharacterStorage repository, DiceRoll diceRoll) {
         this.repository = repository;

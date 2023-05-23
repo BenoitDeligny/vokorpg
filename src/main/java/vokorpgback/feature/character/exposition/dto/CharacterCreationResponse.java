@@ -1,12 +1,12 @@
 package vokorpgback.feature.character.exposition.dto;
 
 public class CharacterCreationResponse {
-    private String name;
-    private int age;
-    private int strength;
-    private int agility;
-    private int perception;
-    private int totalPower;
+    private final String name;
+    private final int age;
+    private final int strength;
+    private final int agility;
+    private final int perception;
+    private final int totalPower;
     
     public CharacterCreationResponse(String name, int age, int strength, int agility, int perception, int totalPower) {
         this.name = name;

@@ -4,7 +4,7 @@ public enum GameMode {
     EASY(4),
     NORMAL(1);
 
-    private int abilitiesModifier;
+    private final int abilitiesModifier;
 
     private GameMode(int abilitiesModifier) {
         this.abilitiesModifier = abilitiesModifier;

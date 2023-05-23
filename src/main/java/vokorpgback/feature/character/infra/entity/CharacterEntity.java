@@ -21,6 +21,9 @@ public class CharacterEntity {
     // TODO
     // add power, knowledge, relic, gear, ...
 
+    public CharacterEntity() {
+    }
+
     public CharacterEntity(String name, int age, int strength, int agility, int perception, int totalPower) {
         this.name = name;
         this.age = age;

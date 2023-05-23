@@ -21,7 +21,7 @@ import vokorpgback.feature.fighting.exposition.dto.FightingResponse;
 @RequestMapping("")
 public class FightingController {
 
-    private FightingUseCase fightUseCase;
+    private final FightingUseCase fightUseCase;
 
     public FightingController(FightingUseCase fightUseCase) {
         this.fightUseCase = fightUseCase;

@@ -13,7 +13,7 @@ import vokorpgback.utils.diceroll.DiceRoll;
 
 public class FightingUseCase {
 
-    private DiceRoll diceRoll;
+    private final DiceRoll diceRoll;
 
     public FightingUseCase(DiceRoll diceRoll) {
         this.diceRoll = diceRoll;

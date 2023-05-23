@@ -21,7 +21,7 @@ import vokorpgback.feature.character.exposition.dto.CharacterCreationResponse;
 @RequestMapping("")
 public class CharacterController {
 
-    private CreateCharacterUseCase createCharacterUseCase;
+    private final CreateCharacterUseCase createCharacterUseCase;
 
     public CharacterController(CreateCharacterUseCase createLegendaryCharacterUseCase) {
         this.createCharacterUseCase = createLegendaryCharacterUseCase;
@@ -49,7 +49,7 @@ public class CharacterController {
             throw new RuntimeException("No character was created");
         }
 
-        return Optional.ofNullable(new CharacterCreationResponse(
+        return Optional.of(new CharacterCreationResponse(
                 character.get().name(),
                 character.get().age(),
                 character.get().abilities().strength().value(),

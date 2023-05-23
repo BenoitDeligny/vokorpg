@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
 
         ValidationErrorResponse errorResponse = new ValidationErrorResponse();
         errorResponse.setStatus(HttpStatus.BAD_REQUEST);
-        errorResponse.setMessage("Erreur de validation");
+        errorResponse.setMessage("Validation error");
         errorResponse.setErrors(errors);
 
         return ResponseEntity.badRequest().body(errorResponse);
