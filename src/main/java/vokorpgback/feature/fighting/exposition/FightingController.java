@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import vokorpgback.feature.fighting.application.FightingUseCase;
-import vokorpgback.feature.fighting.domain.CombatChart;
 import vokorpgback.feature.fighting.exposition.dto.FightingRequest;
 import vokorpgback.feature.fighting.exposition.dto.FightingResponse;
 
@@ -32,35 +31,37 @@ public class FightingController {
     @PostMapping(value = "/fight", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<FightingResponse> fightAgainstMonsters(@Valid @RequestBody FightingRequest fightingRequest) {
-
-        Optional<CombatChart> combatResult = fightUseCase.handle(
-                fightingRequest.getFightingCharacter(),
-                fightingRequest.getMonsters(),
-                fightingRequest.getFightingCharacter().getDamageDices());
-
-        // TODO
-        // add specific exception
-        if (combatResult.isEmpty()) {
-            throw new RuntimeException("No combat result");
-        }
-
-        int remainingMonsters = computeRemainingMonsters(fightingRequest, combatResult.get());
-
-        return ResponseEntity.of(toFightingResponse(combatResult.get(), remainingMonsters));
-    }
-
-    private int computeRemainingMonsters(FightingRequest request, CombatChart combatChart) {
-        if (combatChart.equals(CombatChart.VICTORIOUS)) {
-            return request.getMonsters().size() - request.getNumberOfMonstersFaced();
-        }
-        return request.getMonsters().size();
-    }
-
-    private Optional<FightingResponse> toFightingResponse(CombatChart combatChart, int remainingMonsters) {
-
-        return Optional.of(new FightingResponse(
-                combatChart.name(),
-                combatChart.getCircumstanceModifier(),
-                remainingMonsters));
+//
+//        Optional<CombatChart> combatResult = fightUseCase.handle(
+//                fightingRequest.getFightingCharacter(),
+//                fightingRequest.getMonsters(),
+//                fightingRequest.getFightingCharacter().getDamageDice());
+//
+//        // TODO
+//        // add specific exception
+//        if (combatResult.isEmpty()) {
+//            throw new RuntimeException("No combat result");
+//        }
+//
+//        int remainingMonsters = computeRemainingMonsters(fightingRequest, combatResult.get());
+//
+//        return ResponseEntity.of(toFightingResponse(combatResult.get(), remainingMonsters));
+//    }
+//
+//    private int computeRemainingMonsters(FightingRequest request, CombatChart combatChart) {
+//        if (combatChart.equals(CombatChart.VICTORIOUS)) {
+//            return request.getMonsters().size() - request.getNumberOfMonstersFaced();
+//        }
+//        return request.getMonsters().size();
+//    }
+//
+//    private Optional<FightingResponse> toFightingResponse(CombatChart combatChart, int remainingMonsters) {
+//
+//        return Optional.of(new FightingResponse(
+//                combatChart.name(),
+//                combatChart.getCircumstanceModifier(),
+//                remainingMonsters));
+//    }
+        return ResponseEntity.of(Optional.empty());
     }
 }

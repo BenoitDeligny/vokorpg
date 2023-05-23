@@ -38,11 +38,11 @@ public class InMemoryCharacterRepository implements CharacterStorage {
         // fix setters
         int indexToUpdate = inMemoryDatabase.indexOf(characterToUpdate);
 
-        characterToUpdate.setAge(character.age());
-        characterToUpdate.setStrength(character.abilities().strength().value());
-        characterToUpdate.setAgility(character.abilities().agility().value());
-        characterToUpdate.setPerception(character.abilities().perception().value());
-        characterToUpdate.setTotalPower(character.abilities().computeTotalPower());
+//        characterToUpdate.setAge(character.age());
+//        characterToUpdate.setStrength(character.abilities().strength().value());
+//        characterToUpdate.setAgility(character.abilities().agility().value());
+//        characterToUpdate.setPerception(character.abilities().perception().value());
+//        characterToUpdate.setTotalPower(character.abilities().computeTotalPower());
 
         inMemoryDatabase.set(indexToUpdate, characterToUpdate);
 
