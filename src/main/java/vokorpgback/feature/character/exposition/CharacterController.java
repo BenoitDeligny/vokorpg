@@ -16,6 +16,7 @@ import vokorpgback.feature.character.application.CreateCharacterUseCase;
 import vokorpgback.feature.character.domain.model.LegendaryCharacter;
 import vokorpgback.feature.character.exposition.dto.CharacterCreationRequest;
 import vokorpgback.feature.character.exposition.dto.CharacterCreationResponse;
+import vokorpgback.feature.commons.domain.model.GameMode;
 
 @RestController
 @RequestMapping("")
@@ -32,29 +33,26 @@ public class CharacterController {
     public ResponseEntity<CharacterCreationResponse> createCharacter(
             @Valid @RequestBody CharacterCreationRequest characterCreationRequest) {
 
-        Optional<LegendaryCharacter> characterCreated = createCharacterUseCase.handle(
+        LegendaryCharacter characterCreated = createCharacterUseCase.handle(toDomain(
                 characterCreationRequest.getName(),
-                characterCreationRequest.getMode());
+                characterCreationRequest.getMode()));
 
         return ResponseEntity.of(toCharacterCreationResponse(characterCreated));
     }
 
-    // TODO
-    // add an update method
+    private LegendaryCharacter toDomain(String name, String mode) {
+        GameMode gameMode = GameMode.valueOf(mode.toUpperCase());
 
-    // TODO
-    // add specific exception
-    private Optional<CharacterCreationResponse> toCharacterCreationResponse(Optional<LegendaryCharacter> character) {
-        if (character.isEmpty()) {
-            throw new RuntimeException("No character was created");
-        }
+        return LegendaryCharacter.generateCharacter(name, gameMode);
+    }
 
+    private Optional<CharacterCreationResponse> toCharacterCreationResponse(LegendaryCharacter character) {
         return Optional.of(new CharacterCreationResponse(
-                character.get().name(),
-                character.get().age(),
-                character.get().abilities().strength().value(),
-                character.get().abilities().agility().value(),
-                character.get().abilities().perception().value(),
-                character.get().totalPower()));
+                character.name(),
+                character.age(),
+                character.abilities().strength().value(),
+                character.abilities().agility().value(),
+                character.abilities().perception().value(),
+                character.totalPower()));
     }
 }
