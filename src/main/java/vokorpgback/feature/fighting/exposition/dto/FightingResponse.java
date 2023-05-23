@@ -1,22 +1,21 @@
 package vokorpgback.feature.fighting.exposition.dto;
 
-public class FightingResponse {
-    private final String combatResult;
-    private final int circumstanceModifier;
-    private final int remainingMonsters;
+import java.util.List;
 
-    public FightingResponse(String combatResult, int circumstanceModifier, int remainingMonsters) {
-        this.combatResult = combatResult;
-        this.circumstanceModifier = circumstanceModifier;
-        this.remainingMonsters = remainingMonsters;
+public class FightingResponse {
+    private final FightingCharacterDto character;
+    private final List<FightingMonsterDto> monsters;
+
+    public FightingResponse(FightingCharacterDto character, List<FightingMonsterDto> monsters) {
+        this.character = character;
+        this.monsters = monsters;
     }
-    public String getCombatResult() {
-        return combatResult;
+
+    public FightingCharacterDto getCharacter() {
+        return character;
     }
-    public int getCircumstanceModifier() {
-        return circumstanceModifier;
-    }
-    public int getRemainingMonsters() {
-        return remainingMonsters;
+
+    public List<FightingMonsterDto> getMonsters() {
+        return monsters;
     }
 }

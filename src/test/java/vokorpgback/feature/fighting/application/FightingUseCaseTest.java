@@ -27,8 +27,7 @@ public class FightingUseCaseTest {
     }
 
     // TODO
-    // this is not the final testing
-    // should implement the full response
+    // make other tests
     @Test
     void handle_should_killMonsters() {
         // given

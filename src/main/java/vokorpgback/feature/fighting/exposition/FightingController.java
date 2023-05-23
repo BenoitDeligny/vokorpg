@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import vokorpgback.feature.fighting.application.FightingUseCase;
+import vokorpgback.feature.fighting.domain.CombatResult;
+import vokorpgback.feature.fighting.exposition.dto.FightingCharacterDto;
+import vokorpgback.feature.fighting.exposition.dto.FightingMonsterDto;
 import vokorpgback.feature.fighting.exposition.dto.FightingRequest;
 import vokorpgback.feature.fighting.exposition.dto.FightingResponse;
 
@@ -26,42 +29,39 @@ public class FightingController {
         this.fightUseCase = fightUseCase;
     }
 
-    // TODO
-    // refactor all the endpoint
     @PostMapping(value = "/fight", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
+    // TODO
+    // add validation on DTO @NonNull / @NonEmpty ...
     public ResponseEntity<FightingResponse> fightAgainstMonsters(@Valid @RequestBody FightingRequest fightingRequest) {
-//
-//        Optional<CombatChart> combatResult = fightUseCase.handle(
-//                fightingRequest.getFightingCharacter(),
-//                fightingRequest.getMonsters(),
-//                fightingRequest.getFightingCharacter().getDamageDice());
-//
-//        // TODO
-//        // add specific exception
-//        if (combatResult.isEmpty()) {
-//            throw new RuntimeException("No combat result");
-//        }
-//
-//        int remainingMonsters = computeRemainingMonsters(fightingRequest, combatResult.get());
-//
-//        return ResponseEntity.of(toFightingResponse(combatResult.get(), remainingMonsters));
-//    }
-//
-//    private int computeRemainingMonsters(FightingRequest request, CombatChart combatChart) {
-//        if (combatChart.equals(CombatChart.VICTORIOUS)) {
-//            return request.getMonsters().size() - request.getNumberOfMonstersFaced();
-//        }
-//        return request.getMonsters().size();
-//    }
-//
-//    private Optional<FightingResponse> toFightingResponse(CombatChart combatChart, int remainingMonsters) {
-//
-//        return Optional.of(new FightingResponse(
-//                combatChart.name(),
-//                combatChart.getCircumstanceModifier(),
-//                remainingMonsters));
-//    }
-        return ResponseEntity.of(Optional.empty());
+
+        Optional<CombatResult> combatResult = fightUseCase.handle(
+                fightingRequest.getFightingCharacter(),
+                fightingRequest.getMonsters(),
+                fightingRequest.getFightingCharacter().getDamageDice());
+
+        // TODO
+        // add specific exception
+        if (combatResult.isEmpty()) {
+            throw new RuntimeException("No combat result");
+        }
+
+        return ResponseEntity.of(toFightingResponse(combatResult.get()));
+    }
+
+    private Optional<FightingResponse> toFightingResponse(CombatResult combatResult) {
+
+        return Optional.of(new FightingResponse(
+                new FightingCharacterDto(
+                        combatResult.fightingCharacter().maxFightingPower(),
+                        combatResult.fightingCharacter().remainingFightingPower(),
+                        combatResult.fightingCharacter().damageDices()),
+                combatResult.fightingMonsters().stream()
+                        .map(fightingMonster -> new FightingMonsterDto(
+                                fightingMonster.maxFightingPower(),
+                                fightingMonster.remainingFightingPower(),
+                                fightingMonster.damageDice()))
+                        .toList()
+        ));
     }
 }
