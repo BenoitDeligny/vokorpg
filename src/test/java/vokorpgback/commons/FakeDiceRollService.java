@@ -2,8 +2,12 @@ package vokorpgback.commons;
 
 import vokorpgback.utils.diceroll.DiceRoll;
 
-public class FakeDiceRollService implements DiceRoll {
+public record FakeDiceRollService(
+        int ageRoll,
+        int otherRol
+) implements DiceRoll {
 
+    // think about seed
     @Override
     public int diceRolls(int numberOfDice) {
         return 3 * numberOfDice;
@@ -14,7 +18,7 @@ public class FakeDiceRollService implements DiceRoll {
     // add public in implementation that call the diceRolls one
     @Override
     public int ageRoll() {
-        return 4;
+        return ageRoll;
     }
 
     @Override
