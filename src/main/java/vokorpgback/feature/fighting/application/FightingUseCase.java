@@ -6,19 +6,18 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import vokorpgback.feature.commons.domain.model.GameDice;
+import vokorpgback.feature.commons.domain.port.Dice;
 import vokorpgback.feature.fighting.domain.CombatResult;
 import vokorpgback.feature.fighting.domain.FightingCharacter;
 import vokorpgback.feature.fighting.domain.FightingMonster;
 import vokorpgback.feature.fighting.exposition.dto.FightingCharacterDto;
 import vokorpgback.feature.fighting.exposition.dto.FightingMonsterDto;
-import vokorpgback.utils.diceroll.DiceRoll;
 
 public class FightingUseCase {
 
-    private final DiceRoll diceRoll;
 
-    public FightingUseCase(DiceRoll diceRoll) {
-        this.diceRoll = diceRoll;
+    public FightingUseCase() {
     }
 
     // TODO
@@ -54,16 +53,18 @@ public class FightingUseCase {
     }
 
     private FightingCharacter applyDamagesToCharacter(List<FightingMonster> facedMonsters, FightingCharacter fightingCharacter) {
-        // don't forget the +1 dice
+        Dice dice = new GameDice(6);
         // if little monster damageDice could be 1 damage only
         int totalDamagesDice = facedMonsters.stream().map(FightingMonster::damageDice).mapToInt(Integer::intValue).sum();
 
         int totalDamages = 0;
 
         if (facedMonsters.size() > 1) {
-            totalDamages = diceRoll.diceRolls(totalDamagesDice + 1);
+            for (int i = 0; i < totalDamagesDice; i++) {
+                totalDamages += dice.roll();
+            }
         } else {
-            totalDamages = diceRoll.diceRolls(totalDamagesDice);
+            totalDamages += dice.roll();;
         }
 
         return new FightingCharacter(
@@ -120,7 +121,13 @@ public class FightingUseCase {
     // TODO
     // add miscellaneous (gear, powers, relic, ...)
     private int computeFightingCharacterDamages(FightingCharacter fightingCharacter) {
-        return diceRoll.diceRolls(fightingCharacter.damageDices());
+        Dice dice = new GameDice(6);
+        int totalDamages = 0;
+        for (int i = 0; i < fightingCharacter.damageDices(); i++) {
+            totalDamages += dice.roll();
+        };
+
+        return totalDamages;
     }
 
     private FightingCharacter toFightingCharacter(FightingCharacterDto dto) {

@@ -7,7 +7,6 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import vokorpgback.commons.FakeDiceRollService;
 import vokorpgback.feature.fighting.domain.CombatResult;
 import vokorpgback.feature.fighting.domain.FightingCharacter;
 import vokorpgback.feature.fighting.domain.FightingMonster;
@@ -18,15 +17,13 @@ public class FightingUseCaseTest {
 
     private FightingUseCase useCase;
 
-    private FakeDiceRollService fakeDiceRoll;
-
     @BeforeEach
     void setUp() {
-        fakeDiceRoll = new FakeDiceRollService();
-        useCase = new FightingUseCase(fakeDiceRoll);
+        useCase = new FightingUseCase();
     }
 
     // TODO
+    // MOCK DICE ROLL
     // make other tests
     @Test
     void handle_should_killMonsters() {
