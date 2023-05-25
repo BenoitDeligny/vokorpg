@@ -11,7 +11,7 @@ public enum MonsterCombatDice {
     SEVEN(7, 173, 220, 24),
     EIGHT(8, 221, 276, 28),
     NINE(9, 277, 332, 31),
-    TEN(10, 332, Integer.MAX_VALUE, 35);
+    TEN(10, 333, Integer.MAX_VALUE, 35);
 
     private final int numberOfDice;
     private final int minTotalPower;

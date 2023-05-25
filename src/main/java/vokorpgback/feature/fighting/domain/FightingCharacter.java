@@ -5,11 +5,13 @@ import vokorpgback.feature.commons.domain.model.CharacterCombatDice;
 public record FightingCharacter(
         int maxFightingPower,
         int remainingFightingPower,
+        int agility,
         CharacterCombatDice combatDice) {
 
-    public FightingCharacter(int maxFightingPower, int remainingFightingPower) {
+    public FightingCharacter(int maxFightingPower, int remainingFightingPower, int agilty) {
         this.maxFightingPower = maxFightingPower;
         this.remainingFightingPower = remainingFightingPower;
+        this.agility = agilty;
         this.combatDice = computeCombatDice();
     }
 

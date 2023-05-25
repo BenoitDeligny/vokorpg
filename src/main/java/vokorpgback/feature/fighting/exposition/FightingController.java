@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
-import vokorpgback.feature.commons.domain.model.CharacterCombatDice;
 import vokorpgback.feature.commons.domain.model.Fight;
 import vokorpgback.feature.fighting.application.FightingUseCase;
 import vokorpgback.feature.fighting.domain.CombatResult;
@@ -36,18 +35,16 @@ public class FightingController {
 
     @PostMapping(value = "/fight", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    // TODO
-    // add validation on DTO @NonNull / @NonEmpty ...
     public ResponseEntity<FightingResponse> fightAgainstMonsters(@Valid @RequestBody FightingRequest fightingRequest) {
 
-        Optional<CombatResult> combatResult = fightUseCase.handle(
+        CombatResult combatResult = fightUseCase.handle(
                 toDomain(
                         fightingRequest.getFightingCharacter(),
                         fightingRequest.getMonsters()
                 )
         );
 
-        return ResponseEntity.of(toFightingResponse(combatResult.get()));
+        return ResponseEntity.of(toFightingResponse(combatResult));
     }
 
     private Fight toDomain(FightingCharacterDto characterDto, List<FightingMonsterDto> monsters) {
@@ -62,7 +59,8 @@ public class FightingController {
     private FightingCharacter toCharacterDomain(FightingCharacterDto dto) {
         return new FightingCharacter(
                 dto.getMaxFightingPower(),
-                dto.getRemainingFightingPower()
+                dto.getRemainingFightingPower(),
+                dto.getAgility()
         );
     }
 

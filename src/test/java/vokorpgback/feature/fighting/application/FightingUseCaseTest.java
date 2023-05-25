@@ -28,7 +28,7 @@ public class FightingUseCaseTest {
     @Test
     void handle_should_killMonsters() {
         // given
-        FightingCharacterDto fightingCharacterDto = new FightingCharacterDto();
+        FightingCharacterDto fightingCharacterDto = new FightingCharacterDto(agility);
         fightingCharacterDto.setMaxFightingPower(15);
         fightingCharacterDto.setRemainingFightingPower(15);
         fightingCharacterDto.setCombatDice(3);
@@ -59,7 +59,7 @@ public class FightingUseCaseTest {
         FightingMonster expectedFightingMonster = new FightingMonster(3, 3, 1);
 
         // when
-        Optional<CombatResult> combatResult = useCase.handle(fightingCharacterDto,
+        Optional<CombatResult> combatResult = useCase.handleFirst(fightingCharacterDto,
                 List.of(fightingMonsterDto, fightingMonsterDto2, fightingMonsterDto3, fightingMonsterDto4),
                 numberOfMonstersFaced);
 
@@ -71,7 +71,7 @@ public class FightingUseCaseTest {
     @Test
     void handle_should_notKillMonster() {
         // given
-        FightingCharacterDto fightingCharacterDto = new FightingCharacterDto();
+        FightingCharacterDto fightingCharacterDto = new FightingCharacterDto(agility);
         fightingCharacterDto.setMaxFightingPower(15);
         fightingCharacterDto.setRemainingFightingPower(15);
         fightingCharacterDto.setCombatDice(3);
@@ -105,7 +105,7 @@ public class FightingUseCaseTest {
         FightingMonster expectedFightingMonster4 = new FightingMonster(25, 25, 1);
 
         // when
-        Optional<CombatResult> combatResult = useCase.handle(fightingCharacterDto,
+        Optional<CombatResult> combatResult = useCase.handleFirst(fightingCharacterDto,
                 List.of(fightingMonsterDto, fightingMonsterDto2, fightingMonsterDto3, fightingMonsterDto4),
                 numberOfMonstersFaced);
 

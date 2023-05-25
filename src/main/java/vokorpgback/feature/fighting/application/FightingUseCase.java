@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import vokorpgback.feature.commons.domain.model.Fight;
 import vokorpgback.feature.commons.domain.model.GameDice;
 import vokorpgback.feature.commons.domain.port.Dice;
 import vokorpgback.feature.fighting.domain.CombatResult;
@@ -19,25 +20,19 @@ public class FightingUseCase {
     public FightingUseCase() {
     }
 
-    // TODO
-    // refacto this class
-    public Optional<CombatResult> handle(
-            FightingCharacterDto fightingCharacterDto,
-            List<FightingMonsterDto> monsters,
-            int numberOfMonstersFaced) {
+    public CombatResult handle(Fight fight) {
+        FightingCharacter fightingCharacter = fight.character();
+        List<FightingMonster> monsters = fight.monsters();
+        int numberOfMonstersFaced = fight.character().agility();
 
-        Optional<List<FightingMonster>> remainingMonsters = Optional.of(
-                ComputeCharacterAttack(
-                        toFightingMonsters(monsters),
-                        computeFightingCharacterDamages(toFightingCharacter(fightingCharacterDto)),
-                        numberOfMonstersFaced));
+        List<FightingMonster> remainingMonsters = ComputeCharacterAttack(
+                monsters,
+                computeFightingCharacterDamages(fightingCharacter),
+                numberOfMonstersFaced);
 
-        Optional<FightingCharacter> remainingCharacterPower = Optional.of(
-                // check if monsters is empty
-                computeMonstersAttack(remainingMonsters.get(), toFightingCharacter(fightingCharacterDto), numberOfMonstersFaced)
-        );
+        FightingCharacter remainingCharacterPower = computeMonstersAttack(remainingMonsters, fightingCharacter, numberOfMonstersFaced);
 
-        return Optional.of(new CombatResult(remainingCharacterPower.get(), remainingMonsters.get()));
+        return new CombatResult(remainingCharacterPower, remainingMonsters);
     }
 
     private FightingCharacter computeMonstersAttack(List<FightingMonster> fightingMonsters, FightingCharacter fightingCharacter, int numberOfMonstersFaced) {
@@ -63,13 +58,14 @@ public class FightingUseCase {
                 totalDamages += dice.roll();
             }
         } else {
-            totalDamages += dice.roll();;
+            totalDamages += dice.roll();
+            ;
         }
 
         return new FightingCharacter(
                 fightingCharacter.maxFightingPower(),
                 fightingCharacter.remainingFightingPower() - totalDamages,
-                fightingCharacter.combatDice());
+                fightingCharacter.agility());
     }
 
     private List<FightingMonster> ComputeCharacterAttack(
@@ -106,17 +102,6 @@ public class FightingUseCase {
         return !monster.isDead() || fightingMonsters.contains(monster);
     }
 
-    private List<FightingMonster> toFightingMonsters(List<FightingMonsterDto> dtoList) {
-        return dtoList
-                .stream()
-                .map(this::toFightingMonster)
-                .toList();
-    }
-
-    private FightingMonster toFightingMonster(FightingMonsterDto dto) {
-        return new FightingMonster(dto.getMaxFightingPower(), dto.getRemainingFightingPower(), dto.getCombatDice());
-    }
-
     // TODO
     // add miscellaneous (gear, powers, relic, ...)
     private int computeFightingCharacterDamages(FightingCharacter fightingCharacter) {
@@ -124,12 +109,9 @@ public class FightingUseCase {
         int totalDamages = 0;
         for (int i = 0; i < fightingCharacter.combatDice().getNumberOfDice(); i++) {
             totalDamages += dice.roll();
-        };
+        }
+        ;
 
         return totalDamages;
-    }
-
-    private FightingCharacter toFightingCharacter(FightingCharacterDto dto) {
-        return new FightingCharacter(dto.getMaxFightingPower(), dto.getRemainingFightingPower());
     }
 }
