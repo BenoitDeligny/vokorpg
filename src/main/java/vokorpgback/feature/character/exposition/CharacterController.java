@@ -1,5 +1,6 @@
 package vokorpgback.feature.character.exposition;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;

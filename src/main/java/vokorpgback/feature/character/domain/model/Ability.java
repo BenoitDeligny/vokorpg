@@ -10,7 +10,7 @@ public record Ability(
         return value > 0;
     }
 
-    public static Ability generateAbility(GameMode gameMode, Dice dice) {
+    public static Ability generateAbility(Dice dice, GameMode gameMode) {
         return new Ability(dice.roll() + gameMode.getAbilitiesModifier());
     }
 }

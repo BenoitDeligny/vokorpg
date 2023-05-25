@@ -8,6 +8,8 @@ import vokorpgback.feature.character.domain.model.LegendaryCharacter;
 import vokorpgback.feature.character.infra.entity.CharacterEntity;
 import vokorpgback.feature.commons.domain.model.GameMode;
 
+import java.lang.reflect.InvocationTargetException;
+
 public class CreateLegendaryCharacterUseCaseTest {
 
     private CreateCharacterUseCase useCase;
