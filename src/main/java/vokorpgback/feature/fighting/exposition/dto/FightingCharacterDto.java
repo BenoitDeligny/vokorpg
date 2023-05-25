@@ -3,15 +3,13 @@ package vokorpgback.feature.fighting.exposition.dto;
 public class FightingCharacterDto {
     private int maxFightingPower;
     private int remainingFightingPower;
-    private int damageDice;
 
     public FightingCharacterDto() {
     }
 
-    public FightingCharacterDto(int maxFightingPower, int remainingFightingPower, int damageDice) {
+    public FightingCharacterDto(int maxFightingPower, int remainingFightingPower) {
         this.maxFightingPower = maxFightingPower;
         this.remainingFightingPower = remainingFightingPower;
-        this.damageDice = damageDice;
     }
 
     public int getMaxFightingPower() {
@@ -21,17 +19,9 @@ public class FightingCharacterDto {
     public int getRemainingFightingPower() {
         return remainingFightingPower;
     }
-    
-    public int getDamageDice() {
-        return damageDice;
-    }
 
     public void setMaxFightingPower(int fightingPower) {
         this.maxFightingPower = fightingPower;
-    }
-    
-    public void setDamageDice(int damageDice) {
-        this.damageDice = damageDice;
     }
 
     public void setRemainingFightingPower(int remainingFightingPower) {

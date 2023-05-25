@@ -1,6 +1,5 @@
 package vokorpgback.feature.fighting.application;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -54,13 +53,13 @@ public class FightingUseCase {
 
     private FightingCharacter applyDamagesToCharacter(List<FightingMonster> facedMonsters, FightingCharacter fightingCharacter) {
         Dice dice = new GameDice(6);
-        // if little monster damageDice could be 1 damage only
-        int totalDamagesDice = facedMonsters.stream().map(FightingMonster::damageDice).mapToInt(Integer::intValue).sum();
+        // if little monster combatDice could be 1 damage only
+        int totalCombatDice = facedMonsters.stream().map(FightingMonster::combatDice).mapToInt(Integer::intValue).sum();
 
         int totalDamages = 0;
 
         if (facedMonsters.size() > 1) {
-            for (int i = 0; i < totalDamagesDice; i++) {
+            for (int i = 0; i < totalCombatDice; i++) {
                 totalDamages += dice.roll();
             }
         } else {
@@ -70,7 +69,7 @@ public class FightingUseCase {
         return new FightingCharacter(
                 fightingCharacter.maxFightingPower(),
                 fightingCharacter.remainingFightingPower() - totalDamages,
-                fightingCharacter.damageDices());
+                fightingCharacter.combatDice());
     }
 
     private List<FightingMonster> ComputeCharacterAttack(
@@ -100,7 +99,7 @@ public class FightingUseCase {
         return new FightingMonster(
                 monster.maxFightingPower(),
                 monster.remainingFightingPower() - characterDamage,
-                monster.damageDice());
+                monster.combatDice());
     }
 
     private boolean isAlive(FightingMonster monster, List<FightingMonster> fightingMonsters) {
@@ -115,7 +114,7 @@ public class FightingUseCase {
     }
 
     private FightingMonster toFightingMonster(FightingMonsterDto dto) {
-        return new FightingMonster(dto.getMaxFightingPower(), dto.getRemainingFightingPower(), dto.getDamageDice());
+        return new FightingMonster(dto.getMaxFightingPower(), dto.getRemainingFightingPower(), dto.getCombatDice());
     }
 
     // TODO
@@ -123,7 +122,7 @@ public class FightingUseCase {
     private int computeFightingCharacterDamages(FightingCharacter fightingCharacter) {
         Dice dice = new GameDice(6);
         int totalDamages = 0;
-        for (int i = 0; i < fightingCharacter.damageDices(); i++) {
+        for (int i = 0; i < fightingCharacter.combatDice().getNumberOfDice(); i++) {
             totalDamages += dice.roll();
         };
 
@@ -131,6 +130,6 @@ public class FightingUseCase {
     }
 
     private FightingCharacter toFightingCharacter(FightingCharacterDto dto) {
-        return new FightingCharacter(dto.getMaxFightingPower(), dto.getRemainingFightingPower(), dto.getDamageDice());
+        return new FightingCharacter(dto.getMaxFightingPower(), dto.getRemainingFightingPower());
     }
 }

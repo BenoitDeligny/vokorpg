@@ -1,5 +1,6 @@
 package vokorpgback.feature.fighting.exposition;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -12,8 +13,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+import vokorpgback.feature.commons.domain.model.CharacterCombatDice;
+import vokorpgback.feature.commons.domain.model.Fight;
 import vokorpgback.feature.fighting.application.FightingUseCase;
 import vokorpgback.feature.fighting.domain.CombatResult;
+import vokorpgback.feature.fighting.domain.FightingCharacter;
+import vokorpgback.feature.fighting.domain.FightingMonster;
 import vokorpgback.feature.fighting.exposition.dto.FightingCharacterDto;
 import vokorpgback.feature.fighting.exposition.dto.FightingMonsterDto;
 import vokorpgback.feature.fighting.exposition.dto.FightingRequest;
@@ -36,17 +41,36 @@ public class FightingController {
     public ResponseEntity<FightingResponse> fightAgainstMonsters(@Valid @RequestBody FightingRequest fightingRequest) {
 
         Optional<CombatResult> combatResult = fightUseCase.handle(
-                fightingRequest.getFightingCharacter(),
-                fightingRequest.getMonsters(),
-                fightingRequest.getFightingCharacter().getDamageDice());
-
-        // TODO
-        // add specific exception
-        if (combatResult.isEmpty()) {
-            throw new RuntimeException("No combat result");
-        }
+                toDomain(
+                        fightingRequest.getFightingCharacter(),
+                        fightingRequest.getMonsters()
+                )
+        );
 
         return ResponseEntity.of(toFightingResponse(combatResult.get()));
+    }
+
+    private Fight toDomain(FightingCharacterDto characterDto, List<FightingMonsterDto> monsters) {
+        return new Fight(
+                toCharacterDomain(characterDto),
+                monsters.stream()
+                        .map(this::toMonsterDomain)
+                        .toList()
+        );
+    }
+
+    private FightingCharacter toCharacterDomain(FightingCharacterDto dto) {
+        return new FightingCharacter(
+                dto.getMaxFightingPower(),
+                dto.getRemainingFightingPower()
+        );
+    }
+
+    private FightingMonster toMonsterDomain(FightingMonsterDto dto) {
+        return new FightingMonster(
+                dto.getMaxFightingPower(),
+                dto.getRemainingFightingPower()
+        );
     }
 
     private Optional<FightingResponse> toFightingResponse(CombatResult combatResult) {
@@ -54,13 +78,13 @@ public class FightingController {
         return Optional.of(new FightingResponse(
                 new FightingCharacterDto(
                         combatResult.fightingCharacter().maxFightingPower(),
-                        combatResult.fightingCharacter().remainingFightingPower(),
-                        combatResult.fightingCharacter().damageDices()),
+                        combatResult.fightingCharacter().remainingFightingPower()
+                ),
                 combatResult.fightingMonsters().stream()
                         .map(fightingMonster -> new FightingMonsterDto(
                                 fightingMonster.maxFightingPower(),
-                                fightingMonster.remainingFightingPower(),
-                                fightingMonster.damageDice()))
+                                fightingMonster.remainingFightingPower()
+                        ))
                         .toList()
         ));
     }

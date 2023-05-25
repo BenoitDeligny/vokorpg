@@ -31,29 +31,29 @@ public class FightingUseCaseTest {
         FightingCharacterDto fightingCharacterDto = new FightingCharacterDto();
         fightingCharacterDto.setMaxFightingPower(15);
         fightingCharacterDto.setRemainingFightingPower(15);
-        fightingCharacterDto.setDamageDice(3);
+        fightingCharacterDto.setCombatDice(3);
 
         FightingMonsterDto fightingMonsterDto = new FightingMonsterDto();
         fightingMonsterDto.setMaxFightingPower(3);
         fightingMonsterDto.setRemainingFightingPower(3);
-        fightingMonsterDto.setDamageDice(1);
+        fightingMonsterDto.setCombatDice(1);
 
         FightingMonsterDto fightingMonsterDto2 = new FightingMonsterDto();
         fightingMonsterDto2.setMaxFightingPower(3);
         fightingMonsterDto2.setRemainingFightingPower(3);
-        fightingMonsterDto2.setDamageDice(1);
+        fightingMonsterDto2.setCombatDice(1);
 
         FightingMonsterDto fightingMonsterDto3 = new FightingMonsterDto();
         fightingMonsterDto3.setMaxFightingPower(3);
         fightingMonsterDto3.setRemainingFightingPower(3);
-        fightingMonsterDto3.setDamageDice(1);
+        fightingMonsterDto3.setCombatDice(1);
 
         FightingMonsterDto fightingMonsterDto4 = new FightingMonsterDto();
         fightingMonsterDto4.setMaxFightingPower(3);
         fightingMonsterDto4.setRemainingFightingPower(3);
-        fightingMonsterDto4.setDamageDice(1);
+        fightingMonsterDto4.setCombatDice(1);
 
-        int numberOfMonstersFaced = fightingCharacterDto.getDamageDice();
+        int numberOfMonstersFaced = fightingCharacterDto.getCombatDice();
 
         FightingCharacter expectedFightingCharacter = new FightingCharacter(15, 12, 3);
         FightingMonster expectedFightingMonster = new FightingMonster(3, 3, 1);
@@ -74,29 +74,29 @@ public class FightingUseCaseTest {
         FightingCharacterDto fightingCharacterDto = new FightingCharacterDto();
         fightingCharacterDto.setMaxFightingPower(15);
         fightingCharacterDto.setRemainingFightingPower(15);
-        fightingCharacterDto.setDamageDice(3);
+        fightingCharacterDto.setCombatDice(3);
 
         FightingMonsterDto fightingMonsterDto = new FightingMonsterDto();
         fightingMonsterDto.setMaxFightingPower(25);
         fightingMonsterDto.setRemainingFightingPower(25);
-        fightingMonsterDto.setDamageDice(1);
+        fightingMonsterDto.setCombatDice(1);
 
         FightingMonsterDto fightingMonsterDto2 = new FightingMonsterDto();
         fightingMonsterDto2.setMaxFightingPower(25);
         fightingMonsterDto2.setRemainingFightingPower(25);
-        fightingMonsterDto2.setDamageDice(1);
+        fightingMonsterDto2.setCombatDice(1);
 
         FightingMonsterDto fightingMonsterDto3 = new FightingMonsterDto();
         fightingMonsterDto3.setMaxFightingPower(25);
         fightingMonsterDto3.setRemainingFightingPower(25);
-        fightingMonsterDto3.setDamageDice(1);
+        fightingMonsterDto3.setCombatDice(1);
 
         FightingMonsterDto fightingMonsterDto4 = new FightingMonsterDto();
         fightingMonsterDto4.setMaxFightingPower(25);
         fightingMonsterDto4.setRemainingFightingPower(25);
-        fightingMonsterDto4.setDamageDice(1);
+        fightingMonsterDto4.setCombatDice(1);
 
-        int numberOfMonstersFaced = fightingCharacterDto.getDamageDice();
+        int numberOfMonstersFaced = fightingCharacterDto.getCombatDice();
 
         FightingCharacter expectedFightingCharacter = new FightingCharacter(15, 3, 3);
         FightingMonster expectedFightingMonster = new FightingMonster(25, 16, 1);
