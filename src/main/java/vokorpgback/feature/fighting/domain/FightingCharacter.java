@@ -9,15 +9,12 @@ public record FightingCharacter(
         CharacterCombatDice combatDice) {
 
     public FightingCharacter(int maxFightingPower, int remainingFightingPower, int agilty) {
-        this.maxFightingPower = maxFightingPower;
-        this.remainingFightingPower = remainingFightingPower;
-        this.agility = agilty;
-        this.combatDice = computeCombatDice();
+        this(maxFightingPower, remainingFightingPower, agilty, computeCombatDice(maxFightingPower));
     }
 
-    private CharacterCombatDice computeCombatDice() {
+    private static CharacterCombatDice computeCombatDice(int power) {
         for (CharacterCombatDice dice : CharacterCombatDice.values()) {
-            if (remainingFightingPower >= dice.getMinTotalPower() && remainingFightingPower <= dice.getMaxTotalPower()) {
+            if (power >= dice.getMinTotalPower() && power <= dice.getMaxTotalPower()) {
                 return dice;
             }
         }

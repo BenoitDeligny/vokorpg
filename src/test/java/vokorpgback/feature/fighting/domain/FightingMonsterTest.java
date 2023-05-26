@@ -14,6 +14,7 @@ class FightingMonsterTest {
 
         // then
         Assertions.assertThat(FightingMonster.combatDice()).isEqualTo(MonsterCombatDice.ZERO);
+        Assertions.assertThat(FightingMonster.computeDamage(null)).isEqualTo(MonsterCombatDice.ZERO.);
     }
 
     @Test
@@ -73,7 +74,7 @@ class FightingMonsterTest {
     @Test
     void FightingMonster_should_haveSevenCombatDice() {
         // given
-        FightingMonster FightingMonster = new FightingMonster(165, 5);
+        FightingMonster FightingMonster = new FightingMonster(195, 5);
 
         // then
         Assertions.assertThat(FightingMonster.combatDice()).isEqualTo(MonsterCombatDice.SEVEN);
@@ -82,7 +83,7 @@ class FightingMonsterTest {
     @Test
     void FightingMonster_should_haveEightCombatDice() {
         // given
-        FightingMonster FightingMonster = new FightingMonster(215, 5);
+        FightingMonster FightingMonster = new FightingMonster(255, 5);
 
         // then
         Assertions.assertThat(FightingMonster.combatDice()).isEqualTo(MonsterCombatDice.EIGHT);
@@ -91,7 +92,7 @@ class FightingMonsterTest {
     @Test
     void FightingMonster_should_haveNineCombatDice() {
         // given
-        FightingMonster FightingMonster = new FightingMonster(255, 5);
+        FightingMonster FightingMonster = new FightingMonster(305, 5);
 
         // then
         Assertions.assertThat(FightingMonster.combatDice()).isEqualTo(MonsterCombatDice.NINE);

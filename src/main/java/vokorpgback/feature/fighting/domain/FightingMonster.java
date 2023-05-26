@@ -8,14 +8,12 @@ public record FightingMonster(
         MonsterCombatDice combatDice) {
 
     public FightingMonster(int maxFightingPower, int remainingFightingPower) {
-        this.maxFightingPower = maxFightingPower;
-        this.remainingFightingPower = remainingFightingPower;
-        this.combatDice = computeCombatDice();
+        this(maxFightingPower, remainingFightingPower, computeCombatDice(maxFightingPower));
     }
 
-    private MonsterCombatDice computeCombatDice() {
+    private static MonsterCombatDice computeCombatDice(int power) {
         for (MonsterCombatDice dice : MonsterCombatDice.values()) {
-            if (remainingFightingPower >= dice.getMinTotalPower() && remainingFightingPower <= dice.getMaxTotalPower()) {
+            if (power >= dice.getMinTotalPower() && power <= dice.getMaxTotalPower()) {
                 return dice;
             }
         }

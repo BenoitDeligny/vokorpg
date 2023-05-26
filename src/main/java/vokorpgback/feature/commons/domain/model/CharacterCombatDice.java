@@ -1,5 +1,6 @@
 package vokorpgback.feature.commons.domain.model;
 
+
 public enum CharacterCombatDice {
     ZERO(0, 1, 6, 1),
     ONE(1, 7, 18, 3),
@@ -23,6 +24,20 @@ public enum CharacterCombatDice {
         this.minTotalPower = minTotalPower;
         this.maxTotalPower = maxTotalPower;
         this.averageDamage = averageDamage;
+    }
+
+    public int computeDamage() {
+        GameDice dice = new GameDice(6);
+        int totalDamages = 0;
+
+        if (this.equals(CharacterCombatDice.ZERO)) {
+            return 1;
+        } else {
+            for (int i = 0; i < numberOfDice; i++) {
+                totalDamages += dice.roll();
+            }
+            return totalDamages;
+        }
     }
 
     public int getNumberOfDice() {

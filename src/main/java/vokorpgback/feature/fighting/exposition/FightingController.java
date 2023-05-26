@@ -76,7 +76,8 @@ public class FightingController {
         return Optional.of(new FightingResponse(
                 new FightingCharacterDto(
                         combatResult.fightingCharacter().maxFightingPower(),
-                        combatResult.fightingCharacter().remainingFightingPower()
+                        combatResult.fightingCharacter().remainingFightingPower(),
+                        combatResult.fightingCharacter().agility()
                 ),
                 combatResult.fightingMonsters().stream()
                         .map(fightingMonster -> new FightingMonsterDto(
