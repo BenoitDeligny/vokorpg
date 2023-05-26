@@ -24,7 +24,7 @@ class FightingControllerTest {
         // given
         String requestBody = """
                 {
-                  "fightingCharacter": {
+                  "characterFighter": {
                     "maxFightingPower": 150,
                     "remainingFightingPower": 150
                   },
@@ -39,7 +39,7 @@ class FightingControllerTest {
 
         String responseBody = """
                 {
-                  "fightingCharacter": {
+                  "characterFighter": {
                     "maxFightingPower": 150,
                     "remainingFightingPower": 150
                   },

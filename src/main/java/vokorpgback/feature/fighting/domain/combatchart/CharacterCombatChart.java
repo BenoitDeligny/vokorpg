@@ -1,7 +1,9 @@
-package vokorpgback.feature.commons.domain.model;
+package vokorpgback.feature.fighting.domain.combatchart;
 
 
-public enum CharacterCombatDice {
+import vokorpgback.feature.commons.domain.model.GameDice;
+
+public enum CharacterCombatChart {
     ZERO(0, 1, 6, 1),
     ONE(1, 7, 18, 3),
     TWO(2, 19, 30, 7),
@@ -19,25 +21,11 @@ public enum CharacterCombatDice {
     private final int maxTotalPower;
     private final int averageDamage;
 
-    CharacterCombatDice(int numberOfDice, int minTotalPower, int maxTotalPower, int averageDamage) {
+    CharacterCombatChart(int numberOfDice, int minTotalPower, int maxTotalPower, int averageDamage) {
         this.numberOfDice = numberOfDice;
         this.minTotalPower = minTotalPower;
         this.maxTotalPower = maxTotalPower;
         this.averageDamage = averageDamage;
-    }
-
-    public int computeDamage() {
-        GameDice dice = new GameDice(6);
-        int totalDamages = 0;
-
-        if (this.equals(CharacterCombatDice.ZERO)) {
-            return 1;
-        } else {
-            for (int i = 0; i < numberOfDice; i++) {
-                totalDamages += dice.roll();
-            }
-            return totalDamages;
-        }
     }
 
     public int getNumberOfDice() {

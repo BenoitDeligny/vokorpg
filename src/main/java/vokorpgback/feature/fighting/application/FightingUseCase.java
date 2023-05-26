@@ -3,27 +3,27 @@ package vokorpgback.feature.fighting.application;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import vokorpgback.feature.commons.domain.model.Fight;
+import vokorpgback.feature.fighting.domain.Fight;
 import vokorpgback.feature.fighting.domain.CombatResult;
-import vokorpgback.feature.fighting.domain.FightingCharacter;
-import vokorpgback.feature.fighting.domain.FightingMonster;
+import vokorpgback.feature.fighting.domain.fighter.CharacterFighter;
+import vokorpgback.feature.fighting.domain.fighter.MonsterFighter;
 
 public class FightingUseCase {
     public CombatResult handle(Fight fight) {
-        FightingCharacter fightingCharacter = fight.character();
-        List<FightingMonster> monsters = fight.monsters();
+        CharacterFighter characterFighter = fight.character();
+        List<MonsterFighter> monsters = fight.monsters();
 
-        List<FightingMonster> remainingMonsters = computeRemainingMonsters(monsters, fightingCharacter);
-        FightingCharacter remainingCharacterPower = computeRemainingCharacterPower(remainingMonsters,
-                fightingCharacter);
+        List<MonsterFighter> remainingMonsters = computeRemainingMonsters(monsters, characterFighter);
+        CharacterFighter remainingCharacterPower = computeRemainingCharacterPower(remainingMonsters,
+                characterFighter);
 
         return new CombatResult(remainingCharacterPower, remainingMonsters);
     }
 
-    private List<FightingMonster> computeRemainingMonsters(List<FightingMonster> monsters,
-            FightingCharacter fightingCharacter) {
-        int characterDamage = fightingCharacter.combatDice().computeDamage();
-        int numberOfMonstersFaced = fightingCharacter.agility();
+    private List<MonsterFighter> computeRemainingMonsters(List<MonsterFighter> monsters,
+                                                          CharacterFighter characterFighter) {
+        int characterDamage = characterFighter.combatDice().computeDamage();
+        int numberOfMonstersFaced = characterFighter.agility();
 
         return monsters.stream()
                 .limit(numberOfMonstersFaced)
@@ -32,25 +32,25 @@ public class FightingUseCase {
                 .collect(Collectors.toList());
     }
 
-    private FightingMonster applyDamageToMonster(FightingMonster monster, int characterDamage) {
-        return new FightingMonster(
+    private MonsterFighter applyDamageToMonster(MonsterFighter monster, int characterDamage) {
+        return new MonsterFighter(
                 monster.maxFightingPower(),
                 monster.remainingFightingPower() - characterDamage,
                 monster.combatDice());
     }
 
-    private FightingCharacter computeRemainingCharacterPower(List<FightingMonster> monsters, FightingCharacter fightingCharacter) {
-        int numberOfMonstersFaced = fightingCharacter.agility();
+    private CharacterFighter computeRemainingCharacterPower(List<MonsterFighter> monsters, CharacterFighter characterFighter) {
+        int numberOfMonstersFaced = characterFighter.agility();
         
         int totalDamage = monsters.stream()
                 .limit(numberOfMonstersFaced)
                 .mapToInt(monster -> monster.combatDice().computeDamage())
                 .sum();
 
-        return new FightingCharacter(
-                fightingCharacter.maxFightingPower(),
-                fightingCharacter.remainingFightingPower() - totalDamage,
-                fightingCharacter.agility()
+        return new CharacterFighter(
+                characterFighter.maxFightingPower(),
+                characterFighter.remainingFightingPower() - totalDamage,
+                characterFighter.agility()
         );
     }
 }

@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
-import vokorpgback.feature.commons.domain.model.Fight;
+import vokorpgback.feature.fighting.domain.Fight;
 import vokorpgback.feature.fighting.application.FightingUseCase;
 import vokorpgback.feature.fighting.domain.CombatResult;
-import vokorpgback.feature.fighting.domain.FightingCharacter;
-import vokorpgback.feature.fighting.domain.FightingMonster;
+import vokorpgback.feature.fighting.domain.fighter.CharacterFighter;
+import vokorpgback.feature.fighting.domain.fighter.MonsterFighter;
 import vokorpgback.feature.fighting.exposition.dto.FightingCharacterDto;
 import vokorpgback.feature.fighting.exposition.dto.FightingMonsterDto;
 import vokorpgback.feature.fighting.exposition.dto.FightingRequest;
@@ -56,16 +56,16 @@ public class FightingController {
         );
     }
 
-    private FightingCharacter toCharacterDomain(FightingCharacterDto dto) {
-        return new FightingCharacter(
+    private CharacterFighter toCharacterDomain(FightingCharacterDto dto) {
+        return new CharacterFighter(
                 dto.getMaxFightingPower(),
                 dto.getRemainingFightingPower(),
                 dto.getAgility()
         );
     }
 
-    private FightingMonster toMonsterDomain(FightingMonsterDto dto) {
-        return new FightingMonster(
+    private MonsterFighter toMonsterDomain(FightingMonsterDto dto) {
+        return new MonsterFighter(
                 dto.getMaxFightingPower(),
                 dto.getRemainingFightingPower()
         );
@@ -75,11 +75,11 @@ public class FightingController {
 
         return Optional.of(new FightingResponse(
                 new FightingCharacterDto(
-                        combatResult.fightingCharacter().maxFightingPower(),
-                        combatResult.fightingCharacter().remainingFightingPower(),
-                        combatResult.fightingCharacter().agility()
+                        combatResult.characterFighter().maxFightingPower(),
+                        combatResult.characterFighter().remainingFightingPower(),
+                        combatResult.characterFighter().agility()
                 ),
-                combatResult.fightingMonsters().stream()
+                combatResult.MonsterFighters().stream()
                         .map(fightingMonster -> new FightingMonsterDto(
                                 fightingMonster.maxFightingPower(),
                                 fightingMonster.remainingFightingPower()

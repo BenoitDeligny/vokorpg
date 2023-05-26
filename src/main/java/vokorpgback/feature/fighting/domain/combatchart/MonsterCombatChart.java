@@ -1,6 +1,6 @@
-package vokorpgback.feature.commons.domain.model;
+package vokorpgback.feature.fighting.domain.combatchart;
 
-public enum MonsterCombatDice {
+public enum MonsterCombatChart {
     ZERO(0, 1, 8, 1),
     ONE(1, 9, 24, 3),
     TWO(2, 25, 40, 7),
@@ -18,7 +18,7 @@ public enum MonsterCombatDice {
     private final int maxTotalPower;
     private final int averageDamage;
 
-    MonsterCombatDice(int numberOfDice, int minTotalPower, int maxTotalPower, int averageDamage) {
+    MonsterCombatChart(int numberOfDice, int minTotalPower, int maxTotalPower, int averageDamage) {
         this.numberOfDice = numberOfDice;
         this.minTotalPower = minTotalPower;
         this.maxTotalPower = maxTotalPower;

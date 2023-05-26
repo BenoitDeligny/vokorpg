@@ -1,16 +1,15 @@
 package vokorpgback.feature.fighting.application;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import vokorpgback.feature.commons.domain.model.Fight;
+import vokorpgback.feature.fighting.domain.Fight;
 import vokorpgback.feature.fighting.domain.CombatResult;
-import vokorpgback.feature.fighting.domain.FightingCharacter;
-import vokorpgback.feature.fighting.domain.FightingMonster;
+import vokorpgback.feature.fighting.domain.fighter.CharacterFighter;
+import vokorpgback.feature.fighting.domain.fighter.MonsterFighter;
 
 public class FightingUseCaseTest {
 
@@ -27,18 +26,18 @@ public class FightingUseCaseTest {
     @Test
     void handle_should_killMonsters() {
         // given
-        FightingCharacter fightingCharacter = new FightingCharacter(15, 12, 3);
-        FightingMonster fightingMonster = new FightingMonster(3, 3);
+        CharacterFighter characterFighter = new CharacterFighter(15, 12, 3);
+        MonsterFighter monsterFighter = new MonsterFighter(3, 3);
 
         Fight actualFight = new Fight(
-                fightingCharacter,
-                List.of(fightingMonster));
+                characterFighter,
+                List.of(monsterFighter));
 
         // when
         CombatResult combatResult = useCase.handle(actualFight);
 
         // then
-        Assertions.assertThat(combatResult.fightingMonsters()).isEmpty();
+        Assertions.assertThat(combatResult.MonsterFighters()).isEmpty();
         // Assertions.assertThat(combatResult.fightingCharacter()).isEqualTo(expectedFightingCharacter);
     }
 
