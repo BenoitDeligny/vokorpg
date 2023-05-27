@@ -1,4 +1,4 @@
-package vokorpgback;
+package vokorpgback.commons;
 
 public final class Validation {
 

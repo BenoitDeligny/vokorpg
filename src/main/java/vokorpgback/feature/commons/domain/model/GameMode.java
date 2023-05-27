@@ -1,4 +1,4 @@
-package vokorpgback.feature.character.domain.model;
+package vokorpgback.feature.commons.domain.model;
 
 public enum GameMode {
     EASY(4),

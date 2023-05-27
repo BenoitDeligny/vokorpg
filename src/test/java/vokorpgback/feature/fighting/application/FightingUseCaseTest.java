@@ -1,124 +1,104 @@
 package vokorpgback.feature.fighting.application;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import vokorpgback.commons.FakeDiceRollService;
+import vokorpgback.feature.fighting.domain.Fight;
+import vokorpgback.commons.LoadedDice;
 import vokorpgback.feature.fighting.domain.CombatResult;
-import vokorpgback.feature.fighting.domain.FightingCharacter;
-import vokorpgback.feature.fighting.domain.FightingMonster;
-import vokorpgback.feature.fighting.exposition.dto.FightingCharacterDto;
-import vokorpgback.feature.fighting.exposition.dto.FightingMonsterDto;
+import vokorpgback.feature.fighting.domain.fighter.CharacterFighter;
+import vokorpgback.feature.fighting.domain.fighter.MonsterFighter;
 
-public class FightingUseCaseTest {
+class FightingUseCaseTest {
 
     private FightingUseCase useCase;
 
-    private FakeDiceRollService fakeDiceRoll;
-
     @BeforeEach
     void setUp() {
-        fakeDiceRoll = new FakeDiceRollService();
-        useCase = new FightingUseCase(fakeDiceRoll);
-    }
-
-    // TODO
-    // make other tests
-    @Test
-    void handle_should_killMonsters() {
-        // given
-        FightingCharacterDto fightingCharacterDto = new FightingCharacterDto();
-        fightingCharacterDto.setMaxFightingPower(15);
-        fightingCharacterDto.setRemainingFightingPower(15);
-        fightingCharacterDto.setDamageDice(3);
-
-        FightingMonsterDto fightingMonsterDto = new FightingMonsterDto();
-        fightingMonsterDto.setMaxFightingPower(3);
-        fightingMonsterDto.setRemainingFightingPower(3);
-        fightingMonsterDto.setDamageDice(1);
-
-        FightingMonsterDto fightingMonsterDto2 = new FightingMonsterDto();
-        fightingMonsterDto2.setMaxFightingPower(3);
-        fightingMonsterDto2.setRemainingFightingPower(3);
-        fightingMonsterDto2.setDamageDice(1);
-
-        FightingMonsterDto fightingMonsterDto3 = new FightingMonsterDto();
-        fightingMonsterDto3.setMaxFightingPower(3);
-        fightingMonsterDto3.setRemainingFightingPower(3);
-        fightingMonsterDto3.setDamageDice(1);
-
-        FightingMonsterDto fightingMonsterDto4 = new FightingMonsterDto();
-        fightingMonsterDto4.setMaxFightingPower(3);
-        fightingMonsterDto4.setRemainingFightingPower(3);
-        fightingMonsterDto4.setDamageDice(1);
-
-        int numberOfMonstersFaced = fightingCharacterDto.getDamageDice();
-
-        FightingCharacter expectedFightingCharacter = new FightingCharacter(15, 12, 3);
-        FightingMonster expectedFightingMonster = new FightingMonster(3, 3, 1);
-
-        // when
-        Optional<CombatResult> combatResult = useCase.handle(fightingCharacterDto,
-                List.of(fightingMonsterDto, fightingMonsterDto2, fightingMonsterDto3, fightingMonsterDto4),
-                numberOfMonstersFaced);
-
-        // then
-        Assertions.assertThat(combatResult.get().fightingCharacter()).isEqualTo(expectedFightingCharacter);
-        Assertions.assertThat(combatResult.get().fightingMonsters()).containsExactly(expectedFightingMonster);
+        useCase = new FightingUseCase();
     }
 
     @Test
-    void handle_should_notKillMonster() {
+    void handle_should_fightOneMonsterAndKill() {
         // given
-        FightingCharacterDto fightingCharacterDto = new FightingCharacterDto();
-        fightingCharacterDto.setMaxFightingPower(15);
-        fightingCharacterDto.setRemainingFightingPower(15);
-        fightingCharacterDto.setDamageDice(3);
+        CharacterFighter characterFighter = new CharacterFighter(15, 15, 3, new LoadedDice(4));
+        MonsterFighter monsterFighter = new MonsterFighter(3, 3, new LoadedDice(3));
 
-        FightingMonsterDto fightingMonsterDto = new FightingMonsterDto();
-        fightingMonsterDto.setMaxFightingPower(25);
-        fightingMonsterDto.setRemainingFightingPower(25);
-        fightingMonsterDto.setDamageDice(1);
-
-        FightingMonsterDto fightingMonsterDto2 = new FightingMonsterDto();
-        fightingMonsterDto2.setMaxFightingPower(25);
-        fightingMonsterDto2.setRemainingFightingPower(25);
-        fightingMonsterDto2.setDamageDice(1);
-
-        FightingMonsterDto fightingMonsterDto3 = new FightingMonsterDto();
-        fightingMonsterDto3.setMaxFightingPower(25);
-        fightingMonsterDto3.setRemainingFightingPower(25);
-        fightingMonsterDto3.setDamageDice(1);
-
-        FightingMonsterDto fightingMonsterDto4 = new FightingMonsterDto();
-        fightingMonsterDto4.setMaxFightingPower(25);
-        fightingMonsterDto4.setRemainingFightingPower(25);
-        fightingMonsterDto4.setDamageDice(1);
-
-        int numberOfMonstersFaced = fightingCharacterDto.getDamageDice();
-
-        FightingCharacter expectedFightingCharacter = new FightingCharacter(15, 3, 3);
-        FightingMonster expectedFightingMonster = new FightingMonster(25, 16, 1);
-        FightingMonster expectedFightingMonster2 = new FightingMonster(25, 16, 1);
-        FightingMonster expectedFightingMonster3 = new FightingMonster(25, 16, 1);
-        FightingMonster expectedFightingMonster4 = new FightingMonster(25, 25, 1);
+        Fight actualFight = new Fight(
+                characterFighter,
+                List.of(monsterFighter));
 
         // when
-        Optional<CombatResult> combatResult = useCase.handle(fightingCharacterDto,
-                List.of(fightingMonsterDto, fightingMonsterDto2, fightingMonsterDto3, fightingMonsterDto4),
-                numberOfMonstersFaced);
+        CombatResult combatResult = useCase.handle(actualFight);
 
         // then
-        Assertions.assertThat(combatResult.get().fightingCharacter()).isEqualTo(expectedFightingCharacter);
-        Assertions.assertThat(combatResult.get().fightingMonsters())
-                .containsExactly(
-                        expectedFightingMonster,
-                        expectedFightingMonster2,
-                        expectedFightingMonster3,
-                        expectedFightingMonster4);
+        Assertions.assertThat(combatResult.monsterFighters()).isEmpty();
+        Assertions.assertThat(combatResult.characterFighter().getRemainingFightingPower()).isEqualTo(15);
+    }
+
+    @Test
+    void handle_should_fightOneMonsterAndNotKill() {
+        // given
+        CharacterFighter characterFighter = new CharacterFighter(15, 15, 3, new LoadedDice(4));
+        MonsterFighter monsterFighter = new MonsterFighter(18, 18, new LoadedDice(4));
+
+        Fight actualFight = new Fight(
+                characterFighter,
+                List.of(monsterFighter));
+
+        // when
+        CombatResult combatResult = useCase.handle(actualFight);
+
+        // then
+        Assertions.assertThat(combatResult.monsterFighters()).hasSize(1);
+        Assertions.assertThat(combatResult.monsterFighters().get(0).getRemainingFightingPower()).isEqualTo(14);
+        Assertions.assertThat(combatResult.characterFighter().getRemainingFightingPower()).isEqualTo(11);
+    }
+
+    @Test
+    void handle_should_fightMultipleMonstersAndKillPartOf() {
+        // given
+        CharacterFighter characterFighter = new CharacterFighter(15, 15, 2, new LoadedDice(4));
+        MonsterFighter monsterFighter = new MonsterFighter(18, 2, new LoadedDice(4));
+        MonsterFighter monsterFighter2 = new MonsterFighter(18, 2, new LoadedDice(2));
+        MonsterFighter monsterFighter3 = new MonsterFighter(18, 18, new LoadedDice(3));
+
+        Fight actualFight = new Fight(
+                characterFighter,
+                List.of(monsterFighter, monsterFighter2, monsterFighter3));
+
+        // when
+        CombatResult combatResult = useCase.handle(actualFight);
+
+        // then
+        Assertions.assertThat(combatResult.monsterFighters()).hasSize(1);
+        Assertions.assertThat(combatResult.monsterFighters().get(0).getRemainingFightingPower()).isEqualTo(18);
+        Assertions.assertThat(combatResult.characterFighter().getRemainingFightingPower()).isEqualTo(12);
+    }
+
+    @Test
+    void handle_should_fightMultipleMonstersAndNotKill() {
+        // given
+        CharacterFighter characterFighter = new CharacterFighter(15, 15, 2, new LoadedDice(4));
+        MonsterFighter monsterFighter = new MonsterFighter(18, 18, new LoadedDice(4));
+        MonsterFighter monsterFighter2 = new MonsterFighter(18, 18, new LoadedDice(2));
+        MonsterFighter monsterFighter3 = new MonsterFighter(18, 18, new LoadedDice(3));
+
+        Fight actualFight = new Fight(
+                characterFighter,
+                List.of(monsterFighter, monsterFighter2, monsterFighter3));
+
+        // when
+        CombatResult combatResult = useCase.handle(actualFight);
+
+        // then
+        Assertions.assertThat(combatResult.monsterFighters()).hasSize(3);
+        Assertions.assertThat(combatResult.monsterFighters().get(0).getRemainingFightingPower()).isEqualTo(14);
+        Assertions.assertThat(combatResult.monsterFighters().get(1).getRemainingFightingPower()).isEqualTo(14);
+        Assertions.assertThat(combatResult.monsterFighters().get(2).getRemainingFightingPower()).isEqualTo(18);
+        Assertions.assertThat(combatResult.characterFighter().getRemainingFightingPower()).isEqualTo(5);
     }
 }

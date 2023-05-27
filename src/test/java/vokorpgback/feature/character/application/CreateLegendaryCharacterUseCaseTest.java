@@ -4,57 +4,38 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import org.junit.jupiter.params.ParameterizedTest;
-import vokorpgback.commons.FakeDiceRollService;
+import vokorpgback.feature.character.domain.model.LegendaryCharacter;
 import vokorpgback.feature.character.infra.entity.CharacterEntity;
+import vokorpgback.feature.commons.domain.model.GameMode;
 
 public class CreateLegendaryCharacterUseCaseTest {
 
     private CreateCharacterUseCase useCase;
 
     private InMemoryCharacterRepository repository;
-    private FakeDiceRollService fakeDiceRollService;
 
     @BeforeEach
     void setUp() {
         repository = new InMemoryCharacterRepository();
-        fakeDiceRollService = new FakeDiceRollService(1, 5);
-        useCase = new CreateCharacterUseCase(repository, fakeDiceRollService);
-    }
-
-    @ParameterizedTest(1, 2, 3, 4, 5, 6)
-    void handle_should_createCharacterInNormalMode() {
-        // given
-
-        // when
-        useCase.handle("Name", "normal");
-
-        CharacterEntity expectedCharacter = new CharacterEntity(
-                "Name",
-                18,
-                4,
-                5,
-                6,
-                15);
-
-        // then
-        Assertions.assertThat(repository.getInMemoryDatabase()).containsExactly(expectedCharacter);
+        useCase = new CreateCharacterUseCase(repository);
     }
 
     @Test
-    void handle_should_createCharacterInEasyMode() {
+    void handle_should_createCharacterInDatabase() {
         // given
+        LegendaryCharacter legendaryCharacter = LegendaryCharacter.generateCharacter("Name", GameMode.NORMAL);
 
         // when
-        useCase.handle("Name", "easy");
-        
+        LegendaryCharacter characterCreated = useCase.handle(legendaryCharacter);
+        ;
+
         CharacterEntity expectedCharacter = new CharacterEntity(
-            "Name",
-            18,
-            7,
-            8,
-            9,
-            24);
+                characterCreated.name(),
+                characterCreated.age(),
+                characterCreated.abilities().strength().value(),
+                characterCreated.abilities().agility().value(),
+                characterCreated.abilities().perception().value(),
+                characterCreated.totalPower());
 
         // then
         Assertions.assertThat(repository.getInMemoryDatabase()).containsExactly(expectedCharacter);
