@@ -5,8 +5,6 @@ import vokorpgback.feature.commons.domain.model.GameDice;
 import vokorpgback.feature.commons.domain.model.GameMode;
 import vokorpgback.feature.commons.domain.port.Dice;
 
-import java.lang.reflect.InvocationTargetException;
-
 public record LegendaryCharacter(
         String name,
         int age,

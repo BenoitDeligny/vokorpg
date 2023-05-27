@@ -2,13 +2,8 @@ package vokorpgback.feature.character.domain;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.RepeatedTest;
-
-import vokorpgback.commons.LoadedDice;
-import vokorpgback.feature.character.domain.model.Abilities;
 import vokorpgback.feature.character.domain.model.LegendaryCharacter;
 import vokorpgback.feature.commons.domain.model.GameMode;
-
-import java.lang.reflect.InvocationTargetException;
 
 class LegendaryCharacterTest {
     

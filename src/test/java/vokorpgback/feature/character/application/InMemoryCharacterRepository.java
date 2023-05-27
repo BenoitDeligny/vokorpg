@@ -1,6 +1,5 @@
 package vokorpgback.feature.character.application;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 

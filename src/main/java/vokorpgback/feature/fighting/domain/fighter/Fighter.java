@@ -2,20 +2,22 @@ package vokorpgback.feature.fighting.domain.fighter;
 
 import vokorpgback.feature.commons.domain.port.Dice;
 
-import java.util.List;
-
 public abstract class Fighter {
     private final int maxFightingPower;
     private final int remainingFightingPower;
-    private final List<Dice> combatDice;
+    private Dice combatDice;
 
-    protected Fighter(int maxFightingPower, int remainingFightingPower, List<Dice> dice) {
+    protected Fighter(int maxFightingPower, int remainingFightingPower) {
         this.maxFightingPower = maxFightingPower;
         this.remainingFightingPower = remainingFightingPower;
-        this.combatDice = computeCombatDice(dice);
     }
 
-    abstract List<Dice> computeCombatDice(List<Dice> dice);
+    protected Fighter(int maxFightingPower, int remainingFightingPower, Dice diceType) {
+        this.maxFightingPower = maxFightingPower;
+        this.remainingFightingPower = remainingFightingPower;
+        this.combatDice = diceType;
+    }
+
     abstract int rollDamage();
 
     public boolean isDead() {
@@ -30,7 +32,7 @@ public abstract class Fighter {
         return remainingFightingPower;
     }
 
-    public List<Dice> getCombatDice() {
+    public Dice getCombatDice() {
         return combatDice;
     }
 }

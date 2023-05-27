@@ -1,8 +1,5 @@
 package vokorpgback.feature.fighting.domain.combatchart;
 
-
-import vokorpgback.feature.commons.domain.model.GameDice;
-
 public enum CharacterCombatChart {
     ZERO(0, 1, 6, 1),
     ONE(1, 7, 18, 3),

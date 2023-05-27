@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import vokorpgback.feature.fighting.domain.Fight;
+import vokorpgback.feature.commons.domain.model.GameDice;
 import vokorpgback.feature.fighting.application.FightingUseCase;
 import vokorpgback.feature.fighting.domain.CombatResult;
 import vokorpgback.feature.fighting.domain.fighter.CharacterFighter;
@@ -60,14 +61,16 @@ public class FightingController {
         return new CharacterFighter(
                 dto.getMaxFightingPower(),
                 dto.getRemainingFightingPower(),
-                dto.getAgility()
+                dto.getAgility(),
+                new GameDice(6)
         );
     }
 
     private MonsterFighter toMonsterDomain(FightingMonsterDto dto) {
         return new MonsterFighter(
                 dto.getMaxFightingPower(),
-                dto.getRemainingFightingPower()
+                dto.getRemainingFightingPower(),
+                new GameDice(6)
         );
     }
 
@@ -75,14 +78,14 @@ public class FightingController {
 
         return Optional.of(new FightingResponse(
                 new FightingCharacterDto(
-                        combatResult.characterFighter().maxFightingPower(),
-                        combatResult.characterFighter().remainingFightingPower(),
-                        combatResult.characterFighter().agility()
+                        combatResult.characterFighter().getMaxFightingPower(),
+                        combatResult.characterFighter().getRemainingFightingPower(),
+                        combatResult.characterFighter().getAgility()
                 ),
-                combatResult.MonsterFighters().stream()
+                combatResult.monsterFighters().stream()
                         .map(fightingMonster -> new FightingMonsterDto(
-                                fightingMonster.maxFightingPower(),
-                                fightingMonster.remainingFightingPower()
+                                fightingMonster.getMaxFightingPower(),
+                                fightingMonster.getRemainingFightingPower()
                         ))
                         .toList()
         ));
