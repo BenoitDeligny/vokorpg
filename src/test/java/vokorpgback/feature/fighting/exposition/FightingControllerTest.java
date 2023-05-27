@@ -16,51 +16,50 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class FightingControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
-    @Test
-    void fightAgainstMonsters() throws Exception {
-        // given
-        String requestBody = """
-                {
-                  "characterFighter": {
-                    "maxFightingPower": 150,
-                    "remainingFightingPower": 150
-                  },
-                  "monsters": [
-                    {
-                      "maxFightingPower": 150,
-                      "remainingFightingPower": 150
-                    }
-                  ]
-                }
-                """;
+  @Test
+  void fightAgainstMonsters() throws Exception {
+    // given
+    String requestBody = """
+        {
+          "characterFighter": {
+            "maxFightingPower": 150,
+            "remainingFightingPower": 150
+          },
+          "monsters": [
+            {
+              "maxFightingPower": 150,
+              "remainingFightingPower": 150
+            }
+          ]
+        }
+        """;
 
-        String responseBody = """
-                {
-                  "characterFighter": {
-                    "maxFightingPower": 150,
-                    "remainingFightingPower": 150
-                  },
-                  "monsters": [
-                    {
-                      "maxFightingPower": 150,
-                      "remainingFightingPower": 150
-                    }
-                  ]
-                }
-                """;
+    String responseBody = """
+        {
+          "characterFighter": {
+            "maxFightingPower": 150,
+            "remainingFightingPower": 150
+          },
+          "monsters": [
+            {
+              "maxFightingPower": 150,
+              "remainingFightingPower": 150
+            }
+          ]
+        }
+        """;
 
-        // when
-        // then
-        mockMvc.perform(
-                        post("/fight")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(requestBody)
-                )
-                .andExpect(status().isOk())
-                .andExpect(content().json(responseBody))
-                .andReturn();
-    }
+    // when
+    // then
+    mockMvc.perform(
+        post("/fight")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(requestBody))
+        .andExpect(status().isOk())
+        .andExpect(content().json(responseBody))
+        .andReturn();
+  }
 }

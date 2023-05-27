@@ -21,7 +21,8 @@ public class CharacterFighter extends Fighter {
 
     private CharacterCombatChart computeCombatChart(int maxFightingPower) {
         for (CharacterCombatChart characterCombatChart : CharacterCombatChart.values()) {
-            if (maxFightingPower >= characterCombatChart.getMinTotalPower() && maxFightingPower <= characterCombatChart.getMaxTotalPower()) {
+            if (maxFightingPower >= characterCombatChart.getMinTotalPower()
+                    && maxFightingPower <= characterCombatChart.getMaxTotalPower()) {
                 return characterCombatChart;
             }
         }

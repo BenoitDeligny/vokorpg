@@ -12,10 +12,9 @@ public record LegendaryCharacter(
         int totalPower) {
 
     public LegendaryCharacter {
-        // TODO
-        // add validation on name
         Validation.require(isAgeBetween14And20(age), "Age must be between 15 and 20.");
-        Validation.require(isTotalPowerSumOfAbilities(totalPower, abilities), "TotalPower is not equal to the sum of abilities values.");
+        Validation.require(isTotalPowerSumOfAbilities(totalPower, abilities),
+                "TotalPower is not equal to the sum of abilities values.");
     }
 
     private boolean isAgeBetween14And20(int age) {

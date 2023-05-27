@@ -16,5 +16,5 @@ public class CharacterCreationRequest {
 
     public String getMode() {
         return mode;
-    }  
+    }
 }

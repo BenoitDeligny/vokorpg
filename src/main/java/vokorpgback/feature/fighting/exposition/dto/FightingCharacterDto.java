@@ -14,7 +14,7 @@ public class FightingCharacterDto {
     public int getMaxFightingPower() {
         return maxFightingPower;
     }
-    
+
     public int getRemainingFightingPower() {
         return remainingFightingPower;
     }

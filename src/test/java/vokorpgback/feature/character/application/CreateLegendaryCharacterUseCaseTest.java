@@ -26,15 +26,16 @@ public class CreateLegendaryCharacterUseCaseTest {
         LegendaryCharacter legendaryCharacter = LegendaryCharacter.generateCharacter("Name", GameMode.NORMAL);
 
         // when
-        LegendaryCharacter characterCreated = useCase.handle(legendaryCharacter);;
+        LegendaryCharacter characterCreated = useCase.handle(legendaryCharacter);
+        ;
 
         CharacterEntity expectedCharacter = new CharacterEntity(
-            characterCreated.name(),
-            characterCreated.age(),
-            characterCreated.abilities().strength().value(),
-            characterCreated.abilities().agility().value(),
-            characterCreated.abilities().perception().value(),
-            characterCreated.totalPower());
+                characterCreated.name(),
+                characterCreated.age(),
+                characterCreated.abilities().strength().value(),
+                characterCreated.abilities().agility().value(),
+                characterCreated.abilities().perception().value(),
+                characterCreated.totalPower());
 
         // then
         Assertions.assertThat(repository.getInMemoryDatabase()).containsExactly(expectedCharacter);

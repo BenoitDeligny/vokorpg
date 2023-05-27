@@ -6,7 +6,7 @@ import vokorpgback.feature.character.domain.model.LegendaryCharacter;
 import vokorpgback.feature.commons.domain.model.GameMode;
 
 class LegendaryCharacterTest {
-    
+
     @RepeatedTest(100)
     void generateCharacter_when_normalMode() {
         // given
@@ -23,7 +23,7 @@ class LegendaryCharacterTest {
         Assertions.assertThat(expectedCharacter.abilities().perception().value()).isBetween(2, 7);
         Assertions.assertThat(expectedCharacter.totalPower()).isBetween(6, 21);
     }
-    
+
     @RepeatedTest(100)
     void generateCharacter_when_easyMode() {
         // given

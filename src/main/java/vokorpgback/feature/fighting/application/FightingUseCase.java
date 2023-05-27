@@ -3,60 +3,80 @@ package vokorpgback.feature.fighting.application;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
-import vokorpgback.feature.fighting.domain.Fight;
 import vokorpgback.feature.fighting.domain.CombatResult;
+import vokorpgback.feature.fighting.domain.Fight;
 import vokorpgback.feature.fighting.domain.fighter.CharacterFighter;
 import vokorpgback.feature.fighting.domain.fighter.MonsterFighter;
 
 public class FightingUseCase {
-        public CombatResult handle(Fight fight) {
-                CharacterFighter characterFighter = fight.character();
-                List<MonsterFighter> monsters = fight.monsters();
 
-                List<MonsterFighter> remainingMonsters = computeRemainingMonsters(monsters, characterFighter);
-                CharacterFighter remainingCharacterPower = computeRemainingCharacterPower(remainingMonsters,
-                                characterFighter);
+  public CombatResult handle(Fight fight) {
+    CharacterFighter characterFighter = fight.character();
+    List<MonsterFighter> monsters = fight.monsters();
 
-                return new CombatResult(remainingCharacterPower, remainingMonsters);
-        }
+    List<MonsterFighter> remainingMonsters = computeRemainingMonsters(monsters, characterFighter);
+    CharacterFighter remainingCharacterPower = computeRemainingCharacterPower(remainingMonsters, characterFighter);
 
-        private List<MonsterFighter> computeRemainingMonsters(List<MonsterFighter> monsters,
-                        CharacterFighter characterFighter) {
-                int characterDamage = characterFighter.rollDamage();
-                int numberOfMonstersFaced = characterFighter.getAgility();
+    return new CombatResult(remainingCharacterPower, remainingMonsters);
+  }
 
-                return monsters.stream()
-                                .limit(numberOfMonstersFaced)
-                                .map(monster -> applyDamageToMonster(monster, characterDamage))
-                                .filter(monster -> !monster.isDead() || monsters.contains(monster))
-                                .collect(Collectors.toList());
-        }
+  private List<MonsterFighter> computeRemainingMonsters(
+      List<MonsterFighter> monsters,
+      CharacterFighter characterFighter) {
+    int characterDamage = characterFighter.rollDamage();
+    int numberOfMonstersFaced = characterFighter.getAgility();
 
-        private MonsterFighter applyDamageToMonster(MonsterFighter monster, int characterDamage) {
-                return new MonsterFighter(
-                                monster.getMaxFightingPower(),
-                                monster.getRemainingFightingPower() - characterDamage,
-                                monster.getCombatDice());
-        }
+    return IntStream
+        .range(0, monsters.size())
 
-        private CharacterFighter computeRemainingCharacterPower(List<MonsterFighter> monsters,
-                        CharacterFighter character) {
-                int numberOfMonstersFaced = character.getAgility();
+        .mapToObj(i -> applyDamagesToMonsters(monsters.get(i), characterDamage, i, numberOfMonstersFaced))
+        .filter(monster -> isAlive(monster, monsters))
+        .collect(Collectors.toList());
+  }
 
-                int totalDamage = IntStream.range(0, numberOfMonstersFaced)
-                                .mapToObj(monsters::get)
-                                .mapToInt(MonsterFighter::rollDamage)
-                                .sum();
+  private MonsterFighter applyDamagesToMonsters(
+      MonsterFighter monster,
+      int characterDamage,
+      int index,
+      int numberOfMonstersFaced) {
+    if (index < numberOfMonstersFaced) {
+      return applyDamageToMonster(monster, characterDamage);
+    }
+    return monster;
+  }
 
-                if (monsters.size() > 1) {
-                        totalDamage += monsters.get(0).rollDamage();
-                }
+  private MonsterFighter applyDamageToMonster(
+      MonsterFighter monster,
+      int characterDamage) {
+    return new MonsterFighter(
+        monster.getMaxFightingPower(),
+        monster.getRemainingFightingPower() - characterDamage,
+        monster.getCombatDice());
+  }
 
-                return new CharacterFighter(
-                                character.getMaxFightingPower(),
-                                character.getRemainingFightingPower() - totalDamage,
-                                character.getAgility(),
-                                character.getCombatDice());
-        }
+  private boolean isAlive(MonsterFighter monster, List<MonsterFighter> fightingMonsters) {
+    return !monster.isDead() || fightingMonsters.contains(monster);
+  }
+
+  private CharacterFighter computeRemainingCharacterPower(
+      List<MonsterFighter> monsters,
+      CharacterFighter character) {
+    int numberOfMonstersFaced = character.getAgility();
+
+    int totalDamage = monsters
+        .stream()
+        .limit(numberOfMonstersFaced)
+        .mapToInt(MonsterFighter::rollDamage)
+        .sum();
+
+    if (monsters.size() > 1) {
+      totalDamage += monsters.get(0).rollDamage();
+    }
+
+    return new CharacterFighter(
+        character.getMaxFightingPower(),
+        character.getRemainingFightingPower() - totalDamage,
+        character.getAgility(),
+        character.getCombatDice());
+  }
 }

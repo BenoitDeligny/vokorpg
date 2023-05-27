@@ -18,7 +18,8 @@ public class MonsterFighter extends Fighter {
 
     private MonsterCombatChart computeCombatChart(int maxFightingPower) {
         for (MonsterCombatChart monsterCombatChart : MonsterCombatChart.values()) {
-            if (maxFightingPower >= monsterCombatChart.getMinTotalPower() && maxFightingPower <= monsterCombatChart.getMaxTotalPower()) {
+            if (maxFightingPower >= monsterCombatChart.getMinTotalPower()
+                    && maxFightingPower <= monsterCombatChart.getMaxTotalPower()) {
                 return monsterCombatChart;
             }
         }
