@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import vokorpgback.feature.fighting.domain.CombatResult;
 import vokorpgback.feature.fighting.domain.Fight;
+import vokorpgback.feature.fighting.domain.FightStatus;
 import vokorpgback.feature.fighting.domain.fighter.CharacterFighter;
 import vokorpgback.feature.fighting.domain.fighter.MonsterFighter;
 
@@ -16,8 +17,9 @@ public class FightingUseCase {
 
     List<MonsterFighter> remainingMonsters = computeRemainingMonsters(monsters, characterFighter);
     CharacterFighter remainingCharacterPower = computeRemainingCharacterPower(remainingMonsters, characterFighter);
+    FightStatus fightStatus = computeFightStatus(remainingMonsters, remainingCharacterPower);
 
-    return new CombatResult(remainingCharacterPower, remainingMonsters);
+    return new CombatResult(remainingCharacterPower, remainingMonsters, fightStatus);
   }
 
   private List<MonsterFighter> computeRemainingMonsters(
@@ -28,7 +30,6 @@ public class FightingUseCase {
 
     return IntStream
         .range(0, monsters.size())
-
         .mapToObj(i -> applyDamagesToMonsters(monsters.get(i), characterDamage, i, numberOfMonstersFaced))
         .filter(monster -> isAlive(monster, monsters))
         .collect(Collectors.toList());
@@ -50,7 +51,7 @@ public class FightingUseCase {
       int characterDamage) {
     return new MonsterFighter(
         monster.getMaxFightingPower(),
-        monster.getRemainingFightingPower() - characterDamage,
+        computeRemainingFightingPower(monster.getRemainingFightingPower(), characterDamage),
         monster.getCombatDice());
   }
 
@@ -75,8 +76,24 @@ public class FightingUseCase {
 
     return new CharacterFighter(
         character.getMaxFightingPower(),
-        character.getRemainingFightingPower() - totalDamage,
+        computeRemainingFightingPower(character.getRemainingFightingPower(), totalDamage),
         character.getAgility(),
         character.getCombatDice());
+  }
+
+  private int computeRemainingFightingPower(int actualFightingPower, int damageTaken) {
+    return actualFightingPower - damageTaken < 0 ? 0 : actualFightingPower - damageTaken;
+  }
+
+  private FightStatus computeFightStatus(List<MonsterFighter> remainingMonsters, CharacterFighter character) {
+    if (remainingMonsters.isEmpty()) {
+      return FightStatus.WON;
+    }
+
+    if (character.getRemainingFightingPower() == 0) {
+      return FightStatus.LOST;
+    }
+
+    return FightStatus.ONGOING;
   }
 }

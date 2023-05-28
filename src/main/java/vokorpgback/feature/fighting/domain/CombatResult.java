@@ -7,6 +7,7 @@ import java.util.List;
 
 public record CombatResult(
         CharacterFighter characterFighter,
-        List<MonsterFighter> monsterFighters) {
+        List<MonsterFighter> monsterFighters,
+        FightStatus fightStatus) {
 
 }

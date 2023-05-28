@@ -8,13 +8,16 @@ import jakarta.validation.constraints.NotNull;
 public class FightingRequest {
 
     @NotNull(message = "The fighting character should not be null")
-    private FightingCharacterDto fightingCharacter;
+    private FightingCharacterDto characterFighter;
 
     @NotEmpty(message = "The monsters should not be null")
     private List<FightingMonsterDto> monsters;
 
-    public FightingCharacterDto getFightingCharacter() {
-        return fightingCharacter;
+    public FightingRequest() {
+    }
+
+    public FightingCharacterDto getCharacterFighter() {
+        return characterFighter;
     }
 
     public List<FightingMonsterDto> getMonsters() {

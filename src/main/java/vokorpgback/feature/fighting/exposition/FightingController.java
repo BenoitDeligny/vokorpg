@@ -3,6 +3,7 @@ package vokorpgback.feature.fighting.exposition;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,8 @@ import vokorpgback.feature.fighting.exposition.dto.FightingMonsterDto;
 import vokorpgback.feature.fighting.exposition.dto.FightingRequest;
 import vokorpgback.feature.fighting.exposition.dto.FightingResponse;
 
+// TODO
+// https://www.baeldung.com/exception-handling-for-rest-with-spring
 @RestController
 @RequestMapping("")
 public class FightingController {
@@ -41,7 +44,7 @@ public class FightingController {
 
                 CombatResult combatResult = fightUseCase.handle(
                                 toDomain(
-                                                fightingRequest.getFightingCharacter(),
+                                                fightingRequest.getCharacterFighter(),
                                                 fightingRequest.getMonsters()));
 
                 return ResponseEntity.of(toFightingResponse(combatResult));
@@ -81,6 +84,7 @@ public class FightingController {
                                                 .map(fightingMonster -> new FightingMonsterDto(
                                                                 fightingMonster.getMaxFightingPower(),
                                                                 fightingMonster.getRemainingFightingPower()))
-                                                .toList()));
+                                                .toList(),
+                                combatResult.fightStatus().name()));
         }
 }

@@ -28,4 +28,14 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.badRequest().body(errorResponse);
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ValidationErrorResponse> handleIllegalArgumentException(IllegalArgumentException ex) {
+        ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+        errorResponse.setStatus(HttpStatus.UNPROCESSABLE_ENTITY);
+        errorResponse.setMessage("Entity error");
+        errorResponse.setErrors(List.of(ex.getMessage()));
+
+        return ResponseEntity.badRequest().body(errorResponse);
+    }
 }

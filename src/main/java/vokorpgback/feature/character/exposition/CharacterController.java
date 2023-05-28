@@ -18,6 +18,8 @@ import vokorpgback.feature.character.exposition.dto.CharacterCreationRequest;
 import vokorpgback.feature.character.exposition.dto.CharacterCreationResponse;
 import vokorpgback.feature.commons.domain.model.GameMode;
 
+// TODO
+// https://www.baeldung.com/exception-handling-for-rest-with-spring
 @RestController
 @RequestMapping("")
 public class CharacterController {
@@ -29,7 +31,7 @@ public class CharacterController {
     }
 
     @PostMapping(value = "/character", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<CharacterCreationResponse> createCharacter(
             @Valid @RequestBody CharacterCreationRequest characterCreationRequest) {
 
@@ -41,9 +43,11 @@ public class CharacterController {
     }
 
     private LegendaryCharacter toDomain(String name, String mode) {
-        GameMode gameMode = GameMode.valueOf(mode.toUpperCase());
-
-        return LegendaryCharacter.generateCharacter(name, gameMode);
+        try {
+            return LegendaryCharacter.generateCharacter(name, GameMode.valueOf(mode.toUpperCase()));
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("The mode you choose does not exists.", e);
+        }
     }
 
     private Optional<CharacterCreationResponse> toCharacterCreationResponse(LegendaryCharacter character) {
