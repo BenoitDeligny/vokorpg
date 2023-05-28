@@ -1,6 +1,8 @@
 package vokorpgback.feature.character.domain.model;
 
 import vokorpgback.commons.Validation;
+import vokorpgback.feature.character.domain.model.ability.Abilities;
+import vokorpgback.feature.character.domain.model.gear.Gear;
 import vokorpgback.feature.commons.domain.model.GameDice;
 import vokorpgback.feature.commons.domain.model.GameMode;
 import vokorpgback.feature.commons.domain.port.Dice;
@@ -9,7 +11,8 @@ public record LegendaryCharacter(
         String name,
         int age,
         Abilities abilities,
-        int totalPower) {
+        int totalPower,
+        Gear gear) {
 
     public LegendaryCharacter {
         Validation.require(isAgeBetween14And20(age), "Age must be between 15 and 20.");
@@ -34,7 +37,8 @@ public record LegendaryCharacter(
                 name,
                 computeAge(dice.roll()),
                 abilities,
-                computeTotalPower(abilities));
+                computeTotalPower(abilities),
+                generateDefaultGear());
     }
 
     private static int computeAge(int diceRoll) {
@@ -45,5 +49,23 @@ public record LegendaryCharacter(
         return abilities.strength().value() +
                 abilities.agility().value() +
                 abilities.perception().value();
+    }
+
+    private static Gear generateDefaultGear() {
+        return new Gear(
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
     }
 }

@@ -3,7 +3,6 @@ package vokorpgback.feature.fighting.exposition;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +13,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
-import vokorpgback.feature.fighting.domain.Fight;
 import vokorpgback.feature.commons.domain.model.GameDice;
 import vokorpgback.feature.fighting.application.FightingUseCase;
 import vokorpgback.feature.fighting.domain.CombatResult;
+import vokorpgback.feature.fighting.domain.Fight;
 import vokorpgback.feature.fighting.domain.fighter.CharacterFighter;
 import vokorpgback.feature.fighting.domain.fighter.MonsterFighter;
 import vokorpgback.feature.fighting.exposition.dto.FightingCharacterDto;

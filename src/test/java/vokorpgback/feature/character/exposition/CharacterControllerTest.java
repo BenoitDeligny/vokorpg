@@ -14,9 +14,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import vokorpgback.feature.character.application.CreateCharacterUseCase;
-import vokorpgback.feature.character.domain.model.Abilities;
-import vokorpgback.feature.character.domain.model.Ability;
 import vokorpgback.feature.character.domain.model.LegendaryCharacter;
+import vokorpgback.feature.character.domain.model.ability.Abilities;
+import vokorpgback.feature.character.domain.model.ability.Ability;
 
 // TODO
 // https://www.baeldung.com/exception-handling-for-rest-with-spring

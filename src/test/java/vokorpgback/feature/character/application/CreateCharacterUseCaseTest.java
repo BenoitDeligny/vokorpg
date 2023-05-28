@@ -8,7 +8,7 @@ import vokorpgback.feature.character.domain.model.LegendaryCharacter;
 import vokorpgback.feature.character.infra.entity.CharacterEntity;
 import vokorpgback.feature.commons.domain.model.GameMode;
 
-public class CreateLegendaryCharacterUseCaseTest {
+public class CreateCharacterUseCaseTest {
 
     private CreateCharacterUseCase useCase;
 

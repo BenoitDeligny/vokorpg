@@ -4,8 +4,8 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import vokorpgback.commons.LoadedDice;
-import vokorpgback.feature.character.domain.model.Abilities;
-import vokorpgback.feature.character.domain.model.Ability;
+import vokorpgback.feature.character.domain.model.ability.Abilities;
+import vokorpgback.feature.character.domain.model.ability.Ability;
 import vokorpgback.feature.commons.domain.model.GameMode;
 import vokorpgback.feature.commons.domain.port.Dice;
 

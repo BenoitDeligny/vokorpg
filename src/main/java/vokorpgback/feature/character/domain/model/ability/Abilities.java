@@ -1,4 +1,4 @@
-package vokorpgback.feature.character.domain.model;
+package vokorpgback.feature.character.domain.model.ability;
 
 import vokorpgback.commons.Validation;
 import vokorpgback.feature.commons.domain.model.GameMode;
