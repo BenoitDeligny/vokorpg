@@ -18,7 +18,10 @@ class CharacterFighterTest {
     @Test
     void fightingCharacter_should_beAlive() {
         // given
-        CharacterFighter character = new CharacterFighter(100, 5, 30);
+        CharacterFighter character = new CharacterFighter(
+                100,
+                5,
+                30);
 
         // then
         Assertions.assertThat(character.isDead()).isFalse();

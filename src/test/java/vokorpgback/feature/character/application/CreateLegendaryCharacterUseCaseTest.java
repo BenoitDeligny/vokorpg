@@ -27,7 +27,6 @@ public class CreateLegendaryCharacterUseCaseTest {
 
         // when
         LegendaryCharacter characterCreated = useCase.handle(legendaryCharacter);
-        ;
 
         CharacterEntity expectedCharacter = new CharacterEntity(
                 characterCreated.name(),

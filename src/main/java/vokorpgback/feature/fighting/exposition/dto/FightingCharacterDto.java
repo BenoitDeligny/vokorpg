@@ -5,6 +5,9 @@ public class FightingCharacterDto {
     private int remainingFightingPower;
     private int agility;
 
+    public FightingCharacterDto() {
+    }
+
     public FightingCharacterDto(int maxFightingPower, int remainingFightingPower, int agility) {
         this.maxFightingPower = maxFightingPower;
         this.remainingFightingPower = remainingFightingPower;
