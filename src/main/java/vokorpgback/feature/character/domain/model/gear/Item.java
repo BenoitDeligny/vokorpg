@@ -2,6 +2,11 @@ package vokorpgback.feature.character.domain.model.gear;
 
 import java.util.List;
 
+<<<<<<< HEAD
+=======
+// TODO
+// make it interface and implement it 3 times
+>>>>>>> c5e01379569a04230f2abff58dc8a4f4d685f798
 public record Item(
                 String name,
                 Category category,
