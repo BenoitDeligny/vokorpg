@@ -2,77 +2,99 @@ package vokorpgback.feature.character.domain.model.gear;
 
 import java.util.List;
 
-<<<<<<< HEAD
-=======
-// TODO
-// make it interface and implement it 3 times
->>>>>>> c5e01379569a04230f2abff58dc8a4f4d685f798
-public record Item(
-                String name,
-                Category category,
-                Quality quality,
-                List<Trait> traits,
-                String description) {
+public abstract class Item {
+    protected final String name;
+    protected final Category category;
+    protected final List<Trait> traits;
+    protected final String description;
 
-        public static Item generateDefaultItem() {
-                return new Item(
-                                "Default",
-                                Category.MISCELLANEOUS,
-                                Quality.NORMAL,
-                                List.of(),
-                                "Default item");
-        }
+    protected Item(String name, Category category, List<Trait> traits, String description) {
+        this.name = name;
+        this.category = category;
+        this.traits = traits;
+        this.description = description;
+    }
 
-        public boolean isHelmet() {
-                return category.equals(Category.HELMET);
-        }
+    abstract boolean isHelmet();
 
-        public boolean isMask() {
-                return category.equals(Category.MASK);
-        }
+    abstract boolean isMask();
 
-        public boolean isNecklace() {
-                return category.equals(Category.NECKLACE);
-        }
+    abstract boolean isNecklace();
 
-        public boolean isCloak() {
-                return category.equals(Category.CLOAK);
-        }
+    abstract boolean isCloak();
 
-        public boolean isCostume() {
-                return category.equals(Category.COSTUME);
-        }
+    abstract boolean isCostume();
 
-        public boolean isArmor() {
-                return category.equals(Category.ARMOR);
-        }
+    abstract boolean isArmor();
 
-        public boolean isShield() {
-                return category.equals(Category.SHIELD);
-        }
+    abstract boolean isShield();
 
-        public boolean isWeapon() {
-                return category.equals(Category.WEAPON);
-        }
+    abstract boolean isWeapon();
 
-        public boolean isWristband() {
-                return category.equals(Category.WRISTBAND);
-        }
+    abstract boolean isWristband();
 
-        public boolean isGloves() {
-                return category.equals(Category.GLOVES);
-        }
+    abstract boolean isGloves();
 
-        public boolean isRing() {
-                return category.equals(Category.RING);
-        }
+    abstract boolean isRing();
 
-        public boolean isBelt() {
-                return category.equals(Category.BELT);
-        }
+    abstract boolean isBelt();
 
-        public boolean isBoots() {
-                return category.equals(Category.BOOTS);
-        }
+    abstract boolean isBoots();
+
+    public String getName() {
+        return name;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public List<Trait> getTraits() {
+        return traits;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((category == null) ? 0 : category.hashCode());
+        result = prime * result + ((traits == null) ? 0 : traits.hashCode());
+        result = prime * result + ((description == null) ? 0 : description.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Item other = (Item) obj;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        if (category != other.category)
+            return false;
+        if (traits == null) {
+            if (other.traits != null)
+                return false;
+        } else if (!traits.equals(other.traits))
+            return false;
+        if (description == null) {
+            if (other.description != null)
+                return false;
+        } else if (!description.equals(other.description))
+            return false;
+        return true;
+    }
 
 }

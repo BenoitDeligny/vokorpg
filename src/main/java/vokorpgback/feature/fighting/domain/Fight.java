@@ -6,7 +6,7 @@ import vokorpgback.feature.fighting.domain.fighter.MonsterFighter;
 import java.util.List;
 
 public record Fight(
-        CharacterFighter character,
-        List<MonsterFighter> monsters) {
+                CharacterFighter character,
+                List<MonsterFighter> monsters) {
 
 }

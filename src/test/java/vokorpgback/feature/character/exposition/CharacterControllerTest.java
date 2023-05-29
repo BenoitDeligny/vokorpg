@@ -17,6 +17,8 @@ import vokorpgback.feature.character.application.CreateCharacterUseCase;
 import vokorpgback.feature.character.domain.model.LegendaryCharacter;
 import vokorpgback.feature.character.domain.model.ability.Abilities;
 import vokorpgback.feature.character.domain.model.ability.Ability;
+import vokorpgback.feature.character.domain.model.gear.Gear;
+import vokorpgback.feature.commons.domain.model.GameMode;
 
 // TODO
 // https://www.baeldung.com/exception-handling-for-rest-with-spring
@@ -46,7 +48,8 @@ class CharacterControllerTest {
                         new Ability(4),
                         new Ability(5),
                         new Ability(6)),
-                15);
+                15,
+                Gear.generateDefaultGear(GameMode.NORMAL));
 
         // when
         when(useCase.handle(any())).thenReturn(expectedCharacter);
@@ -56,9 +59,11 @@ class CharacterControllerTest {
                 {
                     "name": "Pouet",
                     "age": 18,
-                    "strength": 4,
-                    "agility": 5,
-                    "perception": 6,
+                    "abilities": [
+                        "strength": 4,
+                        "agility": 5,
+                        "perception": 6,
+                    ]
                     "totalPower": 15
                 }
                     """;

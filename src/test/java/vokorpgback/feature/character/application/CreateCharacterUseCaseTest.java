@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import vokorpgback.feature.character.domain.model.LegendaryCharacter;
-import vokorpgback.feature.character.infra.entity.CharacterEntity;
 import vokorpgback.feature.commons.domain.model.GameMode;
 
 public class CreateCharacterUseCaseTest {
@@ -28,15 +27,7 @@ public class CreateCharacterUseCaseTest {
         // when
         LegendaryCharacter characterCreated = useCase.handle(legendaryCharacter);
 
-        CharacterEntity expectedCharacter = new CharacterEntity(
-                characterCreated.name(),
-                characterCreated.age(),
-                characterCreated.abilities().strength().value(),
-                characterCreated.abilities().agility().value(),
-                characterCreated.abilities().perception().value(),
-                characterCreated.totalPower());
-
         // then
-        Assertions.assertThat(repository.getInMemoryDatabase()).containsExactly(expectedCharacter);
+        Assertions.assertThat(repository.getInMemoryDatabase()).containsExactly(characterCreated);
     }
 }

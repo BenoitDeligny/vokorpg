@@ -14,5 +14,5 @@ public enum Category {
     RING,
     BELT,
     BOOTS,
-    MISCELLANEOUS
+    GENERIC
 }

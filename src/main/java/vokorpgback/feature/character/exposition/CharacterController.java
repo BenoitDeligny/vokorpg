@@ -1,5 +1,6 @@
 package vokorpgback.feature.character.exposition;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -14,8 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 import vokorpgback.feature.character.application.CreateCharacterUseCase;
 import vokorpgback.feature.character.domain.model.LegendaryCharacter;
+import vokorpgback.feature.character.domain.model.ability.Abilities;
+import vokorpgback.feature.character.domain.model.gear.Gear;
+import vokorpgback.feature.character.domain.model.gear.Item;
+import vokorpgback.feature.character.exposition.dto.AbilitiesDto;
 import vokorpgback.feature.character.exposition.dto.CharacterCreationRequest;
 import vokorpgback.feature.character.exposition.dto.CharacterCreationResponse;
+import vokorpgback.feature.character.exposition.dto.GearDto;
+import vokorpgback.feature.character.exposition.dto.ItemDto;
 import vokorpgback.feature.commons.domain.model.GameMode;
 
 // TODO
@@ -54,9 +61,43 @@ public class CharacterController {
         return Optional.of(new CharacterCreationResponse(
                 character.name(),
                 character.age(),
-                character.abilities().strength().value(),
-                character.abilities().agility().value(),
-                character.abilities().perception().value(),
-                character.totalPower()));
+                toAbilitiesDto(character.abilities()),
+                character.totalPower(),
+                // TODO
+                // renvoyer chaque emplacement séparement
+                toGearDto(character.gear())));
+    }
+
+    private AbilitiesDto toAbilitiesDto(Abilities abilities) {
+        return new AbilitiesDto(
+                abilities.strength().value(),
+                abilities.agility().value(),
+                abilities.perception().value());
+    }
+
+    private GearDto toGearDto(Gear gear) {
+        return new GearDto(List.of(
+                toItemDto(gear.helmet()),
+                toItemDto(gear.mask()),
+                toItemDto(gear.necklace()),
+                toItemDto(gear.cloak()),
+                toItemDto(gear.costume()),
+                toItemDto(gear.armor()),
+                toItemDto(gear.shield()),
+                toItemDto(gear.primaryWeapon()),
+                toItemDto(gear.secondaryWeapon()),
+                toItemDto(gear.wristband()),
+                toItemDto(gear.gloves()),
+                toItemDto(gear.ring()),
+                toItemDto(gear.belt()),
+                toItemDto(gear.boots())));
+    }
+
+    private ItemDto toItemDto(Item item) {
+        return new ItemDto(
+                item.getName(),
+                item.getCategory().name(),
+                item.getTraits().stream().map(trait -> trait.traitDescription()).toList(),
+                item.getDescription());
     }
 }

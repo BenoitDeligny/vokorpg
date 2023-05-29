@@ -7,6 +7,8 @@ import vokorpgback.feature.commons.domain.model.GameDice;
 import vokorpgback.feature.commons.domain.model.GameMode;
 import vokorpgback.feature.commons.domain.port.Dice;
 
+// TODO
+// it will be soon at feature level
 public record LegendaryCharacter(
         String name,
         int age,
@@ -38,7 +40,7 @@ public record LegendaryCharacter(
                 computeAge(dice.roll()),
                 abilities,
                 computeTotalPower(abilities),
-                Gear.generateDefaultGear());
+                Gear.generateDefaultGear(gameMode));
     }
 
     private static int computeAge(int diceRoll) {

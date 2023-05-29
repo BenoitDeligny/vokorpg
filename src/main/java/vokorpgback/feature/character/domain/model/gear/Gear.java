@@ -1,6 +1,9 @@
 package vokorpgback.feature.character.domain.model.gear;
 
+import java.util.List;
+
 import vokorpgback.commons.Validation;
+import vokorpgback.feature.commons.domain.model.GameMode;
 
 public record Gear(
                 Item helmet,
@@ -17,11 +20,7 @@ public record Gear(
                 Item ring,
                 Item belt,
                 Item boots) {
-        /*
-         * interface MyType {
-         * class Empty implements MyType{ }
-         * record NotEmpty(String valeur) implements MyType {}
-         */
+
         public Gear {
                 Validation.require(helmet.isHelmet(), "This item should be a helmet.");
                 Validation.require(mask.isMask(), "This item should be a mask.");
@@ -39,21 +38,43 @@ public record Gear(
                 Validation.require(boots.isBoots(), "This item should be boots.");
         }
 
-        public static Gear generateDefaultGear() {
+        public static Gear generateDefaultGear(GameMode mode) {
+                if (mode.equals(GameMode.EASY)) {
+                        return new Gear(
+                                        new GenericItem(),
+                                        new GenericItem(),
+                                        new GenericItem(),
+                                        new GenericItem(),
+                                        new GenericItem(),
+                                        new GenericItem(),
+                                        new GenericItem(),
+                                        new MagicItem("Sacred Knife",
+                                                        Category.WEAPON,
+                                                        List.of(new Trait("A simple enchanted knife")),
+                                                        "A simple enchanted knife",
+                                                        false),
+                                        new GenericItem(),
+                                        new GenericItem(),
+                                        new GenericItem(),
+                                        new GenericItem(),
+                                        new GenericItem(),
+                                        new GenericItem());
+                }
+
                 return new Gear(
-                                Item.generateDefaultItem(),
-                                Item.generateDefaultItem(),
-                                Item.generateDefaultItem(),
-                                Item.generateDefaultItem(),
-                                Item.generateDefaultItem(),
-                                Item.generateDefaultItem(),
-                                Item.generateDefaultItem(),
-                                Item.generateDefaultItem(),
-                                Item.generateDefaultItem(),
-                                Item.generateDefaultItem(),
-                                Item.generateDefaultItem(),
-                                Item.generateDefaultItem(),
-                                Item.generateDefaultItem(),
-                                Item.generateDefaultItem());
+                                new GenericItem(),
+                                new GenericItem(),
+                                new GenericItem(),
+                                new GenericItem(),
+                                new GenericItem(),
+                                new GenericItem(),
+                                new GenericItem(),
+                                new GenericItem(),
+                                new GenericItem(),
+                                new GenericItem(),
+                                new GenericItem(),
+                                new GenericItem(),
+                                new GenericItem(),
+                                new GenericItem());
         }
 }
