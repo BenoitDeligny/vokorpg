@@ -13,5 +13,6 @@ public enum Category {
     GLOVES,
     RING,
     BELT,
-    BOOTS
+    BOOTS,
+    MISCELLANEOUS
 }

@@ -2,12 +2,23 @@ package vokorpgback.feature.character.domain.model.gear;
 
 import java.util.List;
 
-public record MagicItem(
+// TODO
+// make it interface and implement it 3 times
+public record Item(
                 String name,
                 Category category,
                 Quality quality,
                 List<Trait> traits,
                 String description) {
+
+        public static Item generateDefaultItem() {
+                return new Item(
+                                "Default",
+                                Category.MISCELLANEOUS,
+                                Quality.NORMAL,
+                                List.of(),
+                                "Default item");
+        }
 
         public boolean isHelmet() {
                 return category.equals(Category.HELMET);
