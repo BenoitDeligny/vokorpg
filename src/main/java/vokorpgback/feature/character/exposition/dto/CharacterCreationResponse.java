@@ -1,43 +1,38 @@
 package vokorpgback.feature.character.exposition.dto;
 
 public class CharacterCreationResponse {
-    private final String name;
-    private final int age;
-    private final int strength;
-    private final int agility;
-    private final int perception;
-    private final int totalPower;
+  private final String name;
+  private final int age;
+  private final AbilitiesDto abilities;
+  private final int totalPower;
+  private final GearDto gear;
 
-    public CharacterCreationResponse(String name, int age, int strength, int agility, int perception, int totalPower) {
-        this.name = name;
-        this.age = age;
-        this.strength = strength;
-        this.agility = agility;
-        this.perception = perception;
-        this.totalPower = totalPower;
-    }
+  public CharacterCreationResponse(
+      String name, int age, AbilitiesDto abilities, int totalPower, GearDto gear) {
+    this.name = name;
+    this.age = age;
+    this.abilities = abilities;
+    this.totalPower = totalPower;
+    this.gear = gear;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public int getAge() {
-        return age;
-    }
+  public int getAge() {
+    return age;
+  }
 
-    public int getStrength() {
-        return strength;
-    }
+  public AbilitiesDto getAbilities() {
+    return abilities;
+  }
 
-    public int getAgility() {
-        return agility;
-    }
+  public int getTotalPower() {
+    return totalPower;
+  }
 
-    public int getPerception() {
-        return perception;
-    }
-
-    public int getTotalPower() {
-        return totalPower;
-    }
+  public GearDto getGear() {
+    return gear;
+  }
 }
