@@ -7,8 +7,8 @@ import vokorpgback.feature.fighting.application.FightingUseCase;
 @Configuration
 public class FightingBean {
 
-    @Bean
-    FightingUseCase fightingUseCase() {
-        return new FightingUseCase();
-    }
+  @Bean
+  FightingUseCase fightingUseCase() {
+    return new FightingUseCase();
+  }
 }

@@ -1,5 +1,12 @@
 package vokorpgback.feature.fighting.exposition;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -12,55 +19,48 @@ import vokorpgback.feature.fighting.domain.FightStatus;
 import vokorpgback.feature.fighting.domain.fighter.CharacterFighter;
 import vokorpgback.feature.fighting.domain.fighter.MonsterFighter;
 
-import java.util.List;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 // TODO
 // https://www.baeldung.com/exception-handling-for-rest-with-spring
 @WebMvcTest(FightingController.class)
 class FightingControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+  @Autowired private MockMvc mockMvc;
 
-    @MockBean
-    private FightingUseCase useCase;
+  @MockBean private FightingUseCase useCase;
 
-    @Test
-    void fightAgainstMonsters_should_getCombatResultOfOngoing() throws Exception {
-        // given
-        String requestBody = """
+  @Test
+  void fightAgainstMonsters_should_getCombatResultOfOngoing() throws Exception {
+    // given
+    String requestBody =
+        """
                 {
                   "characterFighter": {
                     "maxFightingPower": 15,
                     "remainingFightingPower": 15,
-                    "agility": 3
+                    "agility": 3,
+                    "attemptToFlee": false
                   },
                   "monsters": [
                     {
                       "maxFightingPower": 17,
                       "remainingFightingPower": 17
                     }
-                  ],
-                  "attemptToFlee": false
+                  ]
                 }
                     """;
 
-        CombatResult combatResult = new CombatResult(
-                new CharacterFighter(15, 12, 3),
-                List.of(new MonsterFighter(17, 13)),
-                FightStatus.ONGOING);
+    CombatResult combatResult =
+        new CombatResult(
+            new CharacterFighter(15, 12, 3),
+            List.of(new MonsterFighter(17, 13)),
+            FightStatus.ONGOING);
 
-        // when
-        when(useCase.handle(any())).thenReturn(combatResult);
+    // when
+    when(useCase.handle(any())).thenReturn(combatResult);
 
-        // then
-        String responseBody = """
+    // then
+    String responseBody =
+        """
                   {
                     "character": {
                         "maxFightingPower": 15,
@@ -77,73 +77,74 @@ class FightingControllerTest {
                 }
                     """;
 
-        mockMvc.perform(post("/fight")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestBody))
-                .andExpect(status().isOk())
-                .andExpect(content().json(responseBody))
-                .andReturn();
-    }
+    mockMvc
+        .perform(post("/fight").contentType(MediaType.APPLICATION_JSON).content(requestBody))
+        .andExpect(status().isOk())
+        .andExpect(content().json(responseBody))
+        .andReturn();
+  }
 
-
-    @Test
-    void fightAgainstMonsters_should_attemptToFleeFight() throws Exception {
-        // given
-        String requestBody = """
+  @Test
+  void fightAgainstMonsters_should_attemptToFleeFight() throws Exception {
+    // given
+    String requestBody =
+        """
                 {
                   "characterFighter": {
                     "maxFightingPower": 15,
                     "remainingFightingPower": 15,
-                    "agility": 3
+                    "agility": 3,
+                    "attemptToFlee": true
                   },
                   "monsters": [
                     {
                       "maxFightingPower": 17,
                       "remainingFightingPower": 17
                     }
-                  ],
-                  "attemptToFlee": true
+                  ]
                 }
                     """;
 
-        CombatResult combatResult = new CombatResult(
-                new CharacterFighter(15, 12, 3),
-                List.of(new MonsterFighter(17, 13)),
-                FightStatus.ONGOING);
+    CombatResult combatResult =
+        new CombatResult(
+            new CharacterFighter(15, 15, 3),
+            List.of(new MonsterFighter(17, 17)),
+            FightStatus.FLED);
 
-        // when
-        when(useCase.handle(any())).thenReturn(combatResult);
+    // when
+    when(useCase.handle(any())).thenReturn(combatResult);
 
-        // then
-        String responseBody = """
+    // then
+    String responseBody =
+        """
                   {
                     "character": {
                         "maxFightingPower": 15,
-                        "remainingFightingPower": 12,
+                        "remainingFightingPower": 15,
                         "agility": 3
                     },
                     "monsters": [
                         {
                             "maxFightingPower": 17,
-                            "remainingFightingPower": 13
+                            "remainingFightingPower": 17
                         }
                     ],
-                    "fightStatus": "ONGOING"
+                    "fightStatus": "FLED"
                 }
                     """;
 
-        mockMvc.perform(post("/fight")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestBody))
-                .andExpect(status().isOk())
-                .andExpect(content().json(responseBody))
-                .andReturn();
-    }
+    mockMvc
+        .perform(post("/fight").contentType(MediaType.APPLICATION_JSON).content(requestBody))
+        .andExpect(status().isOk())
+        .andExpect(content().json(responseBody))
+        .andReturn();
+  }
 
-    @Test
-    void fightAgainstMonsters_should_getBadRequest() throws Exception {
-        // given
-        String requestBody = """
+  @Test
+  void fightAgainstMonsters_should_getBadRequest() throws Exception {
+    // given
+    String requestBody =
+        """
                 {
                   "monsters": [
                     {
@@ -154,12 +155,11 @@ class FightingControllerTest {
                 }
                 """;
 
-        // when
-        // then
-        mockMvc.perform(post("/fight")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestBody))
-                .andExpect(status().isBadRequest())
-                .andReturn();
-    }
+    // when
+    // then
+    mockMvc
+        .perform(post("/fight").contentType(MediaType.APPLICATION_JSON).content(requestBody))
+        .andExpect(status().isBadRequest())
+        .andReturn();
+  }
 }

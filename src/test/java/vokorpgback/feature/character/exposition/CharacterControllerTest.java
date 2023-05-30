@@ -1,5 +1,11 @@
 package vokorpgback.feature.character.exposition;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -13,48 +19,40 @@ import vokorpgback.feature.character.domain.model.ability.Ability;
 import vokorpgback.feature.character.domain.model.gear.Gear;
 import vokorpgback.feature.commons.domain.model.GameMode;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 // TODO
 // https://www.baeldung.com/exception-handling-for-rest-with-spring
 @WebMvcTest(CharacterController.class)
 class CharacterControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+  @Autowired private MockMvc mockMvc;
 
-    @MockBean
-    private CreateCharacterUseCase useCase;
+  @MockBean private CreateCharacterUseCase useCase;
 
-    @Test
-    void createCharacter_should_create() throws Exception {
-        // given
-        String requestBody = """
+  @Test
+  void createCharacter_should_create() throws Exception {
+    // given
+    String requestBody =
+        """
                 {
                     "name": "Pouet",
                     "mode": "normal"
                 }
                     """;
 
-        LegendaryCharacter expectedCharacter = new LegendaryCharacter(
-                "Pouet",
-                18,
-                new Abilities(
-                        new Ability(4),
-                        new Ability(5),
-                        new Ability(6)),
-                15,
-                Gear.generateDefaultGear(GameMode.NORMAL));
+    LegendaryCharacter expectedCharacter =
+        new LegendaryCharacter(
+            "Pouet",
+            18,
+            new Abilities(new Ability(4), new Ability(5), new Ability(6)),
+            15,
+            Gear.generateDefaultGear(GameMode.NORMAL));
 
-        // when
-        when(useCase.handle(any())).thenReturn(expectedCharacter);
+    // when
+    when(useCase.handle(any())).thenReturn(expectedCharacter);
 
-        // then
-        String responseBody = """
+    // then
+    String responseBody =
+        """
                 {
                     "name": "Pouet",
                     "age": 18,
@@ -67,31 +65,30 @@ class CharacterControllerTest {
                 }
                     """;
 
-        mockMvc.perform(post("/character")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestBody))
-                .andExpect(status().isOk())
-                .andExpect(content().json(responseBody))
-                .andReturn();
-    }
+    mockMvc
+        .perform(post("/character").contentType(MediaType.APPLICATION_JSON).content(requestBody))
+        .andExpect(status().isOk())
+        .andExpect(content().json(responseBody))
+        .andReturn();
+  }
 
-    @Test
-    void createCharacter_should_getBadRequest() throws Exception {
-        // given
-        String requestBody = """
+  @Test
+  void createCharacter_should_getBadRequest() throws Exception {
+    // given
+    String requestBody =
+        """
                 {
                     "name": "Pouet",
                     "mode": "SUPA_EASY"
                 }
                     """;
 
-        // when
-        // then
+    // when
+    // then
 
-        mockMvc.perform(post("/character")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestBody))
-                .andExpect(status().isBadRequest())
-                .andReturn();
-    }
+    mockMvc
+        .perform(post("/character").contentType(MediaType.APPLICATION_JSON).content(requestBody))
+        .andExpect(status().isBadRequest())
+        .andReturn();
+  }
 }

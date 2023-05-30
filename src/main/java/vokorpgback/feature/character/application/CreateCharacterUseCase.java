@@ -5,13 +5,13 @@ import vokorpgback.feature.character.domain.port.CharacterStorage;
 
 public class CreateCharacterUseCase {
 
-    private final CharacterStorage repository;
+  private final CharacterStorage repository;
 
-    public CreateCharacterUseCase(CharacterStorage repository) {
-        this.repository = repository;
-    }
+  public CreateCharacterUseCase(CharacterStorage repository) {
+    this.repository = repository;
+  }
 
-    public LegendaryCharacter handle(LegendaryCharacter legendaryCharacter) {
-        return repository.create(legendaryCharacter);
-    }
+  public LegendaryCharacter handle(LegendaryCharacter legendaryCharacter) {
+    return repository.create(legendaryCharacter);
+  }
 }
