@@ -29,7 +29,7 @@ class CharacterControllerTest {
   @MockBean private CreateCharacterUseCase useCase;
 
   @Test
-  void createCharacter_should_create() throws Exception {
+  void createCharacter_should_createNormal() throws Exception {
     // given
     String requestBody =
         """
@@ -53,16 +53,238 @@ class CharacterControllerTest {
     // then
     String responseBody =
         """
+            {
+                "name": "Pouet",
+                "age": 18,
+                "abilities": {
+                    "strength": 4,
+                    "agility": 5,
+                    "perception": 6
+                },
+                "totalPower": 15,
+                "gear": {
+                    "items": [
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        },
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        },
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        },
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        },
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        },
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        },
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        },
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        },
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        },
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        },
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        },
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        },
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        },
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        }
+                    ]
+                }
+            }
+                    """;
+
+    mockMvc
+        .perform(post("/character").contentType(MediaType.APPLICATION_JSON).content(requestBody))
+        .andExpect(status().isOk())
+        .andExpect(content().json(responseBody))
+        .andReturn();
+  }
+
+  @Test
+  void createCharacter_should_createEasy() throws Exception {
+    // given
+    String requestBody =
+        """
                 {
                     "name": "Pouet",
-                    "age": 18,
-                    "abilities": [
-                        "strength": 4,
-                        "agility": 5,
-                        "perception": 6,
-                    ]
-                    "totalPower": 15
+                    "mode": "easy"
                 }
+                    """;
+
+    LegendaryCharacter expectedCharacter =
+        new LegendaryCharacter(
+            "Pouet",
+            18,
+            new Abilities(new Ability(7), new Ability(9), new Ability(10)),
+            26,
+            Gear.generateDefaultGear(GameMode.EASY));
+
+    // when
+    when(useCase.handle(any())).thenReturn(expectedCharacter);
+
+    // then
+    String responseBody =
+        """
+            {
+                "name": "Pouet",
+                "age": 18,
+                "abilities": {
+                    "strength": 7,
+                    "agility": 9,
+                    "perception": 10
+                },
+                "totalPower": 26,
+                "gear": {
+                    "items": [
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        },
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        },
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        },
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        },
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        },
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        },
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        },
+                        {
+                            "name": "Sacred Knife",
+                            "category": "WEAPON",
+                            "traits": [
+                                "A simple enchanted knife"
+                            ],
+                            "description": "A simple enchanted knife"
+                        },
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        },
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        },
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        },
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        },
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        },
+                        {
+                            "name": "Generic item",
+                            "category": "GENERIC",
+                            "traits": [],
+                            "description": "A useless item"
+                        }
+                    ]
+                }
+            }
                     """;
 
     mockMvc
