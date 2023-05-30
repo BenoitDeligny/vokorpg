@@ -1,6 +1,6 @@
 package vokorpgback.feature.character.domain.model.gear;
 
-public enum Category {
+public enum ItemCategory {
     HELMET,
     MASK,
     NECKLACE,
@@ -14,5 +14,6 @@ public enum Category {
     RING,
     BELT,
     BOOTS,
+    MISCELLANEOUS,
     GENERIC
 }

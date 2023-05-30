@@ -5,7 +5,7 @@ import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.RepeatedTest;
 import vokorpgback.feature.character.domain.model.LegendaryCharacter;
-import vokorpgback.feature.character.domain.model.gear.Category;
+import vokorpgback.feature.character.domain.model.gear.ItemCategory;
 import vokorpgback.feature.character.domain.model.gear.GenericItem;
 import vokorpgback.feature.character.domain.model.gear.MagicItem;
 import vokorpgback.feature.character.domain.model.gear.Trait;
@@ -75,7 +75,7 @@ class LegendaryCharacterTest {
         Assertions.assertThat(expectedCharacter.gear().primaryWeapon()).isEqualTo(
                 new MagicItem(
                         "Sacred Knife",
-                        Category.WEAPON,
+                        ItemCategory.WEAPON,
                         List.of(new Trait("A simple enchanted knife")),
                         "A simple enchanted knife",
                         false));

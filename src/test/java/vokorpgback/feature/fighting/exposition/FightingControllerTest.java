@@ -26,85 +26,86 @@ import vokorpgback.feature.fighting.domain.fighter.MonsterFighter;
 @WebMvcTest(FightingController.class)
 class FightingControllerTest {
 
-  @Autowired
-  private MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
 
-  @MockBean
-  private FightingUseCase useCase;
+    @MockBean
+    private FightingUseCase useCase;
 
-  @Test
-  void fightAgainstMonsters_should_getCombatResultOfOngoing() throws Exception {
-    // given
-    String requestBody = """
-        {
-          "characterFighter": {
-            "maxFightingPower": 15,
-            "remainingFightingPower": 15,
-            "agility": 3
-          },
-          "monsters": [
-            {
-              "maxFightingPower": 17,
-              "remainingFightingPower": 17
-            }
-          ]
-        }
-        """;
-
-    CombatResult combatResult = new CombatResult(
-        new CharacterFighter(15, 12, 3),
-        List.of(new MonsterFighter(17, 13)),
-        FightStatus.ONGOING);
-
-    // when
-    when(useCase.handle(any())).thenReturn(combatResult);
-
-    // then
-    String responseBody = """
-          {
-            "character": {
-                "maxFightingPower": 15,
-                "remainingFightingPower": 12,
-                "agility": 3
-            },
-            "monsters": [
+    @Test
+    void fightAgainstMonsters_should_getCombatResultOfOngoing() throws Exception {
+        // given
+        String requestBody = """
                 {
-                    "maxFightingPower": 17,
-                    "remainingFightingPower": 13
+                  "characterFighter": {
+                    "maxFightingPower": 15,
+                    "remainingFightingPower": 15,
+                    "agility": 3
+                  },
+                  "monsters": [
+                    {
+                      "maxFightingPower": 17,
+                      "remainingFightingPower": 17
+                    }
+                  ],
+                  "isAttemptToFlee": false
                 }
-            ],
-            "fightStatus": "ONGOING"
-        }
-            """;
+                    """;
 
-    mockMvc.perform(post("/fight")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(requestBody))
-        .andExpect(status().isOk())
-        .andExpect(content().json(responseBody))
-        .andReturn();
-  }
+        CombatResult combatResult = new CombatResult(
+                new CharacterFighter(15, 12, 3),
+                List.of(new MonsterFighter(17, 13)),
+                FightStatus.ONGOING);
 
-  @Test
-  void fightAgainstMonsters_should_getBadRequest() throws Exception {
-    // given
-    String requestBody = """
-        {
-          "monsters": [
-            {
-              "maxFightingPower": 17,
-              "remainingFightingPower": 17
-            }
-          ]
-        }
-        """;
+        // when
+        when(useCase.handle(any())).thenReturn(combatResult);
 
-    // when
-    // then
-    mockMvc.perform(post("/fight")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(requestBody))
-        .andExpect(status().isBadRequest())
-        .andReturn();
-  }
+        // then
+        String responseBody = """
+                  {
+                    "character": {
+                        "maxFightingPower": 15,
+                        "remainingFightingPower": 12,
+                        "agility": 3
+                    },
+                    "monsters": [
+                        {
+                            "maxFightingPower": 17,
+                            "remainingFightingPower": 13
+                        }
+                    ],
+                    "fightStatus": "ONGOING"
+                }
+                    """;
+
+        mockMvc.perform(post("/fight")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isOk())
+                .andExpect(content().json(responseBody))
+                .andReturn();
+    }
+
+    @Test
+    void fightAgainstMonsters_should_getBadRequest() throws Exception {
+        // given
+        String requestBody = """
+                {
+                  "monsters": [
+                    {
+                      "maxFightingPower": 17,
+                      "remainingFightingPower": 17
+                    }
+                  ]
+                }
+                """;
+
+        // when
+        // then
+        mockMvc.perform(post("/fight")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+    }
 }

@@ -49,7 +49,7 @@ public record Gear(
                                         new GenericItem(),
                                         new GenericItem(),
                                         new MagicItem("Sacred Knife",
-                                                        Category.WEAPON,
+                                                        ItemCategory.WEAPON,
                                                         List.of(new Trait("A simple enchanted knife")),
                                                         "A simple enchanted knife",
                                                         false),

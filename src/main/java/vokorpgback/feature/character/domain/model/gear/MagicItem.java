@@ -5,74 +5,74 @@ import java.util.List;
 public class MagicItem extends Item {
         boolean isRelic;
 
-        public MagicItem(String name, Category category, List<Trait> traits, String description, boolean isRelic) {
-                super(name, category, traits, description);
+        public MagicItem(String name, ItemCategory itemCategory, List<Trait> traits, String description, boolean isRelic) {
+                super(name, itemCategory, traits, description);
                 this.isRelic = isRelic;
         }
 
         @Override
         public boolean isHelmet() {
-                return category.equals(Category.HELMET);
+                return itemCategory.equals(ItemCategory.HELMET);
         }
 
         @Override
         public boolean isMask() {
-                return category.equals(Category.MASK);
+                return itemCategory.equals(ItemCategory.MASK);
         }
 
         @Override
         public boolean isNecklace() {
-                return category.equals(Category.NECKLACE);
+                return itemCategory.equals(ItemCategory.NECKLACE);
         }
 
         @Override
         public boolean isCloak() {
-                return category.equals(Category.CLOAK);
+                return itemCategory.equals(ItemCategory.CLOAK);
         }
 
         @Override
         public boolean isCostume() {
-                return category.equals(Category.COSTUME);
+                return itemCategory.equals(ItemCategory.COSTUME);
         }
 
         @Override
         public boolean isArmor() {
-                return category.equals(Category.ARMOR);
+                return itemCategory.equals(ItemCategory.ARMOR);
         }
 
         @Override
         public boolean isShield() {
-                return category.equals(Category.SHIELD);
+                return itemCategory.equals(ItemCategory.SHIELD);
         }
 
         @Override
         public boolean isWeapon() {
-                return category.equals(Category.WEAPON);
+                return itemCategory.equals(ItemCategory.WEAPON);
         }
 
         @Override
         public boolean isWristband() {
-                return category.equals(Category.WRISTBAND);
+                return itemCategory.equals(ItemCategory.WRISTBAND);
         }
 
         @Override
         public boolean isGloves() {
-                return category.equals(Category.GLOVES);
+                return itemCategory.equals(ItemCategory.GLOVES);
         }
 
         @Override
         public boolean isRing() {
-                return category.equals(Category.RING);
+                return itemCategory.equals(ItemCategory.RING);
         }
 
         @Override
         public boolean isBelt() {
-                return category.equals(Category.BELT);
+                return itemCategory.equals(ItemCategory.BELT);
         }
 
         @Override
         public boolean isBoots() {
-                return category.equals(Category.BOOTS);
+                return itemCategory.equals(ItemCategory.BOOTS);
         }
 
         @Override

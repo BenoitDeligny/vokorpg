@@ -5,7 +5,7 @@ import java.util.Collections;
 public class GenericItem extends Item {
 
     public GenericItem() {
-        super("Generic item", Category.GENERIC, Collections.emptyList(), "A useless item");
+        super("Generic item", ItemCategory.GENERIC, Collections.emptyList(), "A useless item");
     }
 
     @Override

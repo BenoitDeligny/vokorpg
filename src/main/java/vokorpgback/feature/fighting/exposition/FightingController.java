@@ -41,6 +41,9 @@ public class FightingController {
         public ResponseEntity<FightingResponse> fightAgainstMonsters(
                         @Valid @RequestBody FightingRequest fightingRequest) {
 
+                // TODO
+                // implement another usecase that handle fleeing attempt
+                // make conditional here
                 CombatResult combatResult = fightUseCase.handle(
                                 toDomain(
                                                 fightingRequest.getCharacterFighter(),

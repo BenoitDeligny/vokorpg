@@ -4,13 +4,13 @@ import java.util.List;
 
 public abstract class Item {
     protected final String name;
-    protected final Category category;
+    protected final ItemCategory itemCategory;
     protected final List<Trait> traits;
     protected final String description;
 
-    protected Item(String name, Category category, List<Trait> traits, String description) {
+    protected Item(String name, ItemCategory itemCategory, List<Trait> traits, String description) {
         this.name = name;
-        this.category = category;
+        this.itemCategory = itemCategory;
         this.traits = traits;
         this.description = description;
     }
@@ -45,8 +45,8 @@ public abstract class Item {
         return name;
     }
 
-    public Category getCategory() {
-        return category;
+    public ItemCategory getCategory() {
+        return itemCategory;
     }
 
     public List<Trait> getTraits() {
@@ -62,7 +62,7 @@ public abstract class Item {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((category == null) ? 0 : category.hashCode());
+        result = prime * result + ((itemCategory == null) ? 0 : itemCategory.hashCode());
         result = prime * result + ((traits == null) ? 0 : traits.hashCode());
         result = prime * result + ((description == null) ? 0 : description.hashCode());
         return result;
@@ -82,7 +82,7 @@ public abstract class Item {
                 return false;
         } else if (!name.equals(other.name))
             return false;
-        if (category != other.category)
+        if (itemCategory != other.itemCategory)
             return false;
         if (traits == null) {
             if (other.traits != null)
