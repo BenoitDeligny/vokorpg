@@ -16,12 +16,12 @@ public class FightingMonsterDto {
         return maxFightingPower;
     }
 
-    public int getRemainingFightingPower() {
-        return remainingFightingPower;
-    }
-
     public void setMaxFightingPower(int fightingPower) {
         this.maxFightingPower = fightingPower;
+    }
+
+    public int getRemainingFightingPower() {
+        return remainingFightingPower;
     }
 
     public void setRemainingFightingPower(int remainingFightingPower) {

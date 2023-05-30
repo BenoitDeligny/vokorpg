@@ -1,15 +1,15 @@
 package vokorpgback.feature.character.domain;
 
-import java.util.List;
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.RepeatedTest;
 import vokorpgback.feature.character.domain.model.LegendaryCharacter;
-import vokorpgback.feature.character.domain.model.gear.ItemCategory;
 import vokorpgback.feature.character.domain.model.gear.GenericItem;
+import vokorpgback.feature.character.domain.model.gear.ItemCategory;
 import vokorpgback.feature.character.domain.model.gear.MagicItem;
 import vokorpgback.feature.character.domain.model.gear.Trait;
 import vokorpgback.feature.commons.domain.model.GameMode;
+
+import java.util.List;
 
 // TODO
 // those tests start to be ugly

@@ -1,8 +1,8 @@
 package vokorpgback.feature.commons.domain.model;
 
-import java.util.Random;
-
 import vokorpgback.feature.commons.domain.port.Dice;
+
+import java.util.Random;
 
 public record GameDice(
         int numberOfFaces) implements Dice {

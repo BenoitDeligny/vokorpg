@@ -1,24 +1,23 @@
 package vokorpgback.feature.character.exposition;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
 import vokorpgback.feature.character.application.CreateCharacterUseCase;
 import vokorpgback.feature.character.domain.model.LegendaryCharacter;
 import vokorpgback.feature.character.domain.model.ability.Abilities;
 import vokorpgback.feature.character.domain.model.ability.Ability;
 import vokorpgback.feature.character.domain.model.gear.Gear;
 import vokorpgback.feature.commons.domain.model.GameMode;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 // TODO
 // https://www.baeldung.com/exception-handling-for-rest-with-spring
@@ -69,8 +68,8 @@ class CharacterControllerTest {
                     """;
 
         mockMvc.perform(post("/character")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(requestBody))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
                 .andExpect(status().isOk())
                 .andExpect(content().json(responseBody))
                 .andReturn();
@@ -90,8 +89,8 @@ class CharacterControllerTest {
         // then
 
         mockMvc.perform(post("/character")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(requestBody))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
                 .andExpect(status().isBadRequest())
                 .andReturn();
     }

@@ -22,7 +22,9 @@ public abstract class Fighter {
 
     public boolean isDead() {
         return remainingFightingPower <= 0;
-    };
+    }
+
+    ;
 
     public int getMaxFightingPower() {
         return maxFightingPower;

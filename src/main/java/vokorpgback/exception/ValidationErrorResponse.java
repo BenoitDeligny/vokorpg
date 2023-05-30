@@ -1,8 +1,8 @@
 package vokorpgback.exception;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
+
+import java.util.List;
 
 public class ValidationErrorResponse {
     private HttpStatus status;

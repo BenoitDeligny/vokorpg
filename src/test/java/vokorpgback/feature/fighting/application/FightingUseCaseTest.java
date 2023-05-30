@@ -1,17 +1,16 @@
 package vokorpgback.feature.fighting.application;
 
-import java.util.List;
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import vokorpgback.feature.fighting.domain.Fight;
-import vokorpgback.feature.fighting.domain.FightStatus;
 import vokorpgback.commons.LoadedDice;
 import vokorpgback.feature.fighting.domain.CombatResult;
+import vokorpgback.feature.fighting.domain.Fight;
+import vokorpgback.feature.fighting.domain.FightStatus;
 import vokorpgback.feature.fighting.domain.fighter.CharacterFighter;
 import vokorpgback.feature.fighting.domain.fighter.MonsterFighter;
+
+import java.util.List;
 
 class FightingUseCaseTest {
 

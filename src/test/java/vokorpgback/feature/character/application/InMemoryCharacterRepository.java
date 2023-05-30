@@ -1,31 +1,31 @@
 package vokorpgback.feature.character.application;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import vokorpgback.feature.character.domain.model.LegendaryCharacter;
 import vokorpgback.feature.character.domain.port.CharacterStorage;
 import vokorpgback.feature.commons.domain.model.GameMode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class InMemoryCharacterRepository implements CharacterStorage {
 
-        private final List<LegendaryCharacter> inMemoryDatabase = new ArrayList<LegendaryCharacter>();
+    private final List<LegendaryCharacter> inMemoryDatabase = new ArrayList<LegendaryCharacter>();
 
-        @Override
-        public LegendaryCharacter create(LegendaryCharacter character) {
-                inMemoryDatabase.add(character);
+    @Override
+    public LegendaryCharacter create(LegendaryCharacter character) {
+        inMemoryDatabase.add(character);
 
-                return character;
-        }
+        return character;
+    }
 
-        @Override
-        public LegendaryCharacter update(LegendaryCharacter character) {
-                // TODO
-                // add logic
-                return LegendaryCharacter.generateCharacter("Name", GameMode.NORMAL);
-        }
+    @Override
+    public LegendaryCharacter update(LegendaryCharacter character) {
+        // TODO
+        // add logic
+        return LegendaryCharacter.generateCharacter("Name", GameMode.NORMAL);
+    }
 
-        public List<LegendaryCharacter> getInMemoryDatabase() {
-                return inMemoryDatabase;
-        }
+    public List<LegendaryCharacter> getInMemoryDatabase() {
+        return inMemoryDatabase;
+    }
 }

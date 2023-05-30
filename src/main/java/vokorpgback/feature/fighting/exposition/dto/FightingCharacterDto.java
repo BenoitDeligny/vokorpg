@@ -18,20 +18,20 @@ public class FightingCharacterDto {
         return maxFightingPower;
     }
 
-    public int getRemainingFightingPower() {
-        return remainingFightingPower;
-    }
-
-    public int getAgility() {
-        return agility;
-    }
-
     public void setMaxFightingPower(int fightingPower) {
         this.maxFightingPower = fightingPower;
     }
 
+    public int getRemainingFightingPower() {
+        return remainingFightingPower;
+    }
+
     public void setRemainingFightingPower(int remainingFightingPower) {
         this.remainingFightingPower = remainingFightingPower;
+    }
+
+    public int getAgility() {
+        return agility;
     }
 
     public void setAgility(int agility) {

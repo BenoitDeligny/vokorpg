@@ -1,7 +1,6 @@
 package vokorpgback.feature.character.infra;
 
 import org.springframework.stereotype.Repository;
-
 import vokorpgback.feature.character.domain.model.LegendaryCharacter;
 import vokorpgback.feature.character.domain.port.CharacterStorage;
 import vokorpgback.feature.character.infra.entity.CharacterEntity;

@@ -22,14 +22,6 @@ public record LegendaryCharacter(
                 "TotalPower is not equal to the sum of abilities values.");
     }
 
-    private boolean isAgeBetween14And20(int age) {
-        return age >= 15 && age <= 20;
-    }
-
-    private boolean isTotalPowerSumOfAbilities(int totalPower, Abilities abilities) {
-        return totalPower == abilities.computeSumOfAbilities();
-    }
-
     public static LegendaryCharacter generateCharacter(String name, GameMode gameMode) {
         Dice dice = new GameDice(6);
 
@@ -51,5 +43,13 @@ public record LegendaryCharacter(
         return abilities.strength().value() +
                 abilities.agility().value() +
                 abilities.perception().value();
+    }
+
+    private boolean isAgeBetween14And20(int age) {
+        return age >= 15 && age <= 20;
+    }
+
+    private boolean isTotalPowerSumOfAbilities(int totalPower, Abilities abilities) {
+        return totalPower == abilities.computeSumOfAbilities();
     }
 }

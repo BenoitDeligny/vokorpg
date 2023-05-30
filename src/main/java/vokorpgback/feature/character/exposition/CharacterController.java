@@ -1,8 +1,6 @@
 package vokorpgback.feature.character.exposition;
 
-import java.util.List;
-import java.util.Optional;
-
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-import jakarta.validation.Valid;
 import vokorpgback.feature.character.application.CreateCharacterUseCase;
 import vokorpgback.feature.character.domain.model.LegendaryCharacter;
 import vokorpgback.feature.character.domain.model.ability.Abilities;
@@ -24,6 +20,9 @@ import vokorpgback.feature.character.exposition.dto.CharacterCreationResponse;
 import vokorpgback.feature.character.exposition.dto.GearDto;
 import vokorpgback.feature.character.exposition.dto.ItemDto;
 import vokorpgback.feature.commons.domain.model.GameMode;
+
+import java.util.List;
+import java.util.Optional;
 
 // TODO
 // https://www.baeldung.com/exception-handling-for-rest-with-spring
