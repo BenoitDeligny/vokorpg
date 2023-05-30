@@ -4,7 +4,7 @@ public class FightingCharacterDto {
   private int maxFightingPower;
   private int remainingFightingPower;
   private int agility;
-    private boolean attemptToFlee;
+  private boolean attemptToFlee;
 
   public FightingCharacterDto() {}
 
@@ -38,7 +38,7 @@ public class FightingCharacterDto {
     this.agility = agility;
   }
 
-   public boolean attemptToFlee() {
+  public boolean attemptToFlee() {
     return attemptToFlee;
   }
 

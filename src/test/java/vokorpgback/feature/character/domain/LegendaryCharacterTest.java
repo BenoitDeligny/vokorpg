@@ -11,7 +11,7 @@ import vokorpgback.feature.character.domain.model.gear.Trait;
 import vokorpgback.feature.commons.domain.model.GameMode;
 
 // TODO
-// those tests start to be ugly
+// these tests are getting ugly
 class LegendaryCharacterTest {
 
   @RepeatedTest(100)

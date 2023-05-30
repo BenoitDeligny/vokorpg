@@ -16,10 +16,10 @@ public class FightingUseCase {
     CharacterFighter characterFighter = fight.character();
     List<MonsterFighter> monsters = fight.monsters();
 
-    if (fight.attemptToFlee()) {
-      if ((computeCharacterFleeingScore(characterFighter) > computeFightingMonsterTotalPower(monsters))) {
-        return new CombatResult(characterFighter, monsters, FightStatus.FLED);
-      }
+    if (fight.attemptToFlee()
+        && (computeCharacterFleeingScore(characterFighter)
+            > computeFightingMonsterTotalPower(monsters))) {
+      return new CombatResult(characterFighter, monsters, FightStatus.FLED);
     }
 
     List<MonsterFighter> remainingMonsters = computeRemainingMonsters(monsters, characterFighter);
@@ -35,15 +35,15 @@ public class FightingUseCase {
   private int computeFightingMonsterTotalPower(List<MonsterFighter> monsters) {
 
     return IntStream.range(0, monsters.size())
-    .mapToObj(monsters::get)
-    .mapToInt(Fighter::getRemainingFightingPower)
-    .sum();
+        .mapToObj(monsters::get)
+        .mapToInt(Fighter::getRemainingFightingPower)
+        .sum();
   }
 
   private int computeCharacterFleeingScore(CharacterFighter character) {
-    return character.getCombatDice().roll() +
-    character.getCombatDice().roll() +
-    character.getAgility();
+    return character.getCombatDice().roll()
+        + character.getCombatDice().roll()
+        + character.getAgility();
   }
 
   private List<MonsterFighter> computeRemainingMonsters(
@@ -52,7 +52,9 @@ public class FightingUseCase {
 
     return IntStream.range(0, monsters.size())
         .mapToObj(
-            i -> applyDamagesToMonsters(monsters.get(i), characterDamage, i, characterFighter.getAgility()))
+            i ->
+                applyDamagesToMonsters(
+                    monsters.get(i), characterDamage, i, characterFighter.getAgility()))
         .filter(monster -> isAlive(monster, monsters))
         .collect(Collectors.toList());
   }

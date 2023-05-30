@@ -107,9 +107,7 @@ class FightingControllerTest {
 
     CombatResult combatResult =
         new CombatResult(
-            new CharacterFighter(15, 15, 3),
-            List.of(new MonsterFighter(17, 17)),
-            FightStatus.FLED);
+            new CharacterFighter(15, 15, 3), List.of(new MonsterFighter(17, 17)), FightStatus.FLED);
 
     // when
     when(useCase.handle(any())).thenReturn(combatResult);

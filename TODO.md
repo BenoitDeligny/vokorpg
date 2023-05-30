@@ -1,12 +1,14 @@
-legendary character at feature level
-add powers
+feature / utils: make action
+gear: no more 3 relic
 add knowledge
+add ability gain
 add traits / bonus for items
 add consommables
-item DB table (and then usecase, controller, repo, ...) ?
-refactoring gear
-gear: no more 3 relic
-fighting history ?
+add powers
 feature / utils: loot
-feature / utils: make action
+refactoring gear
 custom exception handling
+legendary character at feature level
+feature: deplacement sur la carte ?
+fighting history ?
+item DB table (and then usecase, controller, repo, ...) ?
