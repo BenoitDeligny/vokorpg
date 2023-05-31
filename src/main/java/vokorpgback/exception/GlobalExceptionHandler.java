@@ -1,7 +1,5 @@
 package vokorpgback.exception;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -9,34 +7,35 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-  @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ResponseEntity<ValidationErrorResponse> handleValidationException(
-      MethodArgumentNotValidException ex) {
-    List<String> errors = new ArrayList<>();
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ValidationErrorResponse> handleValidationException(MethodArgumentNotValidException ex) {
+        List<String> errors = new ArrayList<>();
 
-    for (FieldError error : ex.getBindingResult().getFieldErrors()) {
-      errors.add(error.getField() + ": " + error.getDefaultMessage());
+        for (FieldError error : ex.getBindingResult().getFieldErrors()) {
+            errors.add(error.getField() + ": " + error.getDefaultMessage());
+        }
+
+        ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+        errorResponse.setStatus(HttpStatus.BAD_REQUEST);
+        errorResponse.setMessage("Validation error");
+        errorResponse.setErrors(errors);
+
+        return ResponseEntity.badRequest().body(errorResponse);
     }
 
-    ValidationErrorResponse errorResponse = new ValidationErrorResponse();
-    errorResponse.setStatus(HttpStatus.BAD_REQUEST);
-    errorResponse.setMessage("Validation error");
-    errorResponse.setErrors(errors);
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ValidationErrorResponse> handleIllegalArgumentException(IllegalArgumentException ex) {
+        ValidationErrorResponse errorResponse = new ValidationErrorResponse();
+        errorResponse.setStatus(HttpStatus.UNPROCESSABLE_ENTITY);
+        errorResponse.setMessage("Entity error");
+        errorResponse.setErrors(List.of(ex.getMessage()));
 
-    return ResponseEntity.badRequest().body(errorResponse);
-  }
-
-  @ExceptionHandler(IllegalArgumentException.class)
-  public ResponseEntity<ValidationErrorResponse> handleIllegalArgumentException(
-      IllegalArgumentException ex) {
-    ValidationErrorResponse errorResponse = new ValidationErrorResponse();
-    errorResponse.setStatus(HttpStatus.UNPROCESSABLE_ENTITY);
-    errorResponse.setMessage("Entity error");
-    errorResponse.setErrors(List.of(ex.getMessage()));
-
-    return ResponseEntity.badRequest().body(errorResponse);
-  }
+        return ResponseEntity.badRequest().body(errorResponse);
+    }
 }

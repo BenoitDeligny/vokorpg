@@ -1,8 +1,8 @@
 package vokorpgback.feature.fighting.domain;
 
 public enum FightStatus {
-  WON,
-  ONGOING,
-  LOST,
-  FLED
+    WON,
+    ONGOING,
+    LOST,
+    FLED
 }

@@ -8,8 +8,8 @@ import vokorpgback.feature.character.domain.port.CharacterStorage;
 @Configuration
 public class CreateCharacterBean {
 
-  @Bean
-  CreateCharacterUseCase createCharacterUseCase(CharacterStorage characterRepository) {
-    return new CreateCharacterUseCase(characterRepository);
-  }
+    @Bean
+    CreateCharacterUseCase createCharacterUseCase(CharacterStorage characterRepository) {
+        return new CreateCharacterUseCase(characterRepository);
+    }
 }
