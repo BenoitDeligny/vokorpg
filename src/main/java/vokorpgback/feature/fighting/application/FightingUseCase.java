@@ -13,6 +13,7 @@ import vokorpgback.feature.fighting.domain.fighter.MonsterFighter;
 public class FightingUseCase {
 
   public CombatResult handle(Fight fight) {
+
     CharacterFighter characterFighter = fight.character();
     List<MonsterFighter> monsters = fight.monsters();
 
@@ -53,13 +54,13 @@ public class FightingUseCase {
     return IntStream.range(0, monsters.size())
         .mapToObj(
             i ->
-                applyDamagesToMonsters(
+                applyDamageToMonsters(
                     monsters.get(i), characterDamage, i, characterFighter.getAgility()))
         .filter(monster -> isAlive(monster, monsters))
         .collect(Collectors.toList());
   }
 
-  private MonsterFighter applyDamagesToMonsters(
+  private MonsterFighter applyDamageToMonsters(
       MonsterFighter monster, int characterDamage, int index, int numberOfMonstersFaced) {
     if (index < numberOfMonstersFaced) {
       return applyDamageToMonster(monster, characterDamage);

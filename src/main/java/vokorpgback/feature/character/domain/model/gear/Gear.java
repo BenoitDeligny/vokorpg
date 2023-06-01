@@ -5,7 +5,7 @@ import vokorpgback.commons.Validation;
 import vokorpgback.feature.commons.domain.model.GameMode;
 
 public record Gear(
-    Item helmet,
+    Helmet helmet,
     Item mask,
     Item necklace,
     Item cloak,
