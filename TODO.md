@@ -1,3 +1,7 @@
+Move KT files ton associated source folder (kotlin)
+IMPORTANT -> REFACTO in real DDD (create aggregate and so on)
+HATEOAS
+Gear: create one class by item category
 feature / utils: make action
 gear: no more 3 relic
 add knowledge

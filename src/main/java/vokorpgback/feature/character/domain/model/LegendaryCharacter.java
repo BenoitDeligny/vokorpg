@@ -29,8 +29,7 @@ public record LegendaryCharacter(
                 computeAge(dice.roll()),
                 abilities,
                 computeTotalPower(abilities),
-                Gear.generateDefaultGear(gameMode)
-        );
+                Gear.generateDefaultGear(gameMode));
     }
 
     private static int computeAge(int diceRoll) {

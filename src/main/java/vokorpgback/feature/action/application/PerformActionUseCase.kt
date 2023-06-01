@@ -1,6 +1,9 @@
 package vokorpgback.feature.action.application
 
-class ActionUseCase {
+import org.springframework.stereotype.Service
+
+@Service
+class PerformActionUseCase {
     fun handle(): Boolean {
         // TODO
         // add parameters -> type (climbing, swimming, ...), difficulty, ability involved, bonus (knowledge, items, ...)
