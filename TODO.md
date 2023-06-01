@@ -1,4 +1,3 @@
-Move KT files ton associated source folder (kotlin)
 IMPORTANT -> REFACTO in real DDD (create aggregate and so on)
 HATEOAS
 Gear: create one class by item category

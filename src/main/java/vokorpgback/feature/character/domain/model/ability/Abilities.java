@@ -1,28 +1,13 @@
 package vokorpgback.feature.character.domain.model.ability;
 
-import vokorpgback.commons.Validation;
-import vokorpgback.feature.commons.domain.model.GameMode;
-import vokorpgback.feature.commons.domain.port.Dice;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.RecordComponent;
 
-public record Abilities(Ability strength, Ability agility, Ability perception) {
+public record Abilities(Strength strength, Agility agility, Perception perception) {
 
-    public Abilities {
-        Validation.require(strength.isPositive(), "Strength must be positive.");
-        Validation.require(agility.isPositive(), "Agility must be positive.");
-        Validation.require(perception.isPositive(), "Perception must be positive.");
-    }
-
-    public static Abilities generateAbilities(GameMode gameMode, Dice dice) {
-        return new Abilities(
-                Ability.generateAbility(dice, gameMode),
-                Ability.generateAbility(dice, gameMode),
-                Ability.generateAbility(dice, gameMode)
-        );
-    }
-
+    // TODO
+    // ask Sylvain if it's something ok (but i bet not)
+    // est-ce que ça a quelque chose à foutre ici ?
     public int computeSumOfAbilities() {
         int sum = 0;
 
@@ -31,7 +16,12 @@ public record Abilities(Ability strength, Ability agility, Ability perception) {
         for (RecordComponent recordComponent : recordComponents) {
             Field field = getField(recordComponent);
             Ability ability = getAbilityFromField(field);
-            sum += ability.value();
+            switch (ability) {
+                case Strength s -> sum += s.value();
+                case Agility a -> sum += a.value();
+                case Perception p -> sum += p.value();
+                default -> sum += 0;
+            }
         }
 
         return sum;
