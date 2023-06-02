@@ -7,22 +7,20 @@ import vokorpgback.feature.commons.domain.port.Dice;
 public class AbilityFactory {
 
     private final GameMode gameMode;
-    private final Dice dice;
 
-    public AbilityFactory(GameMode gameMode, Dice dice) {
+    public AbilityFactory(GameMode gameMode) {
         this.gameMode = gameMode;
-        this.dice = dice;
     }
 
-    public Strength generateStrength() {
+    public Strength generateStrength(Dice dice) {
         return new Strength(dice.roll() + gameMode.getAbilitiesModifier());
     }
 
-    public Agility generateAgility() {
+    public Agility generateAgility(Dice dice) {
         return new Agility(dice.roll() + gameMode.getAbilitiesModifier());
     }
 
-    public Perception generatePerception() {
+    public Perception generatePerception(Dice dice) {
         return new Perception(dice.roll() + gameMode.getAbilitiesModifier());
     }
 }

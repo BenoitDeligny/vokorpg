@@ -3,11 +3,11 @@ package vokorpgback.featureBEFORE.character.domain;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import vokorpgback.feature.character.domain.model.ability.AbilityFactory;
+import vokorpgback.feature.character.domain.model.ability.*;
 import vokorpgback.feature.commons.application.DiceFactory;
 import vokorpgback.feature.commons.application.LoadedDiceFactory;
-import vokorpgback.feature.character.domain.model.ability.Ability;
 import vokorpgback.feature.commons.domain.model.GameMode;
+import vokorpgback.feature.commons.domain.port.Dice;
 
 class AbilitiesTest {
 
@@ -17,38 +17,43 @@ class AbilitiesTest {
     @BeforeEach
     void setUp() {
         diceFactory = new LoadedDiceFactory();
-        abilityFactory = new AbilityFactory();
     }
 
     @Test
     void generateAbilities_when_normalMode() {
         // given
-        GameMode gameMode = GameMode.NORMAL;
-
-        diceFactory.createDice(6);
-        Ability ability = abilityFactory.generateStrength(diceFactory.rollDice(6), gameMode);
+        abilityFactory = new AbilityFactory(GameMode.NORMAL);
+        Dice strengthDice = diceFactory.createDice(4);
+        Dice agilityDice = diceFactory.createDice(5);
+        Dice perceptionDice = diceFactory.createDice(2);
 
         // when
-
+        Strength strength = abilityFactory.generateStrength(strengthDice);
+        Agility agility = abilityFactory.generateAgility(agilityDice);
+        Perception perception = abilityFactory.generatePerception(perceptionDice);
 
         // then
-        Assertions.assertThat(underTestAbilities).isEqualTo(expectedAbilities);
+        Assertions.assertThat(strength.value()).isEqualTo(5);
+        Assertions.assertThat(agility.value()).isEqualTo(6);
+        Assertions.assertThat(perception.value()).isEqualTo(3);
     }
 
     @Test
     void generateAbilities_when_easyMode() {
         // given
-        GameMode gameMode = GameMode.EASY;
-
-        Abilities expectedAbilities = new Abilities(new Ability(7), new Ability(8), new Ability(6));
+        abilityFactory = new AbilityFactory(GameMode.EASY);
+        Dice strengthDice = diceFactory.createDice(4);
+        Dice agilityDice = diceFactory.createDice(5);
+        Dice perceptionDice = diceFactory.createDice(2);
 
         // when
-        Abilities underTestAbilities = new Abilities(
-                Ability.generateAbility(diceFactory.rollDice(3), gameMode),
-                Ability.generateAbility(diceFactory.rollDice(4), gameMode),
-                Ability.generateAbility(diceFactory.rollDice(2), gameMode));
+        Strength strength = abilityFactory.generateStrength(strengthDice);
+        Agility agility = abilityFactory.generateAgility(agilityDice);
+        Perception perception = abilityFactory.generatePerception(perceptionDice);
 
         // then
-        Assertions.assertThat(underTestAbilities).isEqualTo(expectedAbilities);
+        Assertions.assertThat(strength.value()).isEqualTo(8);
+        Assertions.assertThat(agility.value()).isEqualTo(9);
+        Assertions.assertThat(perception.value()).isEqualTo(6);
     }
 }

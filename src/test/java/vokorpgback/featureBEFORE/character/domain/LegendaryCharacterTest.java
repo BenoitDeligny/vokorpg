@@ -8,8 +8,6 @@ import vokorpgback.feature.commons.domain.model.GameMode;
 
 import java.util.List;
 
-// TODO
-// these tests are getting ugly
 class LegendaryCharacterTest {
 
     @RepeatedTest(100)
