@@ -21,6 +21,7 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation("org.jmolecules:jmolecules-ddd:1.4.0")
 }
 
 tasks.named('test') {
@@ -28,8 +29,8 @@ tasks.named('test') {
 }
 
 spotless {
-  java {
-    target fileTree('.') {
+    java {
+        target fileTree('.') {
             include '**/*.java'
             exclude '**/build/**', '**/build-*/**'
         }
@@ -39,6 +40,5 @@ spotless {
         trimTrailingWhitespace()
         endWithNewline()
         googleJavaFormat()
-  }
+    }
 }
-targetCompatibility = JavaVersion.VERSION_17_PREVIEW

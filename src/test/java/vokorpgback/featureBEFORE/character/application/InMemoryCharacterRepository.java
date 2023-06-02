@@ -1,6 +1,6 @@
 package vokorpgback.featureBEFORE.character.application;
 
-import vokorpgback.featureBEFORE.character.domain.model.LegendaryCharacter;
+import vokorpgback.feature.character.domain.model.LegendaryCharacter;
 import vokorpgback.featureBEFORE.character.domain.port.CharacterStorage;
 import vokorpgback.feature.commons.domain.model.GameMode;
 

@@ -2,7 +2,7 @@ package vokorpgback.featureBEFORE.character.domain;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.RepeatedTest;
-import vokorpgback.featureBEFORE.character.domain.model.LegendaryCharacter;
+import vokorpgback.feature.character.domain.model.LegendaryCharacter;
 import vokorpgback.featureBEFORE.character.domain.model.gear.Trait;
 import vokorpgback.feature.commons.domain.model.GameMode;
 

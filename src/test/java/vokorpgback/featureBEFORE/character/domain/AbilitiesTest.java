@@ -4,20 +4,19 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import vokorpgback.feature.character.domain.model.ability.AbilityFactory;
-import vokorpgback.feature.commons.application.DiceRoller;
-import vokorpgback.feature.commons.application.LoadedDiceRoller;
-import vokorpgback.feature.character.domain.model.ability.Abilities;
+import vokorpgback.feature.commons.application.DiceFactory;
+import vokorpgback.feature.commons.application.LoadedDiceFactory;
 import vokorpgback.feature.character.domain.model.ability.Ability;
 import vokorpgback.feature.commons.domain.model.GameMode;
 
 class AbilitiesTest {
 
-    private DiceRoller diceRoller;
+    private DiceFactory diceFactory;
     private AbilityFactory abilityFactory;
 
     @BeforeEach
     void setUp() {
-        diceRoller = new LoadedDiceRoller();
+        diceFactory = new LoadedDiceFactory();
         abilityFactory = new AbilityFactory();
     }
 
@@ -26,8 +25,8 @@ class AbilitiesTest {
         // given
         GameMode gameMode = GameMode.NORMAL;
 
-        diceRoller.createDice(6);
-        Ability ability = abilityFactory.generateStrength(diceRoller.rollDice(6), gameMode);
+        diceFactory.createDice(6);
+        Ability ability = abilityFactory.generateStrength(diceFactory.rollDice(6), gameMode);
 
         // when
 
@@ -45,9 +44,9 @@ class AbilitiesTest {
 
         // when
         Abilities underTestAbilities = new Abilities(
-                Ability.generateAbility(diceRoller.rollDice(3), gameMode),
-                Ability.generateAbility(diceRoller.rollDice(4), gameMode),
-                Ability.generateAbility(diceRoller.rollDice(2), gameMode));
+                Ability.generateAbility(diceFactory.rollDice(3), gameMode),
+                Ability.generateAbility(diceFactory.rollDice(4), gameMode),
+                Ability.generateAbility(diceFactory.rollDice(2), gameMode));
 
         // then
         Assertions.assertThat(underTestAbilities).isEqualTo(expectedAbilities);
