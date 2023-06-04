@@ -4,11 +4,11 @@ import vokorpgback.commons.Validation;
 
 public record Agility(int value) implements Ability {
     public Agility {
-        Validation.require(isPositive(), "Agility should be positive.");
+        Validation.require(!isValid(), "Agility should be positive.");
     }
 
     @Override
-    public boolean isPositive() {
+    public boolean isValid() {
         return value > 0;
     }
 }

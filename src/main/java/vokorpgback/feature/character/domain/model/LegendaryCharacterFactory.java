@@ -4,10 +4,9 @@ import vokorpgback.feature.character.domain.model.ability.AbilityFactory;
 import vokorpgback.feature.character.domain.model.ability.Agility;
 import vokorpgback.feature.character.domain.model.ability.Perception;
 import vokorpgback.feature.character.domain.model.ability.Strength;
+import vokorpgback.feature.character.domain.model.gear.Gear;
 import vokorpgback.feature.commons.application.DiceFactory;
 import vokorpgback.feature.commons.domain.model.GameMode;
-import vokorpgback.feature.commons.domain.port.Dice;
-import vokorpgback.featureBEFORE.character.domain.model.gear.Gear;
 
 public class LegendaryCharacterFactory {
 
@@ -18,16 +17,15 @@ public class LegendaryCharacterFactory {
     }
 
     public LegendaryCharacter generateLegendaryCharacter(GameMode gameMode, String name) {
-        Dice dice = diceFactory.createDice(6);
-        AbilityFactory abilityFactory = new AbilityFactory(gameMode, dice);
+        AbilityFactory abilityFactory = new AbilityFactory(gameMode);
 
-        Strength strength = abilityFactory.generateStrength();
-        Agility agility = abilityFactory.generateAgility();
-        Perception perception = abilityFactory.generatePerception();
+        Strength strength = abilityFactory.generateStrength(diceFactory.rollDice(6));
+        Agility agility = abilityFactory.generateAgility(diceFactory.rollDice(6));
+        Perception perception = abilityFactory.generatePerception(diceFactory.rollDice(6));
 
         return new LegendaryCharacter(
                 name,
-                generateAge(dice.roll()),
+                generateAge(),
                 strength,
                 agility,
                 perception,
@@ -36,8 +34,8 @@ public class LegendaryCharacterFactory {
         );
     }
 
-    private int generateAge(int diceRoll) {
-        return diceRoll + 14;
+    private int generateAge() {
+        return diceFactory.rollDice(6) + 14;
     }
 
     private int computeTotalPower(Strength strength, Agility agility, Perception perception) {

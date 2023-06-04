@@ -1,6 +1,7 @@
-package vokorpgback.featureBEFORE.character.application;
+package vokorpgback.feature.character.application;
 
 import vokorpgback.feature.character.domain.model.LegendaryCharacter;
+import vokorpgback.feature.character.domain.model.LegendaryCharacterFactory;
 import vokorpgback.featureBEFORE.character.domain.port.CharacterStorage;
 import vokorpgback.feature.commons.domain.model.GameMode;
 
@@ -19,9 +20,7 @@ public class InMemoryCharacterRepository implements CharacterStorage {
 
     @Override
     public LegendaryCharacter update(LegendaryCharacter character) {
-        // TODO
-        // add logic
-        return LegendaryCharacter.generateCharacter("Name", GameMode.NORMAL);
+        return null;
     }
 
     public List<LegendaryCharacter> getInMemoryDatabase() {

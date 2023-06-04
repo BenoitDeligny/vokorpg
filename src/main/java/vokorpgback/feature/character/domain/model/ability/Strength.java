@@ -4,11 +4,11 @@ import vokorpgback.commons.Validation;
 
 public record Strength(int value) implements Ability {
     public Strength {
-        Validation.require(isPositive(), "Strength should be positive.");
+        Validation.require(!isValid(), "Strength should be positive.");
     }
 
     @Override
-    public boolean isPositive() {
+    public boolean isValid() {
         return value > 0;
     }
 }

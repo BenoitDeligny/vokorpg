@@ -12,15 +12,15 @@ public class AbilityFactory {
         this.gameMode = gameMode;
     }
 
-    public Strength generateStrength(Dice dice) {
-        return new Strength(dice.roll() + gameMode.getAbilitiesModifier());
+    public Strength generateStrength(int roll) {
+        return new Strength(roll + gameMode.getAbilitiesModifier());
     }
 
-    public Agility generateAgility(Dice dice) {
-        return new Agility(dice.roll() + gameMode.getAbilitiesModifier());
+    public Agility generateAgility(int roll) {
+        return new Agility(roll + gameMode.getAbilitiesModifier());
     }
 
-    public Perception generatePerception(Dice dice) {
-        return new Perception(dice.roll() + gameMode.getAbilitiesModifier());
+    public Perception generatePerception(int roll) {
+        return new Perception(roll + gameMode.getAbilitiesModifier());
     }
 }

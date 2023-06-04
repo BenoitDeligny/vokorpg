@@ -1,4 +1,4 @@
-package vokorpgback.featureBEFORE.fighting.exposition;
+package vokorpgback.feature.fighting.exposition;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import vokorpgback.featureBEFORE.fighting.domain.CombatResult;
 import vokorpgback.featureBEFORE.fighting.domain.FightStatus;
 import vokorpgback.featureBEFORE.fighting.domain.fighter.CharacterFighter;
 import vokorpgback.featureBEFORE.fighting.domain.fighter.MonsterFighter;
+import vokorpgback.featureBEFORE.fighting.exposition.FightingController;
 
 import java.util.List;
 

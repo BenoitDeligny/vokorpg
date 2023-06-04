@@ -4,11 +4,11 @@ import vokorpgback.commons.Validation;
 
 public record Perception(int value) implements Ability {
     public Perception {
-        Validation.require(isPositive(), "Perception should be positive.");
+        Validation.require(!isValid(), "Perception should be positive.");
     }
 
     @Override
-    public boolean isPositive() {
+    public boolean isValid() {
         return value > 0;
     }
 

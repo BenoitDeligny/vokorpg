@@ -1,9 +1,10 @@
-package vokorpgback.featureBEFORE.fighting.application;
+package vokorpgback.feature.fighting.application;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import vokorpgback.feature.commons.domain.model.LoadedDice;
+import vokorpgback.featureBEFORE.fighting.application.FightingUseCase;
 import vokorpgback.featureBEFORE.fighting.domain.CombatResult;
 import vokorpgback.featureBEFORE.fighting.domain.Fight;
 import vokorpgback.featureBEFORE.fighting.domain.FightStatus;

@@ -1,13 +1,15 @@
-package vokorpgback.featureBEFORE.character.domain;
+package vokorpgback.feature.character.domain;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import vokorpgback.feature.character.domain.model.ability.*;
+import vokorpgback.feature.character.domain.model.ability.AbilityFactory;
+import vokorpgback.feature.character.domain.model.ability.Agility;
+import vokorpgback.feature.character.domain.model.ability.Perception;
+import vokorpgback.feature.character.domain.model.ability.Strength;
 import vokorpgback.feature.commons.application.DiceFactory;
 import vokorpgback.feature.commons.application.LoadedDiceFactory;
 import vokorpgback.feature.commons.domain.model.GameMode;
-import vokorpgback.feature.commons.domain.port.Dice;
 
 class AbilitiesTest {
 
@@ -23,14 +25,11 @@ class AbilitiesTest {
     void generateAbilities_when_normalMode() {
         // given
         abilityFactory = new AbilityFactory(GameMode.NORMAL);
-        Dice strengthDice = diceFactory.createDice(4);
-        Dice agilityDice = diceFactory.createDice(5);
-        Dice perceptionDice = diceFactory.createDice(2);
 
         // when
-        Strength strength = abilityFactory.generateStrength(strengthDice);
-        Agility agility = abilityFactory.generateAgility(agilityDice);
-        Perception perception = abilityFactory.generatePerception(perceptionDice);
+        Strength strength = abilityFactory.generateStrength(diceFactory.rollDice(4));
+        Agility agility = abilityFactory.generateAgility(diceFactory.rollDice(5));
+        Perception perception = abilityFactory.generatePerception(diceFactory.rollDice(2));
 
         // then
         Assertions.assertThat(strength.value()).isEqualTo(5);
@@ -42,14 +41,11 @@ class AbilitiesTest {
     void generateAbilities_when_easyMode() {
         // given
         abilityFactory = new AbilityFactory(GameMode.EASY);
-        Dice strengthDice = diceFactory.createDice(4);
-        Dice agilityDice = diceFactory.createDice(5);
-        Dice perceptionDice = diceFactory.createDice(2);
 
         // when
-        Strength strength = abilityFactory.generateStrength(strengthDice);
-        Agility agility = abilityFactory.generateAgility(agilityDice);
-        Perception perception = abilityFactory.generatePerception(perceptionDice);
+        Strength strength = abilityFactory.generateStrength(diceFactory.rollDice(4));
+        Agility agility = abilityFactory.generateAgility(diceFactory.rollDice(5));
+        Perception perception = abilityFactory.generatePerception(diceFactory.rollDice(2));
 
         // then
         Assertions.assertThat(strength.value()).isEqualTo(8);

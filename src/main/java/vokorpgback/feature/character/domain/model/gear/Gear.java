@@ -1,4 +1,4 @@
-package vokorpgback.featureBEFORE.character.domain.model.gear;
+package vokorpgback.feature.character.domain.model.gear;
 
 import java.util.List;
 import vokorpgback.commons.Validation;

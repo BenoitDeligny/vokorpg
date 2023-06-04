@@ -27,13 +27,14 @@ public class CharacterJpaStorage implements CharacterStorage {
     }
 
     private CharacterEntity toEntity(LegendaryCharacter character) {
-        return new CharacterEntity(
-                character.name(),
-                character.age(),
-                character.abilities().strength().value(),
-                character.abilities().agility().value(),
-                character.abilities().perception().value(),
-                character.totalPower()
-        );
+        return null;
+//        return new CharacterEntity(
+//                character.name(),
+//                character.age(),
+//                character.abilities().strength().value(),
+//                character.abilities().agility().value(),
+//                character.abilities().perception().value(),
+//                character.totalPower()
+//        );
     }
 }
