@@ -1,8 +1,6 @@
-package vokorpgback.feature.character.domain.model.gear;
+package vokorpgback.feature.character.domain.model;
 
-import java.util.List;
-import vokorpgback.commons.Validation;
-import vokorpgback.feature.commons.domain.model.GameMode;
+import vokorpgback.feature.character.domain.model.item.*;
 
 public record Gear(
     Helmet helmet,

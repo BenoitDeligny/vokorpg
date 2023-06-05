@@ -9,7 +9,7 @@
 //import vokorpgback.feature.character.application.CreateCharacterUseCase;
 //import vokorpgback.feature.character.domain.model.LegendaryCharacter;
 //import vokorpgback.feature.character.domain.model.ability.Ability;
-//import vokorpgback.feature.character.domain.model.gear.Gear;
+//import vokorpgback.feature.character.domain.model.Gear;
 //import vokorpgback.feature.commons.domain.model.GameMode;
 //import vokorpgback.featureBEFORE.character.exposition.CharacterController;
 //

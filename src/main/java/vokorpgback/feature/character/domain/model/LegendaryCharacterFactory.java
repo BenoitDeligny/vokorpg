@@ -4,7 +4,6 @@ import vokorpgback.feature.character.domain.model.ability.AbilityFactory;
 import vokorpgback.feature.character.domain.model.ability.Agility;
 import vokorpgback.feature.character.domain.model.ability.Perception;
 import vokorpgback.feature.character.domain.model.ability.Strength;
-import vokorpgback.feature.character.domain.model.gear.Gear;
 import vokorpgback.feature.commons.application.DiceFactory;
 import vokorpgback.feature.commons.domain.model.GameMode;
 
@@ -16,6 +15,8 @@ public class LegendaryCharacterFactory {
         this.diceFactory = diceFactory;
     }
 
+    // TODO
+    // factory with private constructor -> method static
     public LegendaryCharacter generateLegendaryCharacter(GameMode gameMode, String name) {
         AbilityFactory abilityFactory = new AbilityFactory(gameMode);
 

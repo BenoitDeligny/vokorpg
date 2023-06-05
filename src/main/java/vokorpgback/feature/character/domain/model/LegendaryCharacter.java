@@ -4,7 +4,6 @@ import vokorpgback.commons.Validation;
 import vokorpgback.feature.character.domain.model.ability.Agility;
 import vokorpgback.feature.character.domain.model.ability.Perception;
 import vokorpgback.feature.character.domain.model.ability.Strength;
-import vokorpgback.feature.character.domain.model.gear.Gear;
 
 public record LegendaryCharacter(
         String name,

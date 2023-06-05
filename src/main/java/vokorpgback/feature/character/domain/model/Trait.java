@@ -1,4 +1,4 @@
-package vokorpgback.feature.character.domain.model.gear;
+package vokorpgback.feature.character.domain.model;
 
 public record Trait(String traitDescription) {
 
