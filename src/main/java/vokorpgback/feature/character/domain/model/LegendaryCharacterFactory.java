@@ -4,29 +4,22 @@ import vokorpgback.feature.character.domain.model.ability.AbilityFactory;
 import vokorpgback.feature.character.domain.model.ability.Agility;
 import vokorpgback.feature.character.domain.model.ability.Perception;
 import vokorpgback.feature.character.domain.model.ability.Strength;
-import vokorpgback.feature.commons.application.DiceFactory;
 import vokorpgback.feature.commons.domain.model.GameMode;
+import vokorpgback.feature.commons.domain.port.Dice;
 
 public class LegendaryCharacterFactory {
 
-    private final DiceFactory diceFactory;
-
-    public LegendaryCharacterFactory(DiceFactory diceFactory) {
-        this.diceFactory = diceFactory;
+    private LegendaryCharacterFactory() {
     }
 
-    // TODO
-    // factory with private constructor -> method static
-    public LegendaryCharacter generateLegendaryCharacter(GameMode gameMode, String name) {
-        AbilityFactory abilityFactory = new AbilityFactory(gameMode);
-
-        Strength strength = abilityFactory.generateStrength(diceFactory.rollDice(6));
-        Agility agility = abilityFactory.generateAgility(diceFactory.rollDice(6));
-        Perception perception = abilityFactory.generatePerception(diceFactory.rollDice(6));
+    public static LegendaryCharacter generateLegendaryCharacter(GameMode gameMode, Dice dice, String name) {
+        Strength strength = generateStrength(gameMode, dice);
+        Agility agility = generateAgility(gameMode, dice);
+        Perception perception = generatePerception(gameMode, dice);
 
         return new LegendaryCharacter(
                 name,
-                generateAge(),
+                generateAge(dice),
                 strength,
                 agility,
                 perception,
@@ -35,17 +28,29 @@ public class LegendaryCharacterFactory {
         );
     }
 
-    private int generateAge() {
-        return diceFactory.rollDice(6) + 14;
+    private static int generateAge(Dice dice) {
+        return dice.roll() + 14;
     }
 
-    private int computeTotalPower(Strength strength, Agility agility, Perception perception) {
+    private static Strength generateStrength(GameMode gameMode, Dice dice) {
+        return AbilityFactory.generateStrength(gameMode, dice);
+    }
+
+    private static Agility generateAgility(GameMode gameMode, Dice dice) {
+        return AbilityFactory.generateAgility(gameMode, dice);
+    }
+
+    private static Perception generatePerception(GameMode gameMode, Dice dice) {
+        return AbilityFactory.generatePerception(gameMode, dice);
+    }
+
+    private static int computeTotalPower(Strength strength, Agility agility, Perception perception) {
         return strength.value() +
                 agility.value() +
                 perception.value();
     }
 
-    private Gear generateGear() {
+    private static Gear generateGear() {
         return null;
     }
 }

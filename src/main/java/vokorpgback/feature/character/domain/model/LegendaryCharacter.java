@@ -27,4 +27,6 @@ public record LegendaryCharacter(
     private boolean isTotalPowerSumOfAllAbilities(Strength strength, Agility agility, Perception perception, int totalPower) {
         return totalPower == strength.value() + agility.value() + perception.value();
     }
+
+
 }

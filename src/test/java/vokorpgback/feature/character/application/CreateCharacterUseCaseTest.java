@@ -5,12 +5,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import vokorpgback.feature.character.domain.model.LegendaryCharacter;
 import vokorpgback.feature.character.domain.model.LegendaryCharacterFactory;
-import vokorpgback.feature.commons.application.DiceFactory;
-import vokorpgback.feature.commons.application.LoadedDiceFactory;
 import vokorpgback.feature.commons.domain.model.GameMode;
+import vokorpgback.feature.commons.domain.model.OfficialDice;
 
 public class CreateCharacterUseCaseTest {
-    private LegendaryCharacterFactory legendaryCharacterFactory;
 
     private CreateCharacterUseCase useCase;
 
@@ -18,7 +16,6 @@ public class CreateCharacterUseCaseTest {
 
     @BeforeEach
     void setUp() {
-        legendaryCharacterFactory = new LegendaryCharacterFactory(new LoadedDiceFactory());
         repository = new InMemoryCharacterRepository();
         useCase = new CreateCharacterUseCase(repository);
     }
@@ -26,7 +23,8 @@ public class CreateCharacterUseCaseTest {
     @Test
     void handle_should_createCharacterInDatabase() {
         // given
-        LegendaryCharacter legendaryCharacter = legendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, "myCharacter");
+        OfficialDice officialDice = new OfficialDice(6);
+        LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, officialDice, "myCharacter");
 
         // when
         LegendaryCharacter characterCreated = useCase.handle(legendaryCharacter);

@@ -13,23 +13,21 @@ import vokorpgback.feature.commons.domain.model.GameMode;
 
 class AbilitiesTest {
 
-    private DiceFactory diceFactory;
-    private AbilityFactory abilityFactory;
+    private DiceFactory loadedDiceFactory;
 
     @BeforeEach
     void setUp() {
-        diceFactory = new LoadedDiceFactory();
+        loadedDiceFactory = new LoadedDiceFactory();
     }
 
     @Test
     void generateAbilities_when_normalMode() {
         // given
-        abilityFactory = new AbilityFactory(GameMode.NORMAL);
 
         // when
-        Strength strength = abilityFactory.generateStrength(diceFactory.rollDice(4));
-        Agility agility = abilityFactory.generateAgility(diceFactory.rollDice(5));
-        Perception perception = abilityFactory.generatePerception(diceFactory.rollDice(2));
+        Strength strength = AbilityFactory.generateStrength(GameMode.NORMAL, loadedDiceFactory.createDice(4));
+        Agility agility = AbilityFactory.generateAgility(GameMode.NORMAL, loadedDiceFactory.createDice(5));
+        Perception perception = AbilityFactory.generatePerception(GameMode.NORMAL, loadedDiceFactory.createDice(2));
 
         // then
         Assertions.assertThat(strength.value()).isEqualTo(5);
@@ -40,12 +38,11 @@ class AbilitiesTest {
     @Test
     void generateAbilities_when_easyMode() {
         // given
-        abilityFactory = new AbilityFactory(GameMode.EASY);
 
         // when
-        Strength strength = abilityFactory.generateStrength(diceFactory.rollDice(4));
-        Agility agility = abilityFactory.generateAgility(diceFactory.rollDice(5));
-        Perception perception = abilityFactory.generatePerception(diceFactory.rollDice(2));
+        Strength strength = AbilityFactory.generateStrength(GameMode.EASY, loadedDiceFactory.createDice(4));
+        Agility agility = AbilityFactory.generateAgility(GameMode.EASY, loadedDiceFactory.createDice(5));
+        Perception perception = AbilityFactory.generatePerception(GameMode.EASY, loadedDiceFactory.createDice(2));
 
         // then
         Assertions.assertThat(strength.value()).isEqualTo(8);
