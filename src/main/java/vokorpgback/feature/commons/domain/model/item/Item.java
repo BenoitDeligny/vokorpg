@@ -1,10 +1,10 @@
-package vokorpgback.feature.character.domain.model.item;
+package vokorpgback.feature.commons.domain.model.item;
 
 import vokorpgback.feature.character.domain.model.Trait;
 
 import java.util.List;
 
-public abstract class Item {
+public class Item {
     protected final String name;
     protected final List<Trait> traits;
     protected final String description;
@@ -15,5 +15,21 @@ public abstract class Item {
         this.traits = traits;
         this.description = description;
         this.isRelic = isRelic;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<Trait> getTraits() {
+        return traits;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean isRelic() {
+        return isRelic;
     }
 }

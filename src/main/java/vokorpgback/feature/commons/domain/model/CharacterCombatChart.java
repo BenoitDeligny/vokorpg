@@ -1,4 +1,4 @@
-package vokorpgback.featureBEFORE.fighting.domain.combatchart;
+package vokorpgback.feature.commons.domain.model;
 
 public enum CharacterCombatChart {
     ZERO(0, 1, 6, 1),

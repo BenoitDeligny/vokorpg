@@ -1,13 +1,12 @@
-package vokorpgback.feature.character.domain.model.ability;
+package vokorpgback.feature.commons.domain.model.ability;
 
 import vokorpgback.commons.Validation;
 
-public record Agility(int value) implements Ability {
+public record Agility(int value) {
     public Agility {
         Validation.require(!isValid(), "Agility should be positive.");
     }
 
-    @Override
     public boolean isValid() {
         return value > 0;
     }

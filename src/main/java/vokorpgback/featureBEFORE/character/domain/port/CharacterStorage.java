@@ -1,6 +1,6 @@
 package vokorpgback.featureBEFORE.character.domain.port;
 
-import vokorpgback.feature.character.domain.model.LegendaryCharacter;
+import vokorpgback.feature.commons.domain.model.LegendaryCharacter;
 
 public interface CharacterStorage {
     // http://localhost:8080/h2-console

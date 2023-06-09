@@ -7,7 +7,7 @@
 //import org.springframework.http.MediaType;
 //import org.springframework.test.web.servlet.MockMvc;
 //import vokorpgback.feature.character.application.CreateCharacterUseCase;
-//import vokorpgback.feature.character.domain.model.LegendaryCharacter;
+//import vokorpgback.feature.commons.domain.model.LegendaryCharacter;
 //import vokorpgback.feature.character.domain.model.ability.Ability;
 //import vokorpgback.feature.character.domain.model.Gear;
 //import vokorpgback.feature.commons.domain.model.GameMode;

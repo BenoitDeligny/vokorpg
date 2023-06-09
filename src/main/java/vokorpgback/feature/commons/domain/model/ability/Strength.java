@@ -1,13 +1,12 @@
-package vokorpgback.feature.character.domain.model.ability;
+package vokorpgback.feature.commons.domain.model.ability;
 
 import vokorpgback.commons.Validation;
 
-public record Strength(int value) implements Ability {
+public record Strength(int value) {
     public Strength {
         Validation.require(!isValid(), "Strength should be positive.");
     }
 
-    @Override
     public boolean isValid() {
         return value > 0;
     }

@@ -1,7 +1,7 @@
 package vokorpgback.featureBEFORE.fighting.domain.fighter;
 
 import vokorpgback.feature.commons.domain.port.Dice;
-import vokorpgback.featureBEFORE.fighting.domain.combatchart.CharacterCombatChart;
+import vokorpgback.feature.commons.domain.model.CharacterCombatChart;
 
 public class CharacterFighter extends Fighter {
     private final int agility;

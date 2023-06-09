@@ -1,6 +1,6 @@
 package vokorpgback.feature.character.application;
 
-import vokorpgback.feature.character.domain.model.LegendaryCharacter;
+import vokorpgback.feature.commons.domain.model.LegendaryCharacter;
 import vokorpgback.featureBEFORE.character.domain.port.CharacterStorage;
 
 public class CreateCharacterUseCase {

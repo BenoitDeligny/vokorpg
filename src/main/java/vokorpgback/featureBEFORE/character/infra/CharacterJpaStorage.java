@@ -1,7 +1,7 @@
 package vokorpgback.featureBEFORE.character.infra;
 
 import org.springframework.stereotype.Repository;
-import vokorpgback.feature.character.domain.model.LegendaryCharacter;
+import vokorpgback.feature.commons.domain.model.LegendaryCharacter;
 import vokorpgback.featureBEFORE.character.domain.port.CharacterStorage;
 import vokorpgback.featureBEFORE.character.infra.entity.CharacterEntity;
 

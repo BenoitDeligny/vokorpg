@@ -1,13 +1,12 @@
-package vokorpgback.feature.character.domain.model.ability;
+package vokorpgback.feature.commons.domain.model.ability;
 
 import vokorpgback.commons.Validation;
 
-public record Perception(int value) implements Ability {
+public record Perception(int value) {
     public Perception {
         Validation.require(!isValid(), "Perception should be positive.");
     }
 
-    @Override
     public boolean isValid() {
         return value > 0;
     }

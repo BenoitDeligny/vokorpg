@@ -1,9 +1,7 @@
 package vokorpgback.feature.character.application;
 
-import vokorpgback.feature.character.domain.model.LegendaryCharacter;
-import vokorpgback.feature.character.domain.model.LegendaryCharacterFactory;
+import vokorpgback.feature.commons.domain.model.LegendaryCharacter;
 import vokorpgback.featureBEFORE.character.domain.port.CharacterStorage;
-import vokorpgback.feature.commons.domain.model.GameMode;
 
 import java.util.ArrayList;
 import java.util.List;

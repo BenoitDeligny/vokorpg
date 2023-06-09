@@ -3,8 +3,8 @@ package vokorpgback.feature.character.application;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import vokorpgback.feature.character.domain.model.LegendaryCharacter;
-import vokorpgback.feature.character.domain.model.LegendaryCharacterFactory;
+import vokorpgback.feature.commons.domain.model.LegendaryCharacter;
+import vokorpgback.feature.commons.application.LegendaryCharacterFactory;
 import vokorpgback.feature.commons.domain.model.GameMode;
 import vokorpgback.feature.commons.domain.model.OfficialDice;
 
