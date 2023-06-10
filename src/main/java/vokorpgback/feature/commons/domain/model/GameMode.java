@@ -6,7 +6,7 @@ public enum GameMode {
 
     private final int abilitiesModifier;
 
-    private GameMode(int abilitiesModifier) {
+    GameMode(int abilitiesModifier) {
         this.abilitiesModifier = abilitiesModifier;
     }
 

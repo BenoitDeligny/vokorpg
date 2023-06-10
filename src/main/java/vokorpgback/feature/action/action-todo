@@ -1,5 +1,5 @@
 // TODO
-        // add parameters -> type (climbing, swimming, ...), difficulty, ability involved, bonus (knowledge, items, ...)
+        // add parameters -> type (climbing, swimming, ...), difficulty, ability involved, bonus (knowledgeType, items, ...)
         // roll 2 dice
         // add bonus
         // compare to difficulty
