@@ -12,13 +12,12 @@ import static vokorpgback.feature.commons.domain.model.gear.ItemType.*;
 class GearTest {
 
     @Test
-    void generateGear_should_pass() {
+    void generateGear() {
         // given
         Gear normalGear = GearFactory.generateBasicGear(NORMAL);
         Gear easyGear = GearFactory.generateBasicGear(EASY);
 
         // when
-
         // then
         assertDoesNotThrow(() -> normalGear);
         assertDoesNotThrow(() -> easyGear);

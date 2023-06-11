@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class IdentityTest {
 
     @Test
-    void generateIdentity_should_pass() {
+    void generateIdentity() {
         assertDoesNotThrow(() -> new Identity(UUID.randomUUID(), "MyCharacterName", 17));
     }
 

@@ -5,6 +5,8 @@ import vokorpgback.feature.commons.domain.model.GameMode;
 import java.util.Collections;
 import java.util.List;
 
+import static vokorpgback.feature.commons.domain.model.gear.TraitType.HEAL;
+
 public class BackPackFactory {
 
     private BackPackFactory() {
@@ -24,7 +26,7 @@ public class BackPackFactory {
                         new Consumable(
                                 "Magical bays",
                                 ItemType.CONSUMABLE,
-                                null,
+                                new Trait(HEAL, 2),
                                 "Few little bays that you can eat.",
                                 false,
                                 3

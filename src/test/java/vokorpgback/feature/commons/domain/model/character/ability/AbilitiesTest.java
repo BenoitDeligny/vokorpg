@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class AbilitiesTest {
 
     @Test
-    void generateAbility_should_pass() {
+    void generateAbility() {
         // given
         // when
         // then
