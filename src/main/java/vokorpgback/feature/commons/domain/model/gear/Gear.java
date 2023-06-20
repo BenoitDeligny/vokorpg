@@ -75,7 +75,7 @@ public record Gear(
                 .sum();
     }
 
-    private List<Item> getGearItems() {
+    public List<Item> getGearItems() {
         return List.of(
                 helmet(),
                 mask(),

@@ -9,10 +9,19 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import vokorpgback.feature.character.application.CreateCharacterUseCase;
 import vokorpgback.feature.character.exposition.dto.CharacterCreationRequest;
+import vokorpgback.feature.character.exposition.dto.CharacterCreationResponse;
+import vokorpgback.feature.character.exposition.dto.ItemDto;
+import vokorpgback.feature.character.exposition.dto.KnowledgeDto;
+import vokorpgback.feature.character.exposition.dto.PowerDto;
+import vokorpgback.feature.character.exposition.dto.TraitDto;
 import vokorpgback.feature.commons.domain.model.GameMode;
+import vokorpgback.feature.commons.domain.model.Power;
 import vokorpgback.feature.commons.domain.model.character.LegendaryCharacter;
 import vokorpgback.feature.commons.domain.model.character.LegendaryCharacterFactory;
 import vokorpgback.feature.commons.domain.model.dice.OfficialDiceFactory;
+import vokorpgback.feature.commons.domain.model.gear.Item;
+import vokorpgback.feature.commons.domain.model.gear.Trait;
+import vokorpgback.feature.commons.domain.model.knowledge.Knowledge;
 
 @RestController
 public class CharacterController {
@@ -37,14 +46,55 @@ public class CharacterController {
                 )
         );
 
-        return ResponseEntity.ofNullable();
+        return ResponseEntity.ofNullable(toResponse(legendaryCharacter));
     }
 
     private GameMode toGameModeDomain(String gameModeDto) {
         return GameMode.valueOf(gameModeDto);
     }
 
-    private CharacterCreationresponse toResponse(LegendaryCharacter legendaryCharacter) {
+    private CharacterCreationResponse toResponse(LegendaryCharacter legendaryCharacter) {
+        return new CharacterCreationResponse(
+                legendaryCharacter.identity().name(),
+                legendaryCharacter.identity().age(),
+                legendaryCharacter.strength().value(),
+                legendaryCharacter.agility().value(),
+                legendaryCharacter.perception().value(),
+                legendaryCharacter.fightingMight().maxTotalMight(),
+                legendaryCharacter.fightingMight().characterCombatChart().getNumberOfDice(),
+                legendaryCharacter.gear().getGearItems().stream().map(this::toItemDto).toList(),
+                legendaryCharacter.powers().stream().map(this::toPowerDto).toList(),
+                legendaryCharacter.knowledge().stream().map(this::toKnowledgeDto).toList()
+        );
+    }
 
+    private ItemDto toItemDto(Item item) {
+        return new ItemDto(
+                item.getName(),
+                item.getType().name(),
+                toTraitDto(item.getTrait()),
+                item.getDescription()
+        );
+    }
+
+    private TraitDto toTraitDto(Trait trait) {
+        return new TraitDto(
+                trait.type().name(),
+                trait.modifier()
+        );
+    }
+
+    private PowerDto toPowerDto(Power power) {
+        return new PowerDto(
+                power.name()
+                // miss the bonus
+        );
+    }
+
+    private KnowledgeDto toKnowledgeDto(Knowledge knowledge) {
+        return new KnowledgeDto(
+                knowledge.getType().name(),
+                knowledge.getMasteryLevel()
+        );
     }
 }

@@ -15,4 +15,17 @@ public class CharacterCreationResponse {
     private final List<ItemDto> items;
     private final List<PowerDto> powers;
     private final List<KnowledgeDto> knowledge;
+
+    public CharacterCreationResponse(String name, int age, int stregnth, int agility, int perception, int fightingMight, int damageDice, List<ItemDto> items, List<PowerDto> powers, List<KnowledgeDto> knowledge) {
+        this.name = name;
+        this.age = age;
+        this.stregnth = stregnth;
+        this.agility = agility;
+        this.perception = perception;
+        this.fightingMight = fightingMight;
+        this.damageDice = damageDice;
+        this.items = items;
+        this.powers = powers;
+        this.knowledge = knowledge;
+    }
 }
