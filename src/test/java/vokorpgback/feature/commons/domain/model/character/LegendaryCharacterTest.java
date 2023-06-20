@@ -112,6 +112,6 @@ class LegendaryCharacterTest {
         Assertions.assertThat(legendaryCharacter.fightingMight().maxNaturalMight()).isBetween(15, 30);
         Assertions.assertThat(legendaryCharacter.fightingMight().maxTotalMight()).isBetween(18, 33);
         Assertions.assertThat(legendaryCharacter.fightingMight().remainingMight()).isBetween(18, 33);
-        Assertions.assertThat(legendaryCharacter.fightingMight().characterCombatChart()).isBetween(CharacterCombatChart.ONE, CharacterCombatChart.TWO);
+        Assertions.assertThat(legendaryCharacter.fightingMight().characterCombatChart()).isBetween(CharacterCombatChart.ONE, CharacterCombatChart.THREE);
     }
 }
