@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 import vokorpgback.feature.character.application.CreateCharacterUseCase;
 import vokorpgback.feature.character.exposition.dto.CharacterCreationRequest;
 import vokorpgback.feature.character.exposition.dto.CharacterCreationResponse;
-import vokorpgback.feature.character.exposition.dto.ItemDto;
-import vokorpgback.feature.character.exposition.dto.KnowledgeDto;
-import vokorpgback.feature.character.exposition.dto.PowerDto;
-import vokorpgback.feature.character.exposition.dto.TraitDto;
+import vokorpgback.feature.character.exposition.dto.ItemResponseDto;
+import vokorpgback.feature.character.exposition.dto.KnowledgeResponseDto;
+import vokorpgback.feature.character.exposition.dto.PowerResponseDto;
+import vokorpgback.feature.character.exposition.dto.TraitResponseDto;
 import vokorpgback.feature.commons.domain.model.GameMode;
 import vokorpgback.feature.commons.domain.model.Power;
 import vokorpgback.feature.commons.domain.model.character.LegendaryCharacter;
@@ -68,8 +68,8 @@ public class CharacterController {
         );
     }
 
-    private ItemDto toItemDto(Item item) {
-        return new ItemDto(
+    private ItemResponseDto toItemDto(Item item) {
+        return new ItemResponseDto(
                 item.getName(),
                 item.getType().name(),
                 toTraitDto(item.getTrait()),
@@ -77,22 +77,22 @@ public class CharacterController {
         );
     }
 
-    private TraitDto toTraitDto(Trait trait) {
-        return new TraitDto(
+    private TraitResponseDto toTraitDto(Trait trait) {
+        return new TraitResponseDto(
                 trait.type().name(),
                 trait.modifier()
         );
     }
 
-    private PowerDto toPowerDto(Power power) {
-        return new PowerDto(
+    private PowerResponseDto toPowerDto(Power power) {
+        return new PowerResponseDto(
                 power.name()
                 // miss the bonus
         );
     }
 
-    private KnowledgeDto toKnowledgeDto(Knowledge knowledge) {
-        return new KnowledgeDto(
+    private KnowledgeResponseDto toKnowledgeDto(Knowledge knowledge) {
+        return new KnowledgeResponseDto(
                 knowledge.getType().name(),
                 knowledge.getMasteryLevel()
         );

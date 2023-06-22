@@ -1,7 +1,6 @@
 package vokorpgback.feature.commons.domain.model.character;
 
 import org.junit.jupiter.api.Test;
-import vokorpgback.feature.commons.domain.model.character.ability.Strength;
 
 import java.util.UUID;
 

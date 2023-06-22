@@ -2,18 +2,12 @@ package vokorpgback.feature.commons.domain.model.character;
 
 import vokorpgback.feature.commons.domain.model.GameMode;
 import vokorpgback.feature.commons.domain.model.Power;
-import vokorpgback.feature.commons.domain.model.character.ability.Agility;
-import vokorpgback.feature.commons.domain.model.character.ability.Perception;
-import vokorpgback.feature.commons.domain.model.character.ability.Strength;
 import vokorpgback.feature.commons.domain.model.gear.BackPack;
 import vokorpgback.feature.commons.domain.model.gear.Gear;
-import vokorpgback.feature.commons.domain.model.gear.Item;
-import vokorpgback.feature.commons.domain.model.gear.TraitType;
 import vokorpgback.feature.commons.domain.model.knowledge.Knowledge;
 import vokorpgback.feature.commons.domain.port.Dice;
 import vokorpgback.feature.commons.domain.port.DiceFactory;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -46,6 +40,8 @@ public class LegendaryCharacterFactory {
         Gear gear = generateBasicGear(gameMode);
 
         // might and dice
+        // TODO
+        // this should be in the character
         FightingMight fightingMight = computeFightingMight(strength, agility, perception, gear);
 
         // backPack

@@ -1,6 +1,9 @@
 package vokorpgback.feature.commons.domain.model.character.ability;
 
 import org.junit.jupiter.api.Test;
+import vokorpgback.feature.commons.domain.model.character.Agility;
+import vokorpgback.feature.commons.domain.model.character.Perception;
+import vokorpgback.feature.commons.domain.model.character.Strength;
 
 import static org.junit.jupiter.api.Assertions.*;
 

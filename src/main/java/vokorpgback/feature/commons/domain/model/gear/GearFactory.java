@@ -15,7 +15,7 @@ public class GearFactory {
     public static Gear generateBasicGear(GameMode gameMode) {
         return switch (gameMode) {
             case EASY -> generateEasyModeGear();
-            default -> generateNormalModeGear();
+            case NORMAL -> generateNormalModeGear();
         };
     }
 

@@ -1,6 +1,8 @@
 package vokorpgback.feature.commons.domain.model;
 
 public enum GameMode {
+    // TODO
+    // the modifier should be handle in the factory abstract
     EASY(4),
     NORMAL(1);
 

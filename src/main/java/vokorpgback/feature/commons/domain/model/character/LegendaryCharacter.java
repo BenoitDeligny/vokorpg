@@ -3,13 +3,12 @@ package vokorpgback.feature.commons.domain.model.character;
 import vokorpgback.commons.Validation;
 import vokorpgback.feature.commons.domain.model.Power;
 import vokorpgback.feature.commons.domain.model.knowledge.Knowledge;
-import vokorpgback.feature.commons.domain.model.character.ability.Agility;
-import vokorpgback.feature.commons.domain.model.character.ability.Perception;
-import vokorpgback.feature.commons.domain.model.character.ability.Strength;
 import vokorpgback.feature.commons.domain.model.gear.*;
 
 import java.util.List;
 
+// TODO
+// penser a faire un package
 public record LegendaryCharacter(
         Identity identity,
         Strength strength,
@@ -27,6 +26,7 @@ public record LegendaryCharacter(
         Validation.require(isSumOfAbilitiesAndItems(fightingMight, gear), "Total might is not equal to abilities and gear sum.");
     }
 
+    // put static here to not depend of instance state
     private boolean isSumOfAbilities(FightingMight fightingMight, Strength strength, Agility agility, Perception perception) {
         return fightingMight.maxNaturalMight() == strength.value() + agility.value() + perception.value();
     }
