@@ -1,13 +1,18 @@
 package vokorpgback.feature.character.application;
 
+import vokorpgback.feature.character.domain.port.CharacterStorage;
 import vokorpgback.feature.commons.domain.model.character.LegendaryCharacter;
 
 public class CreateCharacterUseCase {
 
+    private final CharacterStorage characterStorage;
+
+    public CreateCharacterUseCase(CharacterStorage characterStorage) {
+        this.characterStorage = characterStorage;
+    }
+
     public LegendaryCharacter handle(LegendaryCharacter legendaryCharacter) {
-        // TODO
-        // create port for H2
-        // return it
+        characterStorage.save(legendaryCharacter);
         return legendaryCharacter;
     }
 }
