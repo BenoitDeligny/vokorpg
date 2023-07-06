@@ -1,4 +1,4 @@
-package vokorpgback.feature.commons.domain.model.gear;
+package vokorpgback.feature.commons.domain.model.character.gear;
 
 import vokorpgback.commons.Validation;
 

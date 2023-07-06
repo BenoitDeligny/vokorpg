@@ -1,8 +1,9 @@
 package vokorpgback.feature.commons.domain.model;
 
 public enum GameMode {
-    // TODO
-    // the modifier should be handle in the factory abstract
+    // TODO we could create an abstract factory
+    // it could take the mode and then using real factories with modifiers
+    // cause for now we only have the ability modifier but we could have something else
     EASY(4),
     NORMAL(1);
 

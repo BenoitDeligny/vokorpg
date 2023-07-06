@@ -1,10 +1,9 @@
-package vokorpgback.feature.commons.domain.model.gear;
+package vokorpgback.feature.commons.domain.model.character.gear;
 
 import vokorpgback.feature.commons.domain.model.GameMode;
 import vokorpgback.feature.commons.domain.model.knowledge.KnowledgeType;
 
-import static vokorpgback.feature.commons.domain.model.gear.ItemType.*;
-import static vokorpgback.feature.commons.domain.model.gear.TraitType.*;
+import static vokorpgback.feature.commons.domain.model.character.gear.ItemType.*;
 
 public class GearFactory {
 
@@ -27,8 +26,8 @@ public class GearFactory {
                 generateBasicCloak(),
                 generateBasicCostume(),
                 generateBasicArmor(),
-                new Item("Enchanted wood shield", SHIELD, new Trait(MIGHT, 3), "A simple but enchanted wood shield", false),
-                new Weapon("Enchanted wood sword",  WEAPON, new Trait(DAMAGE, 1), "A simple but enchanted wood sword", false, KnowledgeType.SWORDSMANSHIP),
+                new Item("Enchanted wood shield", SHIELD, new Trait(TraitType.MIGHT, 3), "A simple but enchanted wood shield", false),
+                new Weapon("Enchanted wood sword",  WEAPON, new Trait(TraitType.DAMAGE, 1), "A simple but enchanted wood sword", false, KnowledgeType.SWORDSMANSHIP),
                 generateBasicWeapon(),
                 generateBasicWristband(),
                 generateBasicGloves(),

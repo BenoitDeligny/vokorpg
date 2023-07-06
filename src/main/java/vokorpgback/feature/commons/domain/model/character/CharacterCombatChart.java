@@ -1,6 +1,6 @@
 package vokorpgback.feature.commons.domain.model.character;
 
-public enum CharacterCombatChart {
+enum CharacterCombatChart {
     ZERO(0, 1, 6, 1),
     ONE(1, 7, 18, 3),
     TWO(2, 19, 30, 7),

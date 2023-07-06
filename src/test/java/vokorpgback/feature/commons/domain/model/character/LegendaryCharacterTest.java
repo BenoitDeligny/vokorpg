@@ -20,21 +20,21 @@ class LegendaryCharacterTest {
         LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(NORMAL, loadedDiceFactory, "MyCharacter");
 
         // then
-        Assertions.assertThat(legendaryCharacter.identity().name()).isEqualTo("MyCharacter");
-        Assertions.assertThat(legendaryCharacter.identity().age()).isEqualTo(20);
+        Assertions.assertThat(legendaryCharacter.name()).isEqualTo("MyCharacter");
+        Assertions.assertThat(legendaryCharacter.age()).isEqualTo(20);
 
-        Assertions.assertThat(legendaryCharacter.strength().value()).isEqualTo(7);
-        Assertions.assertThat(legendaryCharacter.agility().value()).isEqualTo(7);
-        Assertions.assertThat(legendaryCharacter.perception().value()).isEqualTo(7);
+        Assertions.assertThat(legendaryCharacter.strength()).isEqualTo(7);
+        Assertions.assertThat(legendaryCharacter.agility()).isEqualTo(7);
+        Assertions.assertThat(legendaryCharacter.perception()).isEqualTo(7);
 
         Assertions.assertThat(legendaryCharacter.powers()).isEmpty();
 
         Assertions.assertThat(legendaryCharacter.knowledge()).isEmpty();
 
-        Assertions.assertThat(legendaryCharacter.fightingMight().maxNaturalMight()).isEqualTo(21);
-        Assertions.assertThat(legendaryCharacter.fightingMight().maxTotalMight()).isEqualTo(21);
-        Assertions.assertThat(legendaryCharacter.fightingMight().remainingMight()).isEqualTo(21);
-        Assertions.assertThat(legendaryCharacter.fightingMight().characterCombatChart()).isEqualTo(CharacterCombatChart.TWO);
+        Assertions.assertThat(legendaryCharacter.maxNaturalMight()).isEqualTo(21);
+        Assertions.assertThat(legendaryCharacter.maxTotalMight()).isEqualTo(21);
+        Assertions.assertThat(legendaryCharacter.remainingMight()).isEqualTo(21);
+        Assertions.assertThat(legendaryCharacter.characterCombatChart()).isEqualTo(CharacterCombatChart.TWO);
     }
 
     @Test
@@ -46,24 +46,24 @@ class LegendaryCharacterTest {
         LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(EASY, loadedDiceFactory, "MyCharacter");
 
         // then
-        Assertions.assertThat(legendaryCharacter.identity().name()).isEqualTo("MyCharacter");
-        Assertions.assertThat(legendaryCharacter.identity().age()).isEqualTo(20);
+        Assertions.assertThat(legendaryCharacter.name()).isEqualTo("MyCharacter");
+        Assertions.assertThat(legendaryCharacter.age()).isEqualTo(20);
 
-        Assertions.assertThat(legendaryCharacter.strength().value()).isEqualTo(10);
-        Assertions.assertThat(legendaryCharacter.agility().value()).isEqualTo(10);
-        Assertions.assertThat(legendaryCharacter.perception().value()).isEqualTo(10);
+        Assertions.assertThat(legendaryCharacter.strength()).isEqualTo(10);
+        Assertions.assertThat(legendaryCharacter.agility()).isEqualTo(10);
+        Assertions.assertThat(legendaryCharacter.perception()).isEqualTo(10);
 
         Assertions.assertThat(legendaryCharacter.powers()).isEmpty();
 
         Assertions.assertThat(legendaryCharacter.knowledge()).isEmpty();
 
-        Assertions.assertThat(legendaryCharacter.fightingMight().maxNaturalMight()).isEqualTo(30);
-        Assertions.assertThat(legendaryCharacter.fightingMight().maxTotalMight()).isEqualTo(33);
-        Assertions.assertThat(legendaryCharacter.fightingMight().remainingMight()).isEqualTo(33);
-        Assertions.assertThat(legendaryCharacter.fightingMight().characterCombatChart()).isEqualTo(CharacterCombatChart.THREE);
+        Assertions.assertThat(legendaryCharacter.maxNaturalMight()).isEqualTo(30);
+        Assertions.assertThat(legendaryCharacter.maxTotalMight()).isEqualTo(33);
+        Assertions.assertThat(legendaryCharacter.remainingMight()).isEqualTo(33);
+        Assertions.assertThat(legendaryCharacter.characterCombatChart()).isEqualTo(CharacterCombatChart.THREE);
     }
 
-    @RepeatedTest(50)
+    @RepeatedTest(100)
     void generateCharacterInNormalMode_withOfficialDice() {
         // given
         OfficialDiceFactory officialDiceFactory = new OfficialDiceFactory();
@@ -72,24 +72,24 @@ class LegendaryCharacterTest {
         LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(NORMAL, officialDiceFactory, "MyCharacter");
 
         // then
-        Assertions.assertThat(legendaryCharacter.identity().name()).isEqualTo("MyCharacter");
-        Assertions.assertThat(legendaryCharacter.identity().age()).isBetween(15, 20);
+        Assertions.assertThat(legendaryCharacter.name()).isEqualTo("MyCharacter");
+        Assertions.assertThat(legendaryCharacter.age()).isBetween(15, 20);
 
-        Assertions.assertThat(legendaryCharacter.strength().value()).isBetween(2, 7);
-        Assertions.assertThat(legendaryCharacter.agility().value()).isBetween(2, 7);
-        Assertions.assertThat(legendaryCharacter.perception().value()).isBetween(2, 7);
+        Assertions.assertThat(legendaryCharacter.strength()).isBetween(2, 7);
+        Assertions.assertThat(legendaryCharacter.agility()).isBetween(2, 7);
+        Assertions.assertThat(legendaryCharacter.perception()).isBetween(2, 7);
 
         Assertions.assertThat(legendaryCharacter.powers()).isEmpty();
 
         Assertions.assertThat(legendaryCharacter.knowledge()).isEmpty();
 
-        Assertions.assertThat(legendaryCharacter.fightingMight().maxNaturalMight()).isBetween(6, 21);
-        Assertions.assertThat(legendaryCharacter.fightingMight().maxTotalMight()).isBetween(6, 21);
-        Assertions.assertThat(legendaryCharacter.fightingMight().remainingMight()).isBetween(6, 21);
-        Assertions.assertThat(legendaryCharacter.fightingMight().characterCombatChart()).isBetween(CharacterCombatChart.ZERO, CharacterCombatChart.TWO);
+        Assertions.assertThat(legendaryCharacter.maxNaturalMight()).isBetween(6, 21);
+        Assertions.assertThat(legendaryCharacter.maxTotalMight()).isBetween(6, 21);
+        Assertions.assertThat(legendaryCharacter.remainingMight()).isBetween(6, 21);
+        Assertions.assertThat(legendaryCharacter.characterCombatChart()).isBetween(CharacterCombatChart.ZERO, CharacterCombatChart.TWO);
     }
 
-    @RepeatedTest(50)
+    @RepeatedTest(100)
     void generateCharacterInEasyMode_withOfficialDice() {
         // given
         OfficialDiceFactory officialDiceFactory = new OfficialDiceFactory();
@@ -98,20 +98,20 @@ class LegendaryCharacterTest {
         LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(EASY, officialDiceFactory, "MyCharacter");
 
         // then
-        Assertions.assertThat(legendaryCharacter.identity().name()).isEqualTo("MyCharacter");
-        Assertions.assertThat(legendaryCharacter.identity().age()).isBetween(15, 20);
+        Assertions.assertThat(legendaryCharacter.name()).isEqualTo("MyCharacter");
+        Assertions.assertThat(legendaryCharacter.age()).isBetween(15, 20);
 
-        Assertions.assertThat(legendaryCharacter.strength().value()).isBetween(5, 10);
-        Assertions.assertThat(legendaryCharacter.agility().value()).isBetween(5, 10);
-        Assertions.assertThat(legendaryCharacter.perception().value()).isBetween(5, 10);
+        Assertions.assertThat(legendaryCharacter.strength()).isBetween(5, 10);
+        Assertions.assertThat(legendaryCharacter.agility()).isBetween(5, 10);
+        Assertions.assertThat(legendaryCharacter.perception()).isBetween(5, 10);
 
         Assertions.assertThat(legendaryCharacter.powers()).isEmpty();
 
         Assertions.assertThat(legendaryCharacter.knowledge()).isEmpty();
 
-        Assertions.assertThat(legendaryCharacter.fightingMight().maxNaturalMight()).isBetween(15, 30);
-        Assertions.assertThat(legendaryCharacter.fightingMight().maxTotalMight()).isBetween(18, 33);
-        Assertions.assertThat(legendaryCharacter.fightingMight().remainingMight()).isBetween(18, 33);
-        Assertions.assertThat(legendaryCharacter.fightingMight().characterCombatChart()).isBetween(CharacterCombatChart.ONE, CharacterCombatChart.THREE);
+        Assertions.assertThat(legendaryCharacter.maxNaturalMight()).isBetween(15, 30);
+        Assertions.assertThat(legendaryCharacter.maxTotalMight()).isBetween(18, 33);
+        Assertions.assertThat(legendaryCharacter.remainingMight()).isBetween(18, 33);
+        Assertions.assertThat(legendaryCharacter.characterCombatChart()).isBetween(CharacterCombatChart.ONE, CharacterCombatChart.THREE);
     }
 }

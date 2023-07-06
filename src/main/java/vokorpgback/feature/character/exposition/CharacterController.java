@@ -19,8 +19,8 @@ import vokorpgback.feature.commons.domain.model.Power;
 import vokorpgback.feature.commons.domain.model.character.LegendaryCharacter;
 import vokorpgback.feature.commons.domain.model.character.LegendaryCharacterFactory;
 import vokorpgback.feature.commons.domain.model.dice.OfficialDiceFactory;
-import vokorpgback.feature.commons.domain.model.gear.Item;
-import vokorpgback.feature.commons.domain.model.gear.Trait;
+import vokorpgback.feature.commons.domain.model.character.gear.Item;
+import vokorpgback.feature.commons.domain.model.character.gear.Trait;
 import vokorpgback.feature.commons.domain.model.knowledge.Knowledge;
 
 @RestController
@@ -55,13 +55,13 @@ public class CharacterController {
 
     private CharacterCreationResponse toResponse(LegendaryCharacter legendaryCharacter) {
         return new CharacterCreationResponse(
-                legendaryCharacter.identity().name(),
-                legendaryCharacter.identity().age(),
-                legendaryCharacter.strength().value(),
-                legendaryCharacter.agility().value(),
-                legendaryCharacter.perception().value(),
-                legendaryCharacter.fightingMight().maxTotalMight(),
-                legendaryCharacter.fightingMight().characterCombatChart().getNumberOfDice(),
+                legendaryCharacter.name(),
+                legendaryCharacter.age(),
+                legendaryCharacter.strength(),
+                legendaryCharacter.agility(),
+                legendaryCharacter.perception(),
+                legendaryCharacter.maxTotalMight(),
+                legendaryCharacter.characterCombatDice(),
                 legendaryCharacter.gear().getGearItems().stream().map(this::toItemDto).toList(),
                 legendaryCharacter.powers().stream().map(this::toPowerDto).toList(),
                 legendaryCharacter.knowledge().stream().map(this::toKnowledgeDto).toList()
@@ -87,7 +87,7 @@ public class CharacterController {
     private PowerResponseDto toPowerDto(Power power) {
         return new PowerResponseDto(
                 power.name()
-                // miss the bonus
+                // TODO miss the bonus
         );
     }
 

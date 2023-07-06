@@ -1,12 +1,10 @@
-package vokorpgback.feature.commons.domain.model.gear;
+package vokorpgback.feature.commons.domain.model.character.gear;
 
 import vokorpgback.commons.Validation;
 
 import java.util.List;
 
-import static vokorpgback.feature.commons.domain.model.gear.ItemType.*;
-import static vokorpgback.feature.commons.domain.model.gear.TraitType.DAMAGE;
-import static vokorpgback.feature.commons.domain.model.gear.TraitType.MIGHT;
+import static vokorpgback.feature.commons.domain.model.character.gear.ItemType.*;
 
 public record Gear(
         Item helmet,
@@ -24,7 +22,7 @@ public record Gear(
         Item belt,
         Item boots
 ) {
-    public Gear(Item helmet, Item mask, Item necklace, Item cloak, Item costume, Item armor, Item shield, Weapon primaryWeapon, Weapon secondaryWeapon, Item wristband, Item gloves, Item ring, Item belt, Item boots) {
+    public Gear {
         // validation
         Validation.require(isHelmet(helmet), "You should have a Helmet on your head.");
         Validation.require(isMask(mask), "You should have a Mask on your face.");
@@ -40,21 +38,6 @@ public record Gear(
         Validation.require(isRing(ring), "You should have a Ring on your finger.");
         Validation.require(isBelt(belt), "You should have a Belt on your body.");
         Validation.require(isBoots(boots), "You should have a Boots on your feet.");
-
-        this.helmet = helmet;
-        this.mask = mask;
-        this.necklace = necklace;
-        this.cloak = cloak;
-        this.costume = costume;
-        this.armor = armor;
-        this.shield = shield;
-        this.primaryWeapon = primaryWeapon;
-        this.secondaryWeapon = secondaryWeapon;
-        this.wristband = wristband;
-        this.gloves = gloves;
-        this.ring = ring;
-        this.belt = belt;
-        this.boots = boots;
     }
 
     public int computeMightBonusFromGear() {
@@ -94,18 +77,16 @@ public record Gear(
         );
     }
 
-    // TODO
-    // remove when validation for item
     private boolean hasTrait(Item item) {
         return item.getTrait() != null;
     }
 
     private boolean hasMightTraitType(Item item) {
-        return item.getTrait().type() == MIGHT;
+        return item.getTrait().type() == TraitType.MIGHT;
     }
 
     private boolean hasDamageTraitType(Item item) {
-        return item.getTrait().type() == DAMAGE;
+        return item.getTrait().type() == TraitType.DAMAGE;
     }
 
     private boolean isHelmet(Item item) {

@@ -8,5 +8,6 @@ public class CreateCharacterUseCase {
         // TODO
         // create port for H2
         // return it
+        return legendaryCharacter;
     }
 }

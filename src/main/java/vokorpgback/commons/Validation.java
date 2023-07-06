@@ -10,4 +10,11 @@ public final class Validation {
             throw new IllegalArgumentException(message);
         }
     }
+
+    public static <T> T validateNotNull(T attribute, String message) {
+        if (attribute == null) {
+            throw new IllegalArgumentException(message);
+        }
+        return attribute;
+    }
 }

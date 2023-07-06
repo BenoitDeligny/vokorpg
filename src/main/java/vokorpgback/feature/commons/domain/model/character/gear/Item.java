@@ -1,18 +1,20 @@
-package vokorpgback.feature.commons.domain.model.gear;
+package vokorpgback.feature.commons.domain.model.character.gear;
+
+import java.util.Optional;
+
+import static vokorpgback.commons.Validation.validateNotNull;
 
 public class Item {
     private final String name;
     private final ItemType type;
-    private final Trait trait;
+    private final Optional<Trait> trait;
     private final String description;
     private final boolean isRelic;
 
-    protected Item(String name, ItemType type, Trait trait, String description, boolean isRelic) {
-        // TODO
-        // add isNotNull validation
-        this.name = name;
+    public Item(String name, ItemType type, Trait trait, String description, boolean isRelic) {
+        this.name = validateNotNull(name, "Name should not be null.");
         this.type = type;
-        this.trait = trait;
+        this.trait = Optional.ofNullable(trait);
         this.description = description;
         this.isRelic = isRelic;
     }
@@ -26,7 +28,7 @@ public class Item {
     }
 
     public Trait getTrait() {
-        return trait;
+        return trait.orElse(null);
     }
 
     public String getDescription() {

@@ -2,13 +2,15 @@ package vokorpgback.feature.commons.domain.model.gear;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.util.Collections;
-import java.util.List;
+import vokorpgback.feature.commons.domain.model.character.gear.BackPack;
+import vokorpgback.feature.commons.domain.model.character.gear.BackPackFactory;
+import vokorpgback.feature.commons.domain.model.character.gear.Consumable;
+import vokorpgback.feature.commons.domain.model.character.gear.ItemType;
+import vokorpgback.feature.commons.domain.model.character.gear.Trait;
 
 import static vokorpgback.feature.commons.domain.model.GameMode.EASY;
 import static vokorpgback.feature.commons.domain.model.GameMode.NORMAL;
-import static vokorpgback.feature.commons.domain.model.gear.TraitType.HEAL;
+import static vokorpgback.feature.commons.domain.model.character.gear.TraitType.HEAL;
 
 class BackPackTest {
 
@@ -21,6 +23,7 @@ class BackPackTest {
         // when
         // then
         Assertions.assertThat(normalBackPack.consumables()).isEmpty();
+
         Assertions.assertThat(easyBackPack.consumables()).containsExactly(
                 new Consumable(
                         "Magical bays",
