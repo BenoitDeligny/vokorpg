@@ -20,6 +20,17 @@ public class CharacterH2Storage implements CharacterStorage {
     }
 
     private CharacterEntity toEntity(LegendaryCharacter legendaryCharacter) {
-        return null;
+        return new CharacterEntity(
+                new CharacterEntity.CharacterIdentity(
+                        legendaryCharacter.name(),
+                        legendaryCharacter.age()
+                ),
+                legendaryCharacter.strength(),
+                legendaryCharacter.agility(),
+                legendaryCharacter.perception(),
+                legendaryCharacter.maxNaturalMight(),
+                legendaryCharacter.maxTotalMight(),
+                legendaryCharacter.remainingMight()
+        );
     }
 }
