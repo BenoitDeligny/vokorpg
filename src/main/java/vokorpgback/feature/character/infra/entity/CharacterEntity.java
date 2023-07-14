@@ -43,19 +43,6 @@ public class CharacterEntity {
         this.remainingMight = remainingMight;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CharacterEntity that = (CharacterEntity) o;
-        return strength == that.strength && agility == that.agility && perception == that.perception && naturalMight == that.naturalMight && totalMight == that.totalMight && remainingMight == that.remainingMight && Objects.equals(characterIdentity, that.characterIdentity);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(characterIdentity, strength, agility, perception, naturalMight, totalMight, remainingMight);
-    }
-
     @Embeddable
     public static class CharacterIdentity implements Serializable {
 
@@ -68,22 +55,9 @@ public class CharacterEntity {
         public CharacterIdentity() {
         }
 
-        public CharacterIdentity(@NotNull String name, @NotNull int age) {
+        public CharacterIdentity(@NotNull String name, int age) {
             this.name = name;
             this.age = age;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            CharacterIdentity that = (CharacterIdentity) o;
-            return Objects.equals(name, that.name) && Objects.equals(age, that.age);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(name, age);
         }
     }
 }
