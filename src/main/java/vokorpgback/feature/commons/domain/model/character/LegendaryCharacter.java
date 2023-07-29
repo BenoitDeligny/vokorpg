@@ -11,6 +11,7 @@ import vokorpgback.feature.commons.domain.model.gear.Gear;
 import vokorpgback.feature.commons.domain.model.knowledge.Knowledge;
 
 import java.util.List;
+import java.util.UUID;
 
 public class LegendaryCharacter {
     private final Identity identity;
@@ -54,6 +55,10 @@ public class LegendaryCharacter {
             }
         }
         return CharacterCombatChart.ZERO;
+    }
+
+    public UUID uuid() {
+        return identity.uuid();
     }
 
     public String name() {
@@ -112,7 +117,7 @@ public class LegendaryCharacter {
         return backPack;
     }
 
-    record Identity(String name,int age) {
+    record Identity(UUID uuid, String name, int age) {
 
         Identity {
             Validation.require(containsOnlyLetters(name), "Name should only contain letters.");
@@ -127,11 +132,6 @@ public class LegendaryCharacter {
         }
     }
 
-    record FightingMight(
-            int maxNaturalMight,
-            int maxTotalMight,
-            int remainingMight,
-            CharacterCombatChart characterCombatChart
-    ) {
+    record FightingMight(int maxNaturalMight, int maxTotalMight, int remainingMight, CharacterCombatChart characterCombatChart) {
     }
 }

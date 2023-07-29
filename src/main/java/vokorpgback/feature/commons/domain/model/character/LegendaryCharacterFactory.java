@@ -15,6 +15,7 @@ import vokorpgback.feature.commons.domain.port.DiceFactory;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 import static vokorpgback.feature.commons.domain.model.gear.BackPackFactory.generateBackPack;
 import static vokorpgback.feature.commons.domain.model.gear.GearFactory.generateBasicGear;
@@ -27,7 +28,7 @@ public class LegendaryCharacterFactory {
 
     public static LegendaryCharacter generateLegendaryCharacter(GameMode gameMode, DiceFactory diceFactory, String name) {
         // identity
-        Identity identity = new Identity(name, generateAge(diceFactory.createDice(6)));
+        Identity identity = new Identity(UUID.randomUUID(), name, generateAge(diceFactory.createDice(6)));
 
         // ability
         Strength strength = new Strength(generateAbilityScore(gameMode, diceFactory.createDice(6)));
