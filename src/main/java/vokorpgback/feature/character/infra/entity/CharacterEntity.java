@@ -5,33 +5,37 @@ import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "legendary_character")
 public class CharacterEntity {
-    // TODO find a better primary key
     @EmbeddedId
-    private final CharacterIdentity characterIdentity;
+    private CharacterIdentity characterIdentity;
 
     @Column(name = "strength", nullable = false)
-    private final int strength;
+    private int strength;
 
     @Column(name = "agility", nullable = false)
-    private final int agility;
+    private int agility;
 
     @Column(name = "perception", nullable = false)
-    private final int perception;
+    private int perception;
 
     @Column(name = "natural_might", nullable = false)
-    private final int naturalMight;
+    private int naturalMight;
 
     @Column(name = "total_might", nullable = false)
-    private final int totalMight;
+    private int totalMight;
 
     @Column(name = "remaining_might", nullable = false)
-    private final int remainingMight;
+    private int remainingMight;
 
     // TODO add gear, backPack, powers, knowledge
+
+
+    public CharacterEntity() {
+    }
 
     public CharacterEntity(CharacterIdentity characterIdentity, int strength, int agility, int perception, int naturalMight, int totalMight, int remainingMight) {
         this.characterIdentity = characterIdentity;
@@ -46,6 +50,9 @@ public class CharacterEntity {
     @Embeddable
     public static class CharacterIdentity implements Serializable {
 
+        @Column(name = "uuid", nullable = false)
+        private UUID uuid;
+
         @Column(name = "name", nullable = false)
         private String name;
 
@@ -55,9 +62,58 @@ public class CharacterEntity {
         public CharacterIdentity() {
         }
 
-        public CharacterIdentity(@NotNull String name, int age) {
+        public CharacterIdentity(UUID uuid, String name, int age) {
+            this.uuid = uuid;
             this.name = name;
             this.age = age;
         }
+
+        @Override
+        public String toString() {
+            return "CharacterIdentity{" +
+                    "uuid=" + uuid +
+                    ", name='" + name + '\'' +
+                    ", age=" + age +
+                    '}';
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            CharacterIdentity that = (CharacterIdentity) o;
+            return age == that.age && Objects.equals(uuid, that.uuid) && Objects.equals(name, that.name);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(uuid, name, age);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "CharacterEntity{" +
+                "characterIdentity=" + characterIdentity +
+                ", strength=" + strength +
+                ", agility=" + agility +
+                ", perception=" + perception +
+                ", naturalMight=" + naturalMight +
+                ", totalMight=" + totalMight +
+                ", remainingMight=" + remainingMight +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CharacterEntity character = (CharacterEntity) o;
+        return strength == character.strength && agility == character.agility && perception == character.perception && naturalMight == character.naturalMight && totalMight == character.totalMight && remainingMight == character.remainingMight && Objects.equals(characterIdentity, character.characterIdentity);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(characterIdentity, strength, agility, perception, naturalMight, totalMight, remainingMight);
     }
 }

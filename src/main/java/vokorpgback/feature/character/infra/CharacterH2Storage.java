@@ -22,6 +22,7 @@ public class CharacterH2Storage implements CharacterStorage {
     private CharacterEntity toEntity(LegendaryCharacter legendaryCharacter) {
         return new CharacterEntity(
                 new CharacterEntity.CharacterIdentity(
+                        legendaryCharacter.uuid(),
                         legendaryCharacter.name(),
                         legendaryCharacter.age()
                 ),
