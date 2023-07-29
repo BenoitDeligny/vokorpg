@@ -1,25 +1,29 @@
 package vokorpgback.feature.commons.domain.model.character;
 
 import vokorpgback.commons.Validation;
+import vokorpgback.feature.commons.domain.model.Ability.Ability;
+import vokorpgback.feature.commons.domain.model.Ability.Agility;
+import vokorpgback.feature.commons.domain.model.Ability.Perception;
+import vokorpgback.feature.commons.domain.model.Ability.Strength;
 import vokorpgback.feature.commons.domain.model.Power;
-import vokorpgback.feature.commons.domain.model.character.gear.BackPack;
-import vokorpgback.feature.commons.domain.model.character.gear.Gear;
+import vokorpgback.feature.commons.domain.model.gear.BackPack;
+import vokorpgback.feature.commons.domain.model.gear.Gear;
 import vokorpgback.feature.commons.domain.model.knowledge.Knowledge;
 
 import java.util.List;
 
 public class LegendaryCharacter {
     private final Identity identity;
-    private final Ability strength;
-    private final Ability agility;
-    private final Ability perception;
+    private final Strength strength;
+    private final Agility agility;
+    private final Perception perception;
     private final Gear gear;
     private final List<Power> powers;
     private final List<Knowledge> knowledge;
     private final FightingMight fightingMight;
     private final BackPack backPack;
 
-    public LegendaryCharacter(Identity identity, Ability strength, Ability agility, Ability perception, Gear gear, List<Power> powers, List<Knowledge> knowledge, BackPack backPack) {
+    public LegendaryCharacter(Identity identity, Strength strength, Agility agility, Perception perception, Gear gear, List<Power> powers, List<Knowledge> knowledge, BackPack backPack) {
         this.identity = identity;
         this.strength = strength;
         this.agility = agility;
@@ -120,16 +124,6 @@ public class LegendaryCharacter {
         }
         private boolean isAgeBetween15And20(int age) {
             return age >= 15 && age <= 20;
-        }
-    }
-
-    record Ability(int value) {
-        Ability {
-            Validation.require(isPositive(value), "An Ability should be positive.");
-        }
-
-        private boolean isPositive(int value) {
-            return value > 0;
         }
     }
 

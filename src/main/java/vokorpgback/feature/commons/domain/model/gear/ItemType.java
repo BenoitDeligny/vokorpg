@@ -1,4 +1,4 @@
-package vokorpgback.feature.commons.domain.model.character.gear;
+package vokorpgback.feature.commons.domain.model.gear;
 
 public enum ItemType {
     ARMOR,

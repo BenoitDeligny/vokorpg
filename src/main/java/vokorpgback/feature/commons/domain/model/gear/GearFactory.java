@@ -1,9 +1,9 @@
-package vokorpgback.feature.commons.domain.model.character.gear;
+package vokorpgback.feature.commons.domain.model.gear;
 
 import vokorpgback.feature.commons.domain.model.GameMode;
 import vokorpgback.feature.commons.domain.model.knowledge.KnowledgeType;
 
-import static vokorpgback.feature.commons.domain.model.character.gear.ItemType.*;
+import static vokorpgback.feature.commons.domain.model.gear.ItemType.*;
 
 public class GearFactory {
 

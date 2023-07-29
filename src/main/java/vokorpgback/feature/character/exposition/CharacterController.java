@@ -19,8 +19,8 @@ import vokorpgback.feature.commons.domain.model.Power;
 import vokorpgback.feature.commons.domain.model.character.LegendaryCharacter;
 import vokorpgback.feature.commons.domain.model.character.LegendaryCharacterFactory;
 import vokorpgback.feature.commons.domain.model.dice.OfficialDiceFactory;
-import vokorpgback.feature.commons.domain.model.character.gear.Item;
-import vokorpgback.feature.commons.domain.model.character.gear.Trait;
+import vokorpgback.feature.commons.domain.model.gear.Item;
+import vokorpgback.feature.commons.domain.model.gear.Trait;
 import vokorpgback.feature.commons.domain.model.knowledge.Knowledge;
 
 @RestController

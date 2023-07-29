@@ -1,21 +1,23 @@
 package vokorpgback.feature.commons.domain.model.character;
 
+import vokorpgback.feature.commons.domain.model.Ability.Ability;
+import vokorpgback.feature.commons.domain.model.Ability.Agility;
+import vokorpgback.feature.commons.domain.model.Ability.Perception;
+import vokorpgback.feature.commons.domain.model.Ability.Strength;
 import vokorpgback.feature.commons.domain.model.GameMode;
 import vokorpgback.feature.commons.domain.model.Power;
-import vokorpgback.feature.commons.domain.model.character.LegendaryCharacter.Ability;
 import vokorpgback.feature.commons.domain.model.character.LegendaryCharacter.Identity;
-import vokorpgback.feature.commons.domain.model.character.gear.BackPack;
-import vokorpgback.feature.commons.domain.model.character.gear.Gear;
+import vokorpgback.feature.commons.domain.model.gear.BackPack;
+import vokorpgback.feature.commons.domain.model.gear.Gear;
 import vokorpgback.feature.commons.domain.model.knowledge.Knowledge;
 import vokorpgback.feature.commons.domain.port.Dice;
 import vokorpgback.feature.commons.domain.port.DiceFactory;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 
-import static vokorpgback.feature.commons.domain.model.character.gear.BackPackFactory.generateBackPack;
-import static vokorpgback.feature.commons.domain.model.character.gear.GearFactory.generateBasicGear;
+import static vokorpgback.feature.commons.domain.model.gear.BackPackFactory.generateBackPack;
+import static vokorpgback.feature.commons.domain.model.gear.GearFactory.generateBasicGear;
 
 
 public class LegendaryCharacterFactory {
@@ -28,9 +30,9 @@ public class LegendaryCharacterFactory {
         Identity identity = new Identity(name, generateAge(diceFactory.createDice(6)));
 
         // ability
-        Ability strength = new Ability(generateAbilityScore(gameMode, diceFactory.createDice(6)));
-        Ability agility = new Ability(generateAbilityScore(gameMode, diceFactory.createDice(6)));
-        Ability perception = new Ability(generateAbilityScore(gameMode, diceFactory.createDice(6)));
+        Strength strength = new Strength(generateAbilityScore(gameMode, diceFactory.createDice(6)));
+        Agility agility = new Agility(generateAbilityScore(gameMode, diceFactory.createDice(6)));
+        Perception perception = new Perception(generateAbilityScore(gameMode, diceFactory.createDice(6)));
 
         // powers
         List<Power> powers = Collections.emptyList();

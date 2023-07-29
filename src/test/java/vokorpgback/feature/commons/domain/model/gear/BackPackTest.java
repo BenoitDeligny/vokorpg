@@ -2,15 +2,10 @@ package vokorpgback.feature.commons.domain.model.gear;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import vokorpgback.feature.commons.domain.model.character.gear.BackPack;
-import vokorpgback.feature.commons.domain.model.character.gear.BackPackFactory;
-import vokorpgback.feature.commons.domain.model.character.gear.Consumable;
-import vokorpgback.feature.commons.domain.model.character.gear.ItemType;
-import vokorpgback.feature.commons.domain.model.character.gear.Trait;
 
 import static vokorpgback.feature.commons.domain.model.GameMode.EASY;
 import static vokorpgback.feature.commons.domain.model.GameMode.NORMAL;
-import static vokorpgback.feature.commons.domain.model.character.gear.TraitType.HEAL;
+import static vokorpgback.feature.commons.domain.model.gear.TraitType.HEAL;
 
 class BackPackTest {
 

@@ -1,7 +1,10 @@
 package vokorpgback.feature.character.exposition.dto;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.validation.constraints.NotEmpty;
 
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CharacterCreationRequest {
 
     @NotEmpty(message = "A character should have a name.")

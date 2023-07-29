@@ -1,4 +1,4 @@
-package vokorpgback.feature.commons.domain.model.character.gear;
+package vokorpgback.feature.commons.domain.model.gear;
 
 import java.util.Optional;
 

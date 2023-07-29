@@ -1,17 +1,12 @@
 package vokorpgback.feature.commons.domain.model.gear;
 
 import org.junit.jupiter.api.Test;
-import vokorpgback.feature.commons.domain.model.character.gear.Gear;
-import vokorpgback.feature.commons.domain.model.character.gear.GearFactory;
-import vokorpgback.feature.commons.domain.model.character.gear.Item;
-import vokorpgback.feature.commons.domain.model.character.gear.ItemType;
-import vokorpgback.feature.commons.domain.model.character.gear.Weapon;
 import vokorpgback.feature.commons.domain.model.knowledge.KnowledgeType;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static vokorpgback.feature.commons.domain.model.GameMode.EASY;
 import static vokorpgback.feature.commons.domain.model.GameMode.NORMAL;
-import static vokorpgback.feature.commons.domain.model.character.gear.ItemType.*;
+import static vokorpgback.feature.commons.domain.model.gear.ItemType.*;
 
 class GearTest {
 
