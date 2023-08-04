@@ -1,0 +1,28 @@
+package vokorpgback.feature.fight.domain.model;
+
+import java.util.UUID;
+
+public class OpponentFactory {
+
+    private OpponentFactory() {
+    }
+
+    public static Opponent generateOpponent(String name, int maxTotalMight) {
+        // UUID
+        UUID uuid = UUID.randomUUID();
+
+        // Might
+        Opponent.FightingMight fightingMight = new Opponent.FightingMight(maxTotalMight, maxTotalMight, computeCombatChart(maxTotalMight));
+
+        return new Opponent(uuid, name, fightingMight);
+    }
+
+    private static OpponentCombatChart computeCombatChart(int maxFightingMight) {
+        for (OpponentCombatChart opponentCombatChart : OpponentCombatChart.values()) {
+            if (maxFightingMight >= opponentCombatChart.getMinTotalMight() && maxFightingMight <= opponentCombatChart.getMaxTotalMight()) {
+                return opponentCombatChart;
+            }
+        }
+        return OpponentCombatChart.ZERO;
+    }
+}
