@@ -1,4 +1,4 @@
-package vokorpgback.feature.commons.domain.model.Ability;
+package vokorpgback.feature.commons.domain.model.ability;
 
 import vokorpgback.commons.Validation;
 

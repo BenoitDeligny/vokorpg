@@ -1,12 +1,10 @@
 package vokorpgback.feature.commons.domain.model.character;
 
-import vokorpgback.feature.commons.domain.model.Ability.Ability;
-import vokorpgback.feature.commons.domain.model.Ability.Agility;
-import vokorpgback.feature.commons.domain.model.Ability.Perception;
-import vokorpgback.feature.commons.domain.model.Ability.Strength;
+import vokorpgback.feature.commons.domain.model.ability.Agility;
+import vokorpgback.feature.commons.domain.model.ability.Perception;
+import vokorpgback.feature.commons.domain.model.ability.Strength;
 import vokorpgback.feature.commons.domain.model.GameMode;
 import vokorpgback.feature.commons.domain.model.Power;
-import vokorpgback.feature.commons.domain.model.character.LegendaryCharacter.Identity;
 import vokorpgback.feature.commons.domain.model.gear.BackPack;
 import vokorpgback.feature.commons.domain.model.gear.Gear;
 import vokorpgback.feature.commons.domain.model.knowledge.Knowledge;

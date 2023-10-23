@@ -8,10 +8,10 @@ import vokorpgback.feature.commons.domain.model.character.LegendaryCharacter;
 import vokorpgback.feature.commons.domain.model.character.LegendaryCharacterFactory;
 import vokorpgback.feature.fight.domain.model.Encounter;
 import vokorpgback.feature.fight.domain.model.EncounterFactory;
-import vokorpgback.feature.fight.domain.model.Opponent;
-import vokorpgback.feature.fight.domain.model.OpponentFactory;
+import vokorpgback.feature.commons.domain.model.opponent.Opponent;
+import vokorpgback.feature.commons.domain.model.opponent.OpponentFactory;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FightUseCaseTest {
 
@@ -33,7 +33,7 @@ class FightUseCaseTest {
         useCase.handle(legendaryCharacter, encounter);
 
         // then
-        assertEquals(encounter.opponent().fightingMight().re, 5);
+        assertEquals(encounter.opponent().fightingMight().remainingMight(), 5);
     }
 
 //    @Test

@@ -1,6 +1,6 @@
-package vokorpgback.feature.fight.domain.model;
+package vokorpgback.feature.commons.domain.model.opponent;
 
-enum OpponentCombatChart {
+public enum OpponentCombatChart {
     ZERO(0, 1, 8, 1),
     ONE(1, 9, 24, 3),
     TWO(2, 25, 40, 7),

@@ -1,10 +1,9 @@
 package vokorpgback.feature.commons.domain.model.character;
 
-import vokorpgback.commons.Validation;
-import vokorpgback.feature.commons.domain.model.Ability.Ability;
-import vokorpgback.feature.commons.domain.model.Ability.Agility;
-import vokorpgback.feature.commons.domain.model.Ability.Perception;
-import vokorpgback.feature.commons.domain.model.Ability.Strength;
+import vokorpgback.feature.commons.domain.model.ability.Ability;
+import vokorpgback.feature.commons.domain.model.ability.Agility;
+import vokorpgback.feature.commons.domain.model.ability.Perception;
+import vokorpgback.feature.commons.domain.model.ability.Strength;
 import vokorpgback.feature.commons.domain.model.Power;
 import vokorpgback.feature.commons.domain.model.gear.BackPack;
 import vokorpgback.feature.commons.domain.model.gear.Gear;
@@ -21,7 +20,7 @@ public class LegendaryCharacter {
     private final Gear gear;
     private final List<Power> powers;
     private final List<Knowledge> knowledge;
-    private final FightingMight fightingMight;
+    private final CharacterFightingMight fightingMight;
     private final BackPack backPack;
 
     public LegendaryCharacter(Identity identity, Strength strength, Agility agility, Perception perception, Gear gear, List<Power> powers, List<Knowledge> knowledge, BackPack backPack) {
@@ -36,11 +35,11 @@ public class LegendaryCharacter {
         this.backPack = backPack;
     }
 
-    private static FightingMight computeFightingMight(Ability strength, Ability agility, Ability perception, Gear gear) {
+    private static CharacterFightingMight computeFightingMight(Ability strength, Ability agility, Ability perception, Gear gear) {
         int maxNaturalPower = strength.value() + agility.value() + perception.value();
         int maxTotalPower = strength.value() + agility.value() + perception.value() + gear.computeMightBonusFromGear(); // TODO add knowledge, powers bonus
 
-        return new FightingMight(
+        return new CharacterFightingMight(
                 maxNaturalPower,
                 maxTotalPower,
                 maxTotalPower,
@@ -115,23 +114,5 @@ public class LegendaryCharacter {
 
     public BackPack backPack() {
         return backPack;
-    }
-
-    record Identity(UUID uuid, String name, int age) {
-
-        Identity {
-            Validation.require(containsOnlyLetters(name), "Name should only contain letters.");
-            Validation.require(isAgeBetween15And20(age), "Age must be between 15 and 20.");
-        }
-
-        private boolean containsOnlyLetters(String name) {
-            return name.matches("[a-zA-Z]+");
-        }
-        private boolean isAgeBetween15And20(int age) {
-            return age >= 15 && age <= 20;
-        }
-    }
-
-    record FightingMight(int maxNaturalMight, int maxTotalMight, int remainingMight, CharacterCombatChart characterCombatChart) {
     }
 }

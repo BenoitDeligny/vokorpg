@@ -1,4 +1,4 @@
-package vokorpgback.feature.fight.domain.model;
+package vokorpgback.feature.commons.domain.model.opponent;
 
 import java.util.UUID;
 
@@ -12,7 +12,7 @@ public class OpponentFactory {
         UUID uuid = UUID.randomUUID();
 
         // Might
-        Opponent.FightingMight fightingMight = new Opponent.FightingMight(maxTotalMight, maxTotalMight, computeCombatChart(maxTotalMight));
+        OpponentFightingMight fightingMight = new OpponentFightingMight(maxTotalMight, maxTotalMight, computeCombatChart(maxTotalMight));
 
         return new Opponent(uuid, name, fightingMight);
     }
