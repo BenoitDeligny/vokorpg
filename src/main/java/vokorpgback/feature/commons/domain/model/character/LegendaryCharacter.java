@@ -8,6 +8,7 @@ import vokorpgback.feature.commons.domain.model.Power;
 import vokorpgback.feature.commons.domain.model.gear.BackPack;
 import vokorpgback.feature.commons.domain.model.gear.Gear;
 import vokorpgback.feature.commons.domain.model.knowledge.Knowledge;
+import vokorpgback.feature.commons.domain.port.Dice;
 
 import java.util.List;
 import java.util.UUID;
@@ -20,10 +21,11 @@ public class LegendaryCharacter {
     private final Gear gear;
     private final List<Power> powers;
     private final List<Knowledge> knowledge;
-    private final CharacterFightingMight fightingMight;
+    private CharacterFightingMight fightingMight;
     private final BackPack backPack;
+    private final Dice diceType;
 
-    public LegendaryCharacter(Identity identity, Strength strength, Agility agility, Perception perception, Gear gear, List<Power> powers, List<Knowledge> knowledge, BackPack backPack) {
+    protected LegendaryCharacter(Identity identity, Strength strength, Agility agility, Perception perception, Gear gear, List<Power> powers, List<Knowledge> knowledge, BackPack backPack, Dice diceType) {
         this.identity = identity;
         this.strength = strength;
         this.agility = agility;
@@ -31,6 +33,7 @@ public class LegendaryCharacter {
         this.gear = gear;
         this.powers = powers;
         this.knowledge = knowledge;
+        this.diceType = diceType;
         this.fightingMight = computeFightingMight(strength, agility, perception, gear);
         this.backPack = backPack;
     }
@@ -54,6 +57,16 @@ public class LegendaryCharacter {
             }
         }
         return CharacterCombatChart.ZERO;
+    }
+
+    public int rollDamages() {
+        int damages = 0;
+
+        for (int i = 0; i < characterCombatDice(); i++) {
+            damages += diceType.roll();
+        }
+
+        return damages;
     }
 
     public UUID uuid() {
@@ -114,5 +127,14 @@ public class LegendaryCharacter {
 
     public BackPack backPack() {
         return backPack;
+    }
+
+    public void takeDamages(int opponentDamages) {
+        this.fightingMight = new CharacterFightingMight(
+                fightingMight.maxNaturalMight(),
+                fightingMight.maxTotalMight(),
+                fightingMight.remainingMight() - opponentDamages,
+                fightingMight.characterCombatChart()
+        );
     }
 }

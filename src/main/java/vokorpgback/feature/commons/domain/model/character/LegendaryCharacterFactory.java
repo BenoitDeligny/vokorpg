@@ -45,6 +45,9 @@ public class LegendaryCharacterFactory {
         // backPack
         BackPack backPack = generateBackPack(gameMode);
 
+        // dice to use
+        Dice dice = diceFactory.createDice(6);
+
         return new LegendaryCharacter(
                 identity,
                 strength,
@@ -53,7 +56,8 @@ public class LegendaryCharacterFactory {
                 gear,
                 powers,
                 knowledge,
-                backPack
+                backPack,
+                dice
         );
     }
 

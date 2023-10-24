@@ -23,17 +23,59 @@ class FightUseCaseTest {
     }
 
     @Test
-    void LegendaryCharacter_shouldInflictXDamageToOpponents() {
+    void legendaryCharacter_shouldInflict12Damages() {
         // given
         LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, new LoadedDiceFactory(), "Winner");
-        Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 8);
+        Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 25, new LoadedDiceFactory());
         Encounter encounter = EncounterFactory.generateEncounter(5, opponent);
 
         // when
         useCase.handle(legendaryCharacter, encounter);
 
         // then
-        assertEquals(encounter.opponent().fightingMight().remainingMight(), 5);
+        assertEquals(12, legendaryCharacter.rollDamages());
+    }
+
+    @Test
+    void opponentRemainingMight_shouldBeReducedByCharacterDamages() {
+        // given
+        LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, new LoadedDiceFactory(), "Winner");
+        Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 25, new LoadedDiceFactory());
+        Encounter encounter = EncounterFactory.generateEncounter(1, opponent);
+
+        // when
+        useCase.handle(legendaryCharacter, encounter);
+
+        // then
+        assertEquals(13, encounter.opponent().fightingMight().remainingMight());
+    }
+
+    @Test
+    void opponent_shouldInflict6Damages() {
+        // given
+        LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, new LoadedDiceFactory(), "Winner");
+        Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 25, new LoadedDiceFactory());
+        Encounter encounter = EncounterFactory.generateEncounter(5, opponent);
+
+        // when
+        useCase.handle(legendaryCharacter, encounter);
+
+        // then
+        assertEquals(12, encounter.opponent().rollDamages());
+    }
+
+    @Test
+    void legendaryCharacterRemainingMight_shouldBeReducedWhenOpponentFightBack() {
+        // given
+        LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, new LoadedDiceFactory(), "Winner");
+        Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 25, new LoadedDiceFactory());
+        Encounter encounter = EncounterFactory.generateEncounter(1, opponent);
+
+        // when
+        useCase.handle(legendaryCharacter, encounter);
+
+        // then
+        assertEquals(9, legendaryCharacter.remainingMight());
     }
 
 //    @Test
