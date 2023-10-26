@@ -12,6 +12,7 @@ import vokorpgback.feature.commons.domain.model.opponent.Opponent;
 import vokorpgback.feature.commons.domain.model.opponent.OpponentFactory;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FightUseCaseTest {
 
@@ -37,7 +38,7 @@ class FightUseCaseTest {
     }
 
     @Test
-    void opponentRemainingMight_shouldBeReducedByCharacterDamages() {
+    void opponent_shouldStayAlive() {
         // given
         LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, new LoadedDiceFactory(), "Winner");
         Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 25, new LoadedDiceFactory());
@@ -47,11 +48,12 @@ class FightUseCaseTest {
         useCase.handle(legendaryCharacter, encounter);
 
         // then
+        assertTrue(encounter.opponent().fightingMight().remainingMight() > 0);
         assertEquals(13, encounter.opponent().fightingMight().remainingMight());
     }
 
     @Test
-    void opponent_shouldInflict6Damages() {
+    void opponent_shouldInflict12Damages() {
         // given
         LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, new LoadedDiceFactory(), "Winner");
         Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 25, new LoadedDiceFactory());
@@ -65,7 +67,7 @@ class FightUseCaseTest {
     }
 
     @Test
-    void legendaryCharacterRemainingMight_shouldBeReducedWhenOpponentFightBack() {
+    void legendaryCharacter_shouldStayAlive() {
         // given
         LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, new LoadedDiceFactory(), "Winner");
         Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 25, new LoadedDiceFactory());
@@ -75,35 +77,7 @@ class FightUseCaseTest {
         useCase.handle(legendaryCharacter, encounter);
 
         // then
+        assertTrue(legendaryCharacter.remainingMight() > 0);
         assertEquals(9, legendaryCharacter.remainingMight());
     }
-
-//    @Test
-//    void handle_should_win() {
-//        // given
-//        LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, new LoadedDiceFactory(), "Winner");
-//        Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 8);
-//        Encounter encounter = EncounterFactory.generateEncounter(5, opponent);
-//
-//        // when
-//        boolean combatResult = useCase.handle(legendaryCharacter, encounter);
-//
-//        // then
-//        assertTrue(combatResult);
-//    }
-//
-//    @Test
-//    void handle_should_lose() {
-//        // given
-//        LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, new LoadedDiceFactory(), "Winner");
-//        Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 15);
-//        Encounter encounter = EncounterFactory.generateEncounter(5, opponent);
-//
-//        // when
-//        boolean combatResult = useCase.handle(legendaryCharacter, encounter);
-//
-//        // then
-//        assertFalse(combatResult);
-//    }
-
 }
