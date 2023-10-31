@@ -8,7 +8,7 @@ import vokorpgback.feature.commons.domain.model.Power;
 import vokorpgback.feature.commons.domain.model.gear.BackPack;
 import vokorpgback.feature.commons.domain.model.gear.Gear;
 import vokorpgback.feature.commons.domain.model.knowledge.Knowledge;
-import vokorpgback.feature.commons.domain.port.Dice;
+import vokorpgback.feature.commons.domain.model.dice.Dice;
 
 import java.util.List;
 import java.util.UUID;
@@ -69,6 +69,19 @@ public class LegendaryCharacter {
         return damages;
     }
 
+    public void takeDamages(int opponentDamages) {
+        this.fightingMight = new CharacterFightingMight(
+                fightingMight.maxNaturalMight(),
+                fightingMight.maxTotalMight(),
+                fightingMight.remainingMight() - opponentDamages,
+                fightingMight.characterCombatChart()
+        );
+    }
+
+    public boolean isDead() {
+        return fightingMight.remainingMight() <= 0;
+    }
+
     public UUID uuid() {
         return identity.uuid();
     }
@@ -127,14 +140,5 @@ public class LegendaryCharacter {
 
     public BackPack backPack() {
         return backPack;
-    }
-
-    public void takeDamages(int opponentDamages) {
-        this.fightingMight = new CharacterFightingMight(
-                fightingMight.maxNaturalMight(),
-                fightingMight.maxTotalMight(),
-                fightingMight.remainingMight() - opponentDamages,
-                fightingMight.characterCombatChart()
-        );
     }
 }

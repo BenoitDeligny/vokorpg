@@ -8,8 +8,8 @@ import vokorpgback.feature.commons.domain.model.Power;
 import vokorpgback.feature.commons.domain.model.gear.BackPack;
 import vokorpgback.feature.commons.domain.model.gear.Gear;
 import vokorpgback.feature.commons.domain.model.knowledge.Knowledge;
-import vokorpgback.feature.commons.domain.port.Dice;
-import vokorpgback.feature.commons.domain.port.DiceFactory;
+import vokorpgback.feature.commons.domain.model.dice.Dice;
+import vokorpgback.feature.commons.domain.model.dice.DiceFactory;
 
 import java.util.Collections;
 import java.util.List;

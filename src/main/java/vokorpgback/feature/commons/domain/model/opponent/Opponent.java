@@ -1,6 +1,6 @@
 package vokorpgback.feature.commons.domain.model.opponent;
 
-import vokorpgback.feature.commons.domain.port.Dice;
+import vokorpgback.feature.commons.domain.model.dice.Dice;
 
 import java.util.UUID;
 
@@ -19,15 +19,6 @@ public class Opponent {
         this.diceType = diceType;
     }
 
-    public void takeDamages(int characterDamages) {
-        this.fightingMight = new OpponentFightingMight(fightingMight.maxNaturalMight(), fightingMight.remainingMight() - characterDamages, fightingMight.combatChart);
-        // TODO: add remaining might = 0 check -> death (status ?)
-    }
-
-    public OpponentFightingMight fightingMight() {
-        return fightingMight;
-    }
-
     public int rollDamages() {
         int damages = 0;
 
@@ -36,5 +27,21 @@ public class Opponent {
         }
 
         return damages;
+    }
+
+    public void takeDamages(int characterDamages) {
+        this.fightingMight = new OpponentFightingMight(fightingMight.maxNaturalMight(), fightingMight.remainingMight() - characterDamages, fightingMight.combatChart);
+    }
+
+    public boolean isDead() {
+        return fightingMight.remainingMight() <= 0;
+    }
+
+    public OpponentFightingMight fightingMight() {
+        return fightingMight;
+    }
+
+    public String name() {
+        return name;
     }
 }

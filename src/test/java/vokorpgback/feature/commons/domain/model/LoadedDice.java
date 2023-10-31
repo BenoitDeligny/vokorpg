@@ -1,6 +1,6 @@
 package vokorpgback.feature.commons.domain.model;
 
-import vokorpgback.feature.commons.domain.port.Dice;
+import vokorpgback.feature.commons.domain.model.dice.Dice;
 
 public record LoadedDice(int loadedValue) implements Dice {
 

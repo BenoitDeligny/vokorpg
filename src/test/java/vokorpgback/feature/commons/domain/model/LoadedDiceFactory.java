@@ -1,8 +1,7 @@
 package vokorpgback.feature.commons.domain.model;
 
-import vokorpgback.feature.commons.domain.model.LoadedDice;
-import vokorpgback.feature.commons.domain.port.Dice;
-import vokorpgback.feature.commons.domain.port.DiceFactory;
+import vokorpgback.feature.commons.domain.model.dice.Dice;
+import vokorpgback.feature.commons.domain.model.dice.DiceFactory;
 
 public class LoadedDiceFactory implements DiceFactory {
     @Override
