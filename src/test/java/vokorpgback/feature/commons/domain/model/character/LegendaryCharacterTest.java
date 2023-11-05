@@ -2,7 +2,7 @@ package vokorpgback.feature.commons.domain.model.character;
 
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
-import vokorpgback.feature.commons.domain.model.LoadedDiceFactory;
+import vokorpgback.feature.commons.domain.model.dice.LoadedDiceFactory;
 import vokorpgback.feature.commons.domain.model.dice.OfficialDiceFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,6 +35,7 @@ class LegendaryCharacterTest {
         assertThat(legendaryCharacter.maxTotalMight()).isEqualTo(21);
         assertThat(legendaryCharacter.remainingMight()).isEqualTo(21);
         assertThat(legendaryCharacter.characterCombatChart()).isEqualTo(CharacterCombatChart.TWO);
+        assertThat(legendaryCharacter.rollDamages()).isEqualTo(12);
     }
 
     @Test
@@ -61,6 +62,7 @@ class LegendaryCharacterTest {
         assertThat(legendaryCharacter.maxTotalMight()).isEqualTo(33);
         assertThat(legendaryCharacter.remainingMight()).isEqualTo(33);
         assertThat(legendaryCharacter.characterCombatChart()).isEqualTo(CharacterCombatChart.THREE);
+        assertThat(legendaryCharacter.rollDamages()).isEqualTo(18);
     }
 
     @RepeatedTest(100)
@@ -87,6 +89,7 @@ class LegendaryCharacterTest {
         assertThat(legendaryCharacter.maxTotalMight()).isBetween(6, 21);
         assertThat(legendaryCharacter.remainingMight()).isBetween(6, 21);
         assertThat(legendaryCharacter.characterCombatChart()).isBetween(CharacterCombatChart.ZERO, CharacterCombatChart.TWO);
+        assertThat(legendaryCharacter.rollDamages()).isBetween(1, 12);
     }
 
     @RepeatedTest(100)
@@ -113,5 +116,6 @@ class LegendaryCharacterTest {
         assertThat(legendaryCharacter.maxTotalMight()).isBetween(18, 33);
         assertThat(legendaryCharacter.remainingMight()).isBetween(18, 33);
         assertThat(legendaryCharacter.characterCombatChart()).isBetween(CharacterCombatChart.ONE, CharacterCombatChart.THREE);
+        assertThat(legendaryCharacter.rollDamages()).isBetween(1, 18);
     }
 }

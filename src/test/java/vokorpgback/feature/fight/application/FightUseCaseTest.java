@@ -3,7 +3,7 @@ package vokorpgback.feature.fight.application;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import vokorpgback.feature.commons.domain.model.GameMode;
-import vokorpgback.feature.commons.domain.model.LoadedDiceFactory;
+import vokorpgback.feature.commons.domain.model.dice.LoadedDiceFactory;
 import vokorpgback.feature.commons.domain.model.character.LegendaryCharacter;
 import vokorpgback.feature.commons.domain.model.character.LegendaryCharacterFactory;
 import vokorpgback.feature.fight.domain.model.Encounter;
@@ -24,63 +24,9 @@ class FightUseCaseTest {
         useCase = new FightUseCase();
     }
 
-    @Test
-    void legendaryCharacter_shouldInflict12Damages() {
-        // given
-        LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, diceFactory, "Winner");
-        Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 25, diceFactory);
-        Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 1, diceFactory);
-
-        // when
-        useCase.handle(legendaryCharacter, encounter);
-
-        // then
-        assertEquals(12, legendaryCharacter.rollDamages());
-    }
-
-    @Test
-    void opponent_shouldStayAlive() {
-        // given
-        LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, diceFactory, "Winner");
-        Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 25, diceFactory);
-        Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 1, diceFactory);
-
-        // when
-        useCase.handle(legendaryCharacter, encounter);
-
-        // then
-        assertTrue(encounter.livingOpponents().get(0).fightingMight().remainingMight() > 0);
-        assertEquals(13, encounter.livingOpponents().get(0).fightingMight().remainingMight());
-    }
-
-    @Test
-    void opponent_shouldInflict12Damages() {
-        // given
-        LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, diceFactory, "Winner");
-        Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 25, diceFactory);
-        Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 1, diceFactory);
-
-        // when
-        useCase.handle(legendaryCharacter, encounter);
-
-        // then
-        assertEquals(12, encounter.livingOpponents().get(0).rollDamages());
-    }
-
-    @Test
-    void legendaryCharacter_shouldStayAlive() {
-        // given
-        LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, diceFactory, "Winner");
-        Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 25, diceFactory);
-        Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 1, diceFactory);
-
-        // when
-        useCase.handle(legendaryCharacter, encounter);
-
-        // then
-        assertTrue(legendaryCharacter.remainingMight() > 0);
-        assertEquals(9, legendaryCharacter.remainingMight());
-    }
+    // TODO: gather tests by behaviour (character is winning - full life and not - and opponents are winning - full life and not -
+    // Add as many assertion that needed
+    // Maybe keep old steps by steps tests in comment ?
 
     @Test
     void legendaryCharacter_shouldFightTwoOpponents_thenBothOpponentsTakeDamages() {
@@ -94,7 +40,7 @@ class FightUseCaseTest {
 
         // then
         assertTrue(encounter.livingOpponents().stream().allMatch(o -> o.fightingMight().remainingMight() > 0));
-        assertTrue(encounter.livingOpponents().stream().allMatch(o -> o.fightingMight().remainingMight() == 13));
+        assertTrue(encounter.livingOpponents().stream().allMatch(o -> o.fightingMight().remainingMight() == 1));
     }
 
     @Test
@@ -109,23 +55,8 @@ class FightUseCaseTest {
 
         // then
         assertTrue(encounter.livingOpponents().stream().allMatch(o -> o.fightingMight().remainingMight() > 0));
-        assertTrue(encounter.livingOpponents().stream().limit(legendaryCharacter.characterCombatDice()).allMatch(o -> o.fightingMight().remainingMight() == 13));
+        assertTrue(encounter.livingOpponents().stream().limit(legendaryCharacter.characterCombatDice()).allMatch(o -> o.fightingMight().remainingMight() == 1));
         assertTrue(encounter.livingOpponents().stream().skip(legendaryCharacter.characterCombatDice()).allMatch(o -> o.fightingMight().remainingMight() == 25));
-    }
-
-    @Test
-    void opponents_whenMultiple_shouldRollOneMoreDamagesDice() {
-        // given
-        LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, diceFactory, "Winner");
-        Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 25, diceFactory);
-        Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 2, diceFactory);
-
-        // when
-        useCase.handle(legendaryCharacter, encounter);
-
-        // then
-        assertTrue(legendaryCharacter.remainingMight() > 0);
-        assertEquals(3, legendaryCharacter.remainingMight());
     }
 
     @Test
@@ -139,6 +70,8 @@ class FightUseCaseTest {
         useCase.handle(legendaryCharacter, encounter);
 
         // then
+        assertTrue(legendaryCharacter.remainingMight() > 0);
+        assertEquals(21, legendaryCharacter.remainingMight());
         assertTrue(encounter.livingOpponents().isEmpty());
         assertEquals(1, encounter.deadOpponents().size());
     }
@@ -169,6 +102,8 @@ class FightUseCaseTest {
 
         // then
         assertTrue(legendaryCharacter.isDead());
+        assertTrue(encounter.livingOpponents().get(0).fightingMight().remainingMight() > 0);
+        assertEquals(488, encounter.livingOpponents().get(0).fightingMight().remainingMight());
     }
 
     @Test
@@ -184,6 +119,6 @@ class FightUseCaseTest {
         // then
         assertTrue(encounter.livingOpponents().isEmpty());
         assertEquals(1, encounter.deadOpponents().size());
-        assertEquals(9, legendaryCharacter.remainingMight());
+        assertEquals(15, legendaryCharacter.remainingMight());
     }
 }

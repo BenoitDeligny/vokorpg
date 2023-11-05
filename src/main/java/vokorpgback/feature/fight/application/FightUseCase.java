@@ -15,5 +15,12 @@ public class FightUseCase {
         // opponents' turn
         int opponentDamages = encounter.computeOpponentsTotalDamages();
         legendaryCharacter.takeDamages(opponentDamages);
+
+        // finish or loop
+        if (encounter.livingOpponents().isEmpty() || legendaryCharacter.isDead()) {
+            return;
+        } else {
+            handle(legendaryCharacter, encounter);
+        }
     }
 }

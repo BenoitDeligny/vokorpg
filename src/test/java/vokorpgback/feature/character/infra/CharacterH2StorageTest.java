@@ -8,13 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import vokorpgback.feature.character.infra.entity.CharacterEntity;
 import vokorpgback.feature.character.infra.entity.CharacterEntity.CharacterIdentity;
 import vokorpgback.feature.commons.domain.model.GameMode;
-import vokorpgback.feature.commons.domain.model.LoadedDiceFactory;
+import vokorpgback.feature.commons.domain.model.dice.LoadedDiceFactory;
 import vokorpgback.feature.commons.domain.model.character.LegendaryCharacter;
 import vokorpgback.feature.commons.domain.model.character.LegendaryCharacterFactory;
-
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class CharacterH2StorageTest {

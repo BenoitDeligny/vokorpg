@@ -1,4 +1,4 @@
-package vokorpgback.feature.commons.domain.model;
+package vokorpgback.feature.commons.domain.model.dice;
 
 import vokorpgback.feature.commons.domain.model.dice.Dice;
 

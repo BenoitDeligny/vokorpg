@@ -4,7 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import vokorpgback.feature.commons.domain.model.GameMode;
-import vokorpgback.feature.commons.domain.model.LoadedDiceFactory;
+import vokorpgback.feature.commons.domain.model.dice.LoadedDiceFactory;
 import vokorpgback.feature.commons.domain.model.character.LegendaryCharacter;
 import vokorpgback.feature.commons.domain.model.character.LegendaryCharacterFactory;
 
