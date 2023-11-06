@@ -5,8 +5,7 @@ import vokorpgback.feature.fight.domain.model.Encounter;
 
 public class FightUseCase {
 
-    public void handle(LegendaryCharacter legendaryCharacter, Encounter encounter) {
-        // TODO: make a loop to finish the fight
+    public boolean handle(LegendaryCharacter legendaryCharacter, Encounter encounter) {
 
         // character's turn
         int characterDamages = legendaryCharacter.rollDamages();
@@ -17,10 +16,12 @@ public class FightUseCase {
         legendaryCharacter.takeDamages(opponentDamages);
 
         // finish or loop
-        if (encounter.livingOpponents().isEmpty() || legendaryCharacter.isDead()) {
-            return;
+        if (legendaryCharacter.isDead()) {
+            return false;
+        } else if (encounter.livingOpponents().isEmpty()) {
+            return true;
         } else {
-            handle(legendaryCharacter, encounter);
+            return handle(legendaryCharacter, encounter);
         }
     }
 }

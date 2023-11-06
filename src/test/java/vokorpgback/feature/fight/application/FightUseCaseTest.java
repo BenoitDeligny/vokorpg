@@ -11,8 +11,7 @@ import vokorpgback.feature.fight.domain.model.EncounterFactory;
 import vokorpgback.feature.commons.domain.model.opponent.Opponent;
 import vokorpgback.feature.commons.domain.model.opponent.OpponentFactory;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class FightUseCaseTest {
 
@@ -114,11 +113,27 @@ class FightUseCaseTest {
         Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 1, diceFactory);
 
         // when
-        useCase.handle(legendaryCharacter, encounter);
+        boolean combatResult = useCase.handle(legendaryCharacter, encounter);
 
         // then
         assertTrue(encounter.livingOpponents().isEmpty());
         assertEquals(1, encounter.deadOpponents().size());
         assertEquals(15, legendaryCharacter.remainingMight());
+        assertTrue(combatResult);
+    }
+
+    @Test
+    void opponents_shouldWinTheFight() {
+        // given
+        LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, diceFactory, "Winner");
+        Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 13, diceFactory);
+        Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 5, diceFactory);
+
+        // when
+        boolean combatResult = useCase.handle(legendaryCharacter, encounter);
+
+        // then
+        assertTrue(legendaryCharacter.isDead());
+        assertFalse(combatResult);
     }
 }
