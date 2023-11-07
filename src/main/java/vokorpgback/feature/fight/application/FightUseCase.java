@@ -7,6 +7,8 @@ public class FightUseCase {
 
     public boolean handle(LegendaryCharacter legendaryCharacter, Encounter encounter) {
 
+        // TODO: add fleeing option
+
         // character's turn
         int characterDamages = legendaryCharacter.rollDamages();
         encounter.assignDamages(characterDamages, legendaryCharacter.characterCombatDice());
