@@ -1,17 +1,21 @@
 package vokorpgback.feature.fight.application;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import vokorpgback.feature.commons.domain.model.GameMode;
-import vokorpgback.feature.commons.domain.model.dice.LoadedDiceFactory;
 import vokorpgback.feature.commons.domain.model.character.LegendaryCharacter;
 import vokorpgback.feature.commons.domain.model.character.LegendaryCharacterFactory;
-import vokorpgback.feature.fight.domain.model.Encounter;
-import vokorpgback.feature.fight.domain.model.EncounterFactory;
+import vokorpgback.feature.commons.domain.model.dice.LoadedDiceFactory;
 import vokorpgback.feature.commons.domain.model.opponent.Opponent;
 import vokorpgback.feature.commons.domain.model.opponent.OpponentFactory;
+import vokorpgback.feature.fight.domain.model.CombatResult;
+import vokorpgback.feature.fight.domain.model.Encounter;
+import vokorpgback.feature.fight.domain.model.EncounterFactory;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static vokorpgback.feature.fight.domain.model.CombatResult.*;
 
 class FightUseCaseTest {
 
@@ -23,117 +27,154 @@ class FightUseCaseTest {
         useCase = new FightUseCase();
     }
 
-    // TODO: gather tests by behaviour (character is winning - full life and not - and opponents are winning - full life and not -
-    // Add as many assertion that needed
-    // Maybe keep old steps by steps tests in comment ?
+    @Nested
+    class Fight {
+        @Test
+        void legendaryCharacter_shouldKillOpponentAndNotTakeDamages() {
+            // given
+            LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, diceFactory, "Winner");
+            Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 12, diceFactory);
+            Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 1, diceFactory);
 
-    @Test
-    void legendaryCharacter_shouldFightTwoOpponents_thenBothOpponentsTakeDamages() {
-        // given
-        LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, diceFactory, "Winner");
-        Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 25, diceFactory);
-        Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 2, diceFactory);
+            // when
+            useCase.handle(legendaryCharacter, encounter, false);
 
-        // when
-        useCase.handle(legendaryCharacter, encounter);
+            // then
+            assertTrue(encounter.livingOpponents().isEmpty());
+            assertEquals(1, encounter.deadOpponents().size());
+            assertEquals(legendaryCharacter.maxNaturalMight(), legendaryCharacter.remainingMight());
+        }
 
-        // then
-        assertTrue(encounter.livingOpponents().stream().allMatch(o -> o.fightingMight().remainingMight() > 0));
-        assertTrue(encounter.livingOpponents().stream().allMatch(o -> o.fightingMight().remainingMight() == 1));
+        @Test
+        void opponent_shouldKillLegendaryCharacter() {
+            // given
+            LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, diceFactory, "Winner");
+            Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 500, diceFactory);
+            Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 1, diceFactory);
+
+            // when
+            useCase.handle(legendaryCharacter, encounter, false);
+
+            // then
+            assertTrue(legendaryCharacter.isDead());
+            assertTrue(encounter.livingOpponents().get(0).fightingMight().remainingMight() > 0);
+            assertEquals(488, encounter.livingOpponents().get(0).fightingMight().remainingMight());
+        }
+
+        @Test
+        void legendaryCharacter_shouldWinTheFight() {
+            // given
+            LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, diceFactory, "Winner");
+            Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 13, diceFactory);
+            Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 1, diceFactory);
+
+            // when
+            CombatResult combatResult = useCase.handle(legendaryCharacter, encounter, false);
+
+            // then
+            assertTrue(encounter.livingOpponents().isEmpty());
+            assertEquals(1, encounter.deadOpponents().size());
+            assertEquals(15, legendaryCharacter.remainingMight());
+            assertEquals(WIN, combatResult);
+        }
+
+        @Test
+        void opponents_shouldWinTheFight() {
+            // given
+            LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, diceFactory, "Winner");
+            Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 13, diceFactory);
+            Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 5, diceFactory);
+
+            // when
+            CombatResult combatResult = useCase.handle(legendaryCharacter, encounter, false);
+
+            // then
+            assertTrue(legendaryCharacter.isDead());
+            assertEquals(LOSE, combatResult);
+        }
     }
 
-    @Test
-    void legendaryCharacter_shouldFightThreeOpponents_thenOnlyTwoOpponentsTakeDamages() {
-        // given
-        LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, diceFactory, "Winner");
-        Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 25, diceFactory);
-        Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 3, diceFactory);
+    @Nested
+    class TryToFlee {
+        @Test
+        void legendaryCharacter_shouldFleeTheFight_thenNoFight() {
+            // given
+            LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, diceFactory, "Winner");
+            Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 5, diceFactory);
+            Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 2, diceFactory);
 
-        // when
-        useCase.handle(legendaryCharacter, encounter);
+            // when
+            CombatResult combatResult = useCase.handle(legendaryCharacter, encounter, false);
 
-        // then
-        assertTrue(encounter.livingOpponents().stream().allMatch(o -> o.fightingMight().remainingMight() > 0));
-        assertTrue(encounter.livingOpponents().stream().limit(legendaryCharacter.characterCombatDice()).allMatch(o -> o.fightingMight().remainingMight() == 1));
-        assertTrue(encounter.livingOpponents().stream().skip(legendaryCharacter.characterCombatDice()).allMatch(o -> o.fightingMight().remainingMight() == 25));
+            // then
+            assertEquals(FLEE, combatResult);
+            assertEquals(legendaryCharacter.maxNaturalMight(), legendaryCharacter.remainingMight());
+            assertTrue(encounter.livingOpponents().stream().allMatch(o -> o.fightingMight().remainingMight() == o.fightingMight().maxNaturalMight()));
+        }
+
+        @Test
+        void legendaryCharacter_shouldNotFleeTheFight_thenFightAsNormalAndWin() {
+            // given
+            LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, diceFactory, "Winner");
+            Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 12, diceFactory);
+            Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 1, diceFactory);
+
+            // when
+            CombatResult combatResult = useCase.handle(legendaryCharacter, encounter, false);
+
+            // then
+            assertEquals(WIN, combatResult);
+        }
+
+        @Test
+        void legendaryCharacter_shouldNotFleeTheFight_thenFightAsNormalAndLose() {
+            // given
+            LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, diceFactory, "Winner");
+            Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 500, diceFactory);
+            Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 1, diceFactory);
+
+            // when
+            CombatResult combatResult = useCase.handle(legendaryCharacter, encounter, false);
+
+            // then
+            assertEquals(LOSE, combatResult);
+        }
     }
 
-    @Test
-    void legendaryCharacter_shouldKillOpponent() {
-        // given
-        LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, diceFactory, "Winner");
-        Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 12, diceFactory);
-        Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 1, diceFactory);
+    @Nested
+    class ToMoveOut {
 
-        // when
-        useCase.handle(legendaryCharacter, encounter);
+        // TODO: this should be test in EncounterTest
+        @Test
+        void legendaryCharacter_shouldFightTwoOpponents_thenBothOpponentsTakeDamages() {
+            // given
+            LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, diceFactory, "Winner");
+            Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 25, diceFactory);
+            Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 2, diceFactory);
 
-        // then
-        assertTrue(legendaryCharacter.remainingMight() > 0);
-        assertEquals(21, legendaryCharacter.remainingMight());
-        assertTrue(encounter.livingOpponents().isEmpty());
-        assertEquals(1, encounter.deadOpponents().size());
-    }
+            // when
+            useCase.handle(legendaryCharacter, encounter, false);
 
-    @Test
-    void opponent_shouldNotRollDamages_whenDead() {
-        // given
-        LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, diceFactory, "Winner");
-        Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 12, diceFactory);
-        Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 1, diceFactory);
+            // then
+            assertTrue(encounter.livingOpponents().stream().allMatch(o -> o.fightingMight().remainingMight() > 0));
+            assertTrue(encounter.livingOpponents().stream().allMatch(o -> o.fightingMight().remainingMight() == 1));
+        }
 
-        // when
-        useCase.handle(legendaryCharacter, encounter);
+        // TODO: this should be test in EncounterTest
+        @Test
+        void legendaryCharacter_shouldFightThreeOpponents_thenOnlyTwoOpponentsTakeDamages() {
+            // given
+            LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, diceFactory, "Winner");
+            Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 25, diceFactory);
+            Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 3, diceFactory);
 
-        // then
-        assertEquals(legendaryCharacter.maxNaturalMight(), legendaryCharacter.remainingMight());
-    }
+            // when
+            useCase.handle(legendaryCharacter, encounter, false);
 
-    @Test
-    void opponent_shouldKillLegendaryCharacter() {
-        // given
-        LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, diceFactory, "Winner");
-        Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 500, diceFactory);
-        Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 1, diceFactory);
-
-        // when
-        useCase.handle(legendaryCharacter, encounter);
-
-        // then
-        assertTrue(legendaryCharacter.isDead());
-        assertTrue(encounter.livingOpponents().get(0).fightingMight().remainingMight() > 0);
-        assertEquals(488, encounter.livingOpponents().get(0).fightingMight().remainingMight());
-    }
-
-    @Test
-    void legendaryCharacter_shouldWinTheFight() {
-        // given
-        LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, diceFactory, "Winner");
-        Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 13, diceFactory);
-        Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 1, diceFactory);
-
-        // when
-        boolean combatResult = useCase.handle(legendaryCharacter, encounter);
-
-        // then
-        assertTrue(encounter.livingOpponents().isEmpty());
-        assertEquals(1, encounter.deadOpponents().size());
-        assertEquals(15, legendaryCharacter.remainingMight());
-        assertTrue(combatResult);
-    }
-
-    @Test
-    void opponents_shouldWinTheFight() {
-        // given
-        LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, diceFactory, "Winner");
-        Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 13, diceFactory);
-        Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 5, diceFactory);
-
-        // when
-        boolean combatResult = useCase.handle(legendaryCharacter, encounter);
-
-        // then
-        assertTrue(legendaryCharacter.isDead());
-        assertFalse(combatResult);
+            // then
+            assertTrue(encounter.livingOpponents().stream().allMatch(o -> o.fightingMight().remainingMight() > 0));
+            assertTrue(encounter.livingOpponents().stream().limit(legendaryCharacter.characterCombatDice()).allMatch(o -> o.fightingMight().remainingMight() == 1));
+            assertTrue(encounter.livingOpponents().stream().skip(legendaryCharacter.characterCombatDice()).allMatch(o -> o.fightingMight().remainingMight() == 25));
+        }
     }
 }
