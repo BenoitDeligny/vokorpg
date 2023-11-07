@@ -8,7 +8,8 @@ public class FightUseCase {
 
     public CombatResult handle(LegendaryCharacter legendaryCharacter, Encounter encounter, boolean isFleeing) {
 
-        // TODO: add fleeing option
+        // TODO: think about adding fleeing option -> change the looping way and implements turn by turn
+        // TODO: fleeing rules
             // check if character want to flee
             // check if 2 rolls + agility > remaining might of opponents
                 // only the opponent that the character is actually fighting or all the opponent in the encounter ?
