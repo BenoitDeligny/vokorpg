@@ -78,6 +78,10 @@ public class LegendaryCharacter {
         );
     }
 
+    public int fleeingScore() {
+        return diceType.roll() + diceType.roll() + agility.value();
+    }
+
     public boolean isDead() {
         return fightingMight.remainingMight() <= 0;
     }

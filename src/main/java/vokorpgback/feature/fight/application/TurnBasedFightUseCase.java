@@ -1,17 +1,18 @@
 package vokorpgback.feature.fight.application;
 
 import vokorpgback.feature.commons.domain.model.character.LegendaryCharacter;
+import vokorpgback.feature.fight.domain.model.CombatResult;
+import vokorpgback.feature.fight.domain.model.CombatState;
 import vokorpgback.feature.fight.domain.model.Encounter;
 
 public class TurnBasedFightUseCase {
 
-    public void handle(LegendaryCharacter legendaryCharacter, Encounter encounter) {
+    public CombatResult handle(LegendaryCharacter legendaryCharacter, Encounter encounter, boolean attemptToFlee) {
 
-        // TODO: think about adding fleeing option -> change the looping way and implements turn by turn
-        // TODO: fleeing rules
-            // check if character want to flee
-            // check if 2 rolls + agility > remaining might of opponents
-                // only the opponent that the character is actually fighting or all the opponent in the encounter ?
+        // fleeing attempt
+        if (isLegendaryCharacterFleeing(legendaryCharacter, encounter, attemptToFlee)) {
+            return new CombatResult(CombatState.FLED, legendaryCharacter, encounter);
+        }
 
         // character's turn
         int characterDamages = legendaryCharacter.rollDamages();
@@ -21,6 +22,24 @@ public class TurnBasedFightUseCase {
         int opponentDamages = encounter.computeOpponentsTotalDamages();
         legendaryCharacter.takeDamages(opponentDamages);
 
-        // TODO: return a temporary result ?
+        return getCombatResult(legendaryCharacter, encounter);
+    }
+
+    private static boolean isLegendaryCharacterFleeing(LegendaryCharacter legendaryCharacter, Encounter encounter, boolean attemptToFlee) {
+        return attemptToFlee && isLegendaryCharacterFleeingScoreEnough(legendaryCharacter, encounter);
+    }
+
+    private static boolean isLegendaryCharacterFleeingScoreEnough(LegendaryCharacter legendaryCharacter, Encounter encounter) {
+        return legendaryCharacter.fleeingScore() >= encounter.livingOpponents().get(0).fightingMight().remainingMight();
+    }
+
+    private CombatResult getCombatResult(LegendaryCharacter legendaryCharacter, Encounter encounter) {
+        if (legendaryCharacter.isDead()) {
+            return new CombatResult(CombatState.LOST, legendaryCharacter, encounter);
+        } else if(encounter.livingOpponents().isEmpty()) {
+            return new CombatResult(CombatState.WON, legendaryCharacter, encounter);
+        } else {
+            return new CombatResult(CombatState.IN_PROGRESS, legendaryCharacter, encounter);
+        }
     }
 }
