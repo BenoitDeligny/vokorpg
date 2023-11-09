@@ -4,15 +4,9 @@ import vokorpgback.feature.commons.domain.model.character.LegendaryCharacter;
 import vokorpgback.feature.fight.domain.model.CombatResult;
 import vokorpgback.feature.fight.domain.model.Encounter;
 
-public class FightUseCase {
+public class QuickFightUseCase {
 
-    public CombatResult handle(LegendaryCharacter legendaryCharacter, Encounter encounter, boolean isFleeing) {
-
-        // TODO: think about adding fleeing option -> change the looping way and implements turn by turn
-        // TODO: fleeing rules
-            // check if character want to flee
-            // check if 2 rolls + agility > remaining might of opponents
-                // only the opponent that the character is actually fighting or all the opponent in the encounter ?
+    public CombatResult handle(LegendaryCharacter legendaryCharacter, Encounter encounter) {
 
         // character's turn
         int characterDamages = legendaryCharacter.rollDamages();
@@ -28,7 +22,7 @@ public class FightUseCase {
         } else if (encounter.livingOpponents().isEmpty()) {
             return CombatResult.WIN;
         } else {
-            return handle(legendaryCharacter, encounter, false);
+            return handle(legendaryCharacter, encounter);
         }
     }
 }

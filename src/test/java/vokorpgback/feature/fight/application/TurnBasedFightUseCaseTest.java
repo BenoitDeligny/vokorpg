@@ -13,18 +13,16 @@ import vokorpgback.feature.fight.domain.model.CombatResult;
 import vokorpgback.feature.fight.domain.model.Encounter;
 import vokorpgback.feature.fight.domain.model.EncounterFactory;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static vokorpgback.feature.fight.domain.model.CombatResult.*;
 
-class FightUseCaseTest {
-
-    private FightUseCase useCase;
+class TurnBasedFightUseCaseTest {
+    private TurnBasedFightUseCase useCase;
     LoadedDiceFactory diceFactory = new LoadedDiceFactory();
 
     @BeforeEach
     void setUp() {
-        useCase = new FightUseCase();
+        useCase = new TurnBasedFightUseCase();
     }
 
     @Nested
@@ -37,7 +35,7 @@ class FightUseCaseTest {
             Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 1, diceFactory);
 
             // when
-            useCase.handle(legendaryCharacter, encounter, false);
+            useCase.handle(legendaryCharacter, encounter);
 
             // then
             assertTrue(encounter.livingOpponents().isEmpty());
@@ -53,7 +51,7 @@ class FightUseCaseTest {
             Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 1, diceFactory);
 
             // when
-            useCase.handle(legendaryCharacter, encounter, false);
+            useCase.handle(legendaryCharacter, encounter);
 
             // then
             assertTrue(legendaryCharacter.isDead());
@@ -69,7 +67,7 @@ class FightUseCaseTest {
             Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 1, diceFactory);
 
             // when
-            CombatResult combatResult = useCase.handle(legendaryCharacter, encounter, false);
+            CombatResult combatResult = useCase.handle(legendaryCharacter, encounter);
 
             // then
             assertTrue(encounter.livingOpponents().isEmpty());
@@ -86,7 +84,7 @@ class FightUseCaseTest {
             Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 5, diceFactory);
 
             // when
-            CombatResult combatResult = useCase.handle(legendaryCharacter, encounter, false);
+            CombatResult combatResult = useCase.handle(legendaryCharacter, encounter);
 
             // then
             assertTrue(legendaryCharacter.isDead());
@@ -104,7 +102,7 @@ class FightUseCaseTest {
             Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 2, diceFactory);
 
             // when
-            CombatResult combatResult = useCase.handle(legendaryCharacter, encounter, false);
+            CombatResult combatResult = useCase.handle(legendaryCharacter, encounter);
 
             // then
             assertEquals(FLEE, combatResult);
@@ -120,7 +118,7 @@ class FightUseCaseTest {
             Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 1, diceFactory);
 
             // when
-            CombatResult combatResult = useCase.handle(legendaryCharacter, encounter, false);
+            CombatResult combatResult = useCase.handle(legendaryCharacter, encounter);
 
             // then
             assertEquals(WIN, combatResult);
@@ -134,7 +132,7 @@ class FightUseCaseTest {
             Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 1, diceFactory);
 
             // when
-            CombatResult combatResult = useCase.handle(legendaryCharacter, encounter, false);
+            CombatResult combatResult = useCase.handle(legendaryCharacter, encounter);
 
             // then
             assertEquals(LOSE, combatResult);
@@ -153,7 +151,7 @@ class FightUseCaseTest {
             Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 2, diceFactory);
 
             // when
-            useCase.handle(legendaryCharacter, encounter, false);
+            useCase.handle(legendaryCharacter, encounter);
 
             // then
             assertTrue(encounter.livingOpponents().stream().allMatch(o -> o.fightingMight().remainingMight() > 0));
@@ -169,7 +167,7 @@ class FightUseCaseTest {
             Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 3, diceFactory);
 
             // when
-            useCase.handle(legendaryCharacter, encounter, false);
+            useCase.handle(legendaryCharacter, encounter);
 
             // then
             assertTrue(encounter.livingOpponents().stream().allMatch(o -> o.fightingMight().remainingMight() > 0));
