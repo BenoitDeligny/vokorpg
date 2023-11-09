@@ -19,14 +19,15 @@ public class Encounter {
         List<Opponent> livingOpponents = opponents.get(true);
         List<Opponent> deadOpponents = opponents.get(false);
 
-        for (int i = 0; i < livingOpponents.size() && i < numberOfCombatDice ; i++) {
-            livingOpponents.get(i).takeDamages(damages);
+        livingOpponents.stream()
+                .limit(numberOfCombatDice)
+                .filter(opponent -> {
+                    opponent.takeDamages(damages);
+                    return opponent.isDead();
+                })
+                .forEach(deadOpponents::add);
 
-            if (livingOpponents.get(i).isDead()) {
-                deadOpponents.add(livingOpponents.get(i));
-                livingOpponents.remove(livingOpponents.get(i));
-            }
-        }
+        deadOpponents.forEach(livingOpponents::remove);
     }
 
     public int computeOpponentsTotalDamages() {

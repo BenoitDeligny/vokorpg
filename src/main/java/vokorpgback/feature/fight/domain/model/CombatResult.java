@@ -1,7 +1,10 @@
 package vokorpgback.feature.fight.domain.model;
 
-public enum CombatResult {
-    WIN,
-    LOSE,
-    FLEE
+import vokorpgback.feature.commons.domain.model.character.LegendaryCharacter;
+
+public record CombatResult(
+        CombatState combatState,
+        LegendaryCharacter legendaryCharacter,
+        Encounter encounter
+) {
 }

@@ -1,7 +1,6 @@
 package vokorpgback.feature.fight.application;
 
 import vokorpgback.feature.commons.domain.model.character.LegendaryCharacter;
-import vokorpgback.feature.fight.domain.model.CombatResult;
 import vokorpgback.feature.fight.domain.model.Encounter;
 
 public class TurnBasedFightUseCase {

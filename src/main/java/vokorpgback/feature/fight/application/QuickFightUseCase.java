@@ -2,6 +2,7 @@ package vokorpgback.feature.fight.application;
 
 import vokorpgback.feature.commons.domain.model.character.LegendaryCharacter;
 import vokorpgback.feature.fight.domain.model.CombatResult;
+import vokorpgback.feature.fight.domain.model.CombatState;
 import vokorpgback.feature.fight.domain.model.Encounter;
 
 public class QuickFightUseCase {
@@ -18,9 +19,9 @@ public class QuickFightUseCase {
 
         // finish or loop
         if (legendaryCharacter.isDead()) {
-            return CombatResult.LOSE;
+            return new CombatResult(CombatState.LOST, legendaryCharacter, encounter);
         } else if (encounter.livingOpponents().isEmpty()) {
-            return CombatResult.WIN;
+            return new CombatResult(CombatState.WON, legendaryCharacter, encounter);
         } else {
             return handle(legendaryCharacter, encounter);
         }
