@@ -62,6 +62,10 @@ public class LegendaryCharacter {
     public int rollDamages() {
         int damages = 0;
 
+        if (characterCombatChart().getNumberOfDice() == 0) {
+            return 1;
+        }
+
         for (int i = 0; i < characterCombatDice(); i++) {
             damages += diceType.roll();
         }
