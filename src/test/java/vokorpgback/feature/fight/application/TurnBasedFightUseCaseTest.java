@@ -9,8 +9,8 @@ import vokorpgback.feature.commons.domain.model.character.LegendaryCharacterFact
 import vokorpgback.feature.commons.domain.model.dice.LoadedDiceFactory;
 import vokorpgback.feature.commons.domain.model.opponent.Opponent;
 import vokorpgback.feature.commons.domain.model.opponent.OpponentFactory;
-import vokorpgback.feature.fight.domain.model.CombatResult;
-import vokorpgback.feature.fight.domain.model.CombatState;
+import vokorpgback.feature.fight.domain.model.FightState;
+import vokorpgback.feature.fight.domain.model.FightResult;
 import vokorpgback.feature.fight.domain.model.Encounter;
 import vokorpgback.feature.fight.domain.model.EncounterFactory;
 
@@ -35,13 +35,13 @@ class TurnBasedFightUseCaseTest {
             Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 1, diceFactory);
 
             // when
-            CombatResult combatResult = useCase.handle(legendaryCharacter, encounter, false);
+            FightState fightState = useCase.handle(legendaryCharacter, encounter, false);
 
             // then
-            assertEquals(CombatState.WON, combatResult.combatState());
-            assertTrue(combatResult.encounter().livingOpponents().isEmpty());
-            assertEquals(1, combatResult.encounter().deadOpponents().size());
-            assertEquals(combatResult.legendaryCharacter().maxNaturalMight(), combatResult.legendaryCharacter().remainingMight());
+            assertEquals(FightResult.WON, fightState.fightResult());
+            assertTrue(fightState.encounter().livingOpponents().isEmpty());
+            assertEquals(1, fightState.encounter().deadOpponents().size());
+            assertEquals(fightState.legendaryCharacter().maxNaturalMight(), fightState.legendaryCharacter().remainingMight());
         }
 
         @Test
@@ -52,13 +52,13 @@ class TurnBasedFightUseCaseTest {
             Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 1, diceFactory);
 
             // when
-            CombatResult combatResult = useCase.handle(legendaryCharacter, encounter, false);
+            FightState fightState = useCase.handle(legendaryCharacter, encounter, false);
 
             // then
-            assertEquals(CombatState.LOST, combatResult.combatState());
-            assertTrue(combatResult.legendaryCharacter().isDead());
-            assertTrue(combatResult.encounter().livingOpponents().get(0).fightingMight().remainingMight() > 0);
-            assertEquals(488, combatResult.encounter().livingOpponents().get(0).fightingMight().remainingMight());
+            assertEquals(FightResult.LOST, fightState.fightResult());
+            assertTrue(fightState.legendaryCharacter().isDead());
+            assertTrue(fightState.encounter().livingOpponents().get(0).fightingMight().remainingMight() > 0);
+            assertEquals(488, fightState.encounter().livingOpponents().get(0).fightingMight().remainingMight());
         }
 
         @Test
@@ -69,12 +69,12 @@ class TurnBasedFightUseCaseTest {
             Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 1, diceFactory);
 
             // when
-            CombatResult combatResult = useCase.handle(legendaryCharacter, encounter, false);
+            FightState fightState = useCase.handle(legendaryCharacter, encounter, false);
 
             // then
-            assertEquals(CombatState.IN_PROGRESS, combatResult.combatState());
-            assertEquals(9, combatResult.legendaryCharacter().remainingMight());
-            assertEquals(13, combatResult.encounter().livingOpponents().get(0).fightingMight().remainingMight());
+            assertEquals(FightResult.IN_PROGRESS, fightState.fightResult());
+            assertEquals(9, fightState.legendaryCharacter().remainingMight());
+            assertEquals(13, fightState.encounter().livingOpponents().get(0).fightingMight().remainingMight());
         }
     }
 
@@ -88,12 +88,12 @@ class TurnBasedFightUseCaseTest {
             Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 2, diceFactory);
 
             // when
-            CombatResult combatResult = useCase.handle(legendaryCharacter, encounter, true);
+            FightState fightState = useCase.handle(legendaryCharacter, encounter, true);
 
             // then
-            assertEquals(CombatState.FLED, combatResult.combatState());
-            assertEquals(combatResult.legendaryCharacter().remainingMight(), legendaryCharacter.maxNaturalMight());
-            assertEquals(2, combatResult.encounter().livingOpponents().size());
+            assertEquals(FightResult.FLED, fightState.fightResult());
+            assertEquals(fightState.legendaryCharacter().remainingMight(), legendaryCharacter.maxNaturalMight());
+            assertEquals(2, fightState.encounter().livingOpponents().size());
             assertTrue(encounter.livingOpponents().stream().allMatch(o -> o.fightingMight().remainingMight() == o.fightingMight().maxNaturalMight()));
         }
 
@@ -105,12 +105,12 @@ class TurnBasedFightUseCaseTest {
             Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 1, diceFactory);
 
             // when
-            CombatResult combatResult = useCase.handle(legendaryCharacter, encounter, true);
+            FightState fightState = useCase.handle(legendaryCharacter, encounter, true);
 
             // then
-            assertEquals(CombatState.IN_PROGRESS, combatResult.combatState());
-            assertEquals(9, combatResult.legendaryCharacter().remainingMight());
-            assertEquals(13, combatResult.encounter().livingOpponents().get(0).fightingMight().remainingMight());
+            assertEquals(FightResult.IN_PROGRESS, fightState.fightResult());
+            assertEquals(9, fightState.legendaryCharacter().remainingMight());
+            assertEquals(13, fightState.encounter().livingOpponents().get(0).fightingMight().remainingMight());
         }
     }
 }

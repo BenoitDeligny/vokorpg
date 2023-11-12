@@ -1,6 +1,6 @@
 package vokorpgback.feature.fight.domain.model;
 
-public enum CombatState {
+public enum FightResult {
     WON,
     LOST,
     FLED,

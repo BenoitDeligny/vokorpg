@@ -2,8 +2,8 @@ package vokorpgback.feature.fight.domain.model;
 
 import vokorpgback.feature.commons.domain.model.character.LegendaryCharacter;
 
-public record CombatResult(
-        CombatState combatState,
+public record FightState(
+        FightResult fightResult,
         LegendaryCharacter legendaryCharacter,
         Encounter encounter
 ) {
