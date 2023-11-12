@@ -18,6 +18,8 @@ public class QuickFightUseCase {
         legendaryCharacter.takeDamages(opponentDamages);
 
         // finish or loop
+        // TODO: think about refactoring this as we maybe can melt this with the TurnBasedFightUseCase return
+        // tell don't ask in the CombatResult ?
         if (legendaryCharacter.isDead()) {
             return new CombatResult(CombatState.LOST, legendaryCharacter, encounter);
         } else if (encounter.livingOpponents().isEmpty()) {

@@ -33,6 +33,8 @@ public class TurnBasedFightUseCase {
         return legendaryCharacter.fleeingScore() >= encounter.livingOpponents().get(0).fightingMight().remainingMight();
     }
 
+    // TODO: think about refactoring this as we maybe can melt this with the QuickFightUseCase return
+    // tell don't ask in the CombatResult ?
     private CombatResult getCombatResult(LegendaryCharacter legendaryCharacter, Encounter encounter) {
         if (legendaryCharacter.isDead()) {
             return new CombatResult(CombatState.LOST, legendaryCharacter, encounter);
