@@ -1,4 +1,4 @@
-package vokorpgback.feature.action.controller.dto;
+package vokorpgback.feature.action.exposition.dto;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;

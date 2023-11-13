@@ -1,4 +1,4 @@
-package vokorpgback.feature.action.controller.dto;
+package vokorpgback.feature.action.exposition.dto;
 
 public enum KnowledgeToUseDto {
     DEMINING,

@@ -1,7 +1,8 @@
 package vokorpgback.feature.commons.domain.model.gear;
 
 public enum TraitType {
-    MIGHT,
+    ACTION,
     DAMAGE,
-    HEAL
+    HEAL,
+    MIGHT
 }

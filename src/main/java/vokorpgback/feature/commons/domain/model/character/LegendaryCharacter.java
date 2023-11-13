@@ -70,7 +70,7 @@ public class LegendaryCharacter {
             damages += diceType.roll();
         }
 
-        return damages;
+        return damages + gear.computeDamageBonusFromGear();
     }
 
     public void takeDamages(int opponentDamages) {
@@ -81,6 +81,8 @@ public class LegendaryCharacter {
                 fightingMight.characterCombatChart()
         );
     }
+
+    // TODO: add rollAction method
 
     public int fleeingScore() {
         return diceType.roll() + diceType.roll() + agility.value();

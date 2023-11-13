@@ -7,14 +7,14 @@ import static vokorpgback.commons.Validation.validateNotNull;
 public class Item {
     private final String name;
     private final ItemType type;
-    private final Optional<Trait> trait;
+    private final Trait trait;
     private final String description;
     private final boolean isRelic;
 
     public Item(String name, ItemType type, Trait trait, String description, boolean isRelic) {
         this.name = validateNotNull(name, "Name should not be null.");
         this.type = type;
-        this.trait = Optional.ofNullable(trait);
+        this.trait = trait;
         this.description = description;
         this.isRelic = isRelic;
     }
@@ -28,7 +28,7 @@ public class Item {
     }
 
     public Trait getTrait() {
-        return trait.orElse(null);
+        return trait;
     }
 
     public String getDescription() {

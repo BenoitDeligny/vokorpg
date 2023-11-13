@@ -58,6 +58,15 @@ public record Gear(
                 .sum();
     }
 
+    public int computeActionBonusFromGear() {
+        return getGearItems()
+                .stream()
+                .filter(this::hasTrait)
+                .filter(this::hasActionTraitType)
+                .mapToInt(item -> item.getTrait().modifier())
+                .sum();
+    }
+
     public List<Item> getGearItems() {
         return List.of(
                 helmet(),
@@ -81,12 +90,16 @@ public record Gear(
         return item.getTrait() != null;
     }
 
-    private boolean hasMightTraitType(Item item) {
-        return item.getTrait().type() == TraitType.MIGHT;
+    private boolean hasActionTraitType(Item item) {
+        return item.getTrait().type() == TraitType.ACTION;
     }
 
     private boolean hasDamageTraitType(Item item) {
         return item.getTrait().type() == TraitType.DAMAGE;
+    }
+
+    private boolean hasMightTraitType(Item item) {
+        return item.getTrait().type() == TraitType.MIGHT;
     }
 
     private boolean isHelmet(Item item) {

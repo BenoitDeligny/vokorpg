@@ -62,7 +62,7 @@ class LegendaryCharacterTest {
         assertThat(legendaryCharacter.maxTotalMight()).isEqualTo(33);
         assertThat(legendaryCharacter.remainingMight()).isEqualTo(33);
         assertThat(legendaryCharacter.characterCombatChart()).isEqualTo(CharacterCombatChart.THREE);
-        assertThat(legendaryCharacter.rollDamages()).isEqualTo(18);
+        assertThat(legendaryCharacter.rollDamages()).isEqualTo(19);
     }
 
     @RepeatedTest(100)

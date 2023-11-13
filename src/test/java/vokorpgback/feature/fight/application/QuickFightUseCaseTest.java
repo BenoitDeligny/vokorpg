@@ -64,41 +64,4 @@ class QuickFightUseCaseTest {
             assertTrue(encounter.livingOpponents().stream().allMatch(o -> o.fightingMight().remainingMight() == o.fightingMight().maxNaturalMight()));
         }
     }
-
-    @Nested
-    class ToMoveOut {
-
-        // TODO: this should be test in EncounterTest
-        @Test
-        void legendaryCharacter_shouldFightTwoOpponents_thenBothOpponentsTakeDamages() {
-            // given
-            LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, diceFactory, "Winner");
-            Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 25, diceFactory);
-            Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 2, diceFactory);
-
-            // when
-            useCase.handle(legendaryCharacter, encounter);
-
-            // then
-            assertTrue(encounter.livingOpponents().stream().allMatch(o -> o.fightingMight().remainingMight() > 0));
-            assertTrue(encounter.livingOpponents().stream().allMatch(o -> o.fightingMight().remainingMight() == 1));
-        }
-
-        // TODO: this should be test in EncounterTest
-        @Test
-        void legendaryCharacter_shouldFightThreeOpponents_thenOnlyTwoOpponentsTakeDamages() {
-            // given
-            LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, diceFactory, "Winner");
-            Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 25, diceFactory);
-            Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 3, diceFactory);
-
-            // when
-            useCase.handle(legendaryCharacter, encounter);
-
-            // then
-            assertTrue(encounter.livingOpponents().stream().allMatch(o -> o.fightingMight().remainingMight() > 0));
-            assertTrue(encounter.livingOpponents().stream().limit(legendaryCharacter.characterCombatDice()).allMatch(o -> o.fightingMight().remainingMight() == 1));
-            assertTrue(encounter.livingOpponents().stream().skip(legendaryCharacter.characterCombatDice()).allMatch(o -> o.fightingMight().remainingMight() == 25));
-        }
-    }
 }
