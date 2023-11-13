@@ -31,9 +31,6 @@ public class CharacterEntity {
     @Column(name = "remaining_might", nullable = false)
     private int remainingMight;
 
-    // TODO add gear, backPack, powers, knowledge
-
-
     public CharacterEntity() {
     }
 

@@ -1,0 +1,19 @@
+MakeActionUseCase
+// TODO: replace CharacterActionScore by LegendaryCharacter
+// TODO: replace int by domain object that include threshold and ability to check
+
+LegendaryCharacter
+// TODO: add rollAction method
+// TODO add knowledge, powers bonus in computeFightingMight
+
+Opponent
+// TODO add specialization (damages, rules, ...)
+
+Dice
+// TODO: refactor the Dice behaviour
+
+Power
+// TODO implement type and bonuses
+
+CharacterEntity
+// TODO add gear, backPack, powers, knowledge

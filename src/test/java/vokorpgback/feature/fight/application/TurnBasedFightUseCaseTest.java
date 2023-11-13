@@ -62,7 +62,7 @@ class TurnBasedFightUseCaseTest {
         }
 
         @Test
-        void fight_shouldContinue() {
+        void fight_shouldContinue_whenCharacterRemainingMightIs9() {
             // given
             LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, diceFactory, "Winner");
             Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 25, diceFactory);
@@ -74,6 +74,22 @@ class TurnBasedFightUseCaseTest {
             // then
             assertEquals(FightResult.IN_PROGRESS, fightState.fightResult());
             assertEquals(9, fightState.legendaryCharacter().remainingMight());
+            assertEquals(13, fightState.encounter().livingOpponents().get(0).fightingMight().remainingMight());
+        }
+
+        @Test
+        void fight_shouldContinue_whenCharacterRemainingMightIs3() {
+            // given
+            LegendaryCharacter legendaryCharacter = LegendaryCharacterFactory.generateLegendaryCharacter(GameMode.NORMAL, diceFactory, "Winner");
+            Opponent opponent = OpponentFactory.generateOpponent("Bad guy", 25, diceFactory);
+            Encounter encounter = EncounterFactory.generateEncounter(opponent, opponent.fightingMight().maxNaturalMight(), 2, diceFactory);
+
+            // when
+            FightState fightState = useCase.handle(legendaryCharacter, encounter, false);
+
+            // then
+            assertEquals(FightResult.IN_PROGRESS, fightState.fightResult());
+            assertEquals(3, fightState.legendaryCharacter().remainingMight());
             assertEquals(13, fightState.encounter().livingOpponents().get(0).fightingMight().remainingMight());
         }
     }

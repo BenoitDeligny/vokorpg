@@ -8,6 +8,6 @@ public record CharacterActionScore(
 ) {
 
     public int computeTotalScore() {
-        return firstRoll() + secondRoll() + abilityScore() + knowledgeScore();
+        return firstRoll + secondRoll + abilityScore + knowledgeScore;
     }
 }

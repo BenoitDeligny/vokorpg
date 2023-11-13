@@ -1,4 +1,4 @@
-package vokorpgback.feature.action.controller.dto;
+package vokorpgback.feature.action.exposition.dto;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -15,7 +15,6 @@ public record MakeActionRequest(
 
         KnowledgeToUseDto knowledgeToUse,
 
-        // TODO i shouldn't use a domain object here
         @NotEmpty(message = "A character is needed.")
         LegendaryCharacter legendaryCharacter
 ) {

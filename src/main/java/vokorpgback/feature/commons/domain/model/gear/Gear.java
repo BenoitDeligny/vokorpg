@@ -81,12 +81,12 @@ public record Gear(
         return item.getTrait() != null;
     }
 
-    private boolean hasMightTraitType(Item item) {
-        return item.getTrait().type() == TraitType.MIGHT;
-    }
-
     private boolean hasDamageTraitType(Item item) {
         return item.getTrait().type() == TraitType.DAMAGE;
+    }
+
+    private boolean hasMightTraitType(Item item) {
+        return item.getTrait().type() == TraitType.MIGHT;
     }
 
     private boolean isHelmet(Item item) {
