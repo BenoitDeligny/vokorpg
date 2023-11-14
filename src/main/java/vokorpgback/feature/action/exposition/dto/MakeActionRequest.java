@@ -15,7 +15,6 @@ public record MakeActionRequest(
 
         KnowledgeToUseDto knowledgeToUse,
 
-        // TODO i shouldn't use a domain object here
         @NotEmpty(message = "A character is needed.")
         LegendaryCharacter legendaryCharacter
 ) {

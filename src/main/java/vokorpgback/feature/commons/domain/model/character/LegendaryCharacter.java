@@ -40,7 +40,7 @@ public class LegendaryCharacter {
 
     private static CharacterFightingMight computeFightingMight(Ability strength, Ability agility, Ability perception, Gear gear) {
         int maxNaturalPower = strength.value() + agility.value() + perception.value();
-        int maxTotalPower = strength.value() + agility.value() + perception.value() + gear.computeMightBonusFromGear(); // TODO add knowledge, powers bonus
+        int maxTotalPower = strength.value() + agility.value() + perception.value() + gear.computeMightBonusFromGear();
 
         return new CharacterFightingMight(
                 maxNaturalPower,
@@ -82,7 +82,9 @@ public class LegendaryCharacter {
         );
     }
 
-    // TODO: add rollAction method
+    public int rollAction() {
+        return 0;
+    }
 
     public int fleeingScore() {
         return diceType.roll() + diceType.roll() + agility.value();

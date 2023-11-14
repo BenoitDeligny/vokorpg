@@ -87,7 +87,6 @@
 //    private PowerResponseDto toPowerDto(Power power) {
 //        return new PowerResponseDto(
 //                power.name()
-//                // TODO miss the bonus
 //        );
 //    }
 //

@@ -4,11 +4,10 @@ public record CharacterActionScore(
         int firstRoll,
         int secondRoll,
         int abilityScore,
-        int knowledgeScore,
-        int gearScore
+        int knowledgeScore
 ) {
 
     public int computeTotalScore() {
-        return firstRoll + secondRoll + abilityScore + knowledgeScore + gearScore;
+        return firstRoll + secondRoll + abilityScore + knowledgeScore;
     }
 }

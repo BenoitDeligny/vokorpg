@@ -9,7 +9,6 @@ public class Opponent {
         private final String name;
         private OpponentFightingMight fightingMight;
         private final Dice diceType;
-        // TODO add specialization (damages, rules, ...)
 
 
     protected Opponent(UUID uuid, String name, OpponentFightingMight fightingMight, Dice diceType) {
