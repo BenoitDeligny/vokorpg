@@ -9,11 +9,16 @@ LegendaryCharacter
 Opponent
 // TODO add specialization (damages, rules, ...)
 
-Dice
-// TODO: refactor the Dice behaviour
-
 Power
 // TODO implement type and bonuses
 
 CharacterEntity
 // TODO add gear, backPack, powers, knowledge
+
+Dice
+// TODO: refactor the Dice behaviour
+
+General
+// TODO: refactor hexagonal
+    // mapping methods (toDomain, toEntity, ...) in the original Class
+// TODO: refactor in Kotlin ? Using Spring or Ktor (if yes to BetClic maybe) ?
