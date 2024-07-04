@@ -1,6 +1,6 @@
-package vokorpg.domain
+package core.domain.sharedkernel
 
-import vokorpg.domain.Item.*
+import core.domain.sharedkernel.Item.*
 
 data class Gear(
     val armor: Armor = Armor.NONE,
@@ -131,6 +131,8 @@ sealed interface Item {
             val NONE = Armor(mightModifier = 0, damageModifier = 0, healModifier = 0)
             val BASIC = Armor(mightModifier = 1, damageModifier = 0, healModifier = 0)
             fun mightArmor(mightModifier: Int) = Armor(mightModifier = mightModifier, damageModifier = 0, healModifier = 0)
+            fun damageArmor(damageModifier: Int) = Armor(mightModifier = 0, damageModifier = damageModifier, healModifier = 0)
+            fun healArmor(healModifier: Int) = Armor(mightModifier = 0, damageModifier = 0, healModifier = healModifier)
         }
     }
 
@@ -141,6 +143,10 @@ sealed interface Item {
     ) : Item {
         companion object {
             val NONE = Belt(mightModifier = 0, damageModifier = 0, healModifier = 0)
+            val BASIC = Belt(mightModifier = 1, damageModifier = 0, healModifier = 0)
+            fun mightBelt(mightModifier: Int) = Belt(mightModifier = mightModifier, damageModifier = 0, healModifier = 0)
+            fun damageBelt(damageModifier: Int) = Belt(mightModifier = 0, damageModifier = damageModifier, healModifier = 0)
+            fun healBelt(healModifier: Int) = Belt(mightModifier = 0, damageModifier = 0, healModifier = healModifier)
         }
     }
 
@@ -151,7 +157,10 @@ sealed interface Item {
     ) : Item {
         companion object {
             val NONE = Boots(mightModifier = 0, damageModifier = 0, healModifier = 0)
-            val BASIC = Boots(mightModifier = 0, damageModifier = 0, healModifier = 1)
+            val BASIC = Boots(mightModifier = 1, damageModifier = 0, healModifier = 0)
+            fun mightBoots(mightModifier: Int) = Boots(mightModifier = mightModifier, damageModifier = 0, healModifier = 0)
+            fun damageBoots(damageModifier: Int) = Boots(mightModifier = 0, damageModifier = damageModifier, healModifier = 0)
+            fun healBoots(healModifier: Int) = Boots(mightModifier = 0, damageModifier = 0, healModifier = healModifier)
         }
     }
 
@@ -162,6 +171,10 @@ sealed interface Item {
     ) : Item {
         companion object {
             val NONE = Cloak(mightModifier = 0, damageModifier = 0, healModifier = 0)
+            val BASIC = Cloak(mightModifier = 1, damageModifier = 0, healModifier = 0)
+            fun mightCloak(mightModifier: Int) = Cloak(mightModifier = mightModifier, damageModifier = 0, healModifier = 0)
+            fun damageCloak(damageModifier: Int) = Cloak(mightModifier = 0, damageModifier = damageModifier, healModifier = 0)
+            fun healCloak(healModifier: Int) = Cloak(mightModifier = 0, damageModifier = 0, healModifier = healModifier)
         }
     }
 
@@ -182,6 +195,10 @@ sealed interface Item {
     ) : Item {
         companion object {
             val NONE = Costume(mightModifier = 0, damageModifier = 0, healModifier = 0)
+            val BASIC = Costume(mightModifier = 1, damageModifier = 0, healModifier = 0)
+            fun mightCostume(mightModifier: Int) = Costume(mightModifier = mightModifier, damageModifier = 0, healModifier = 0)
+            fun damageCostume(damageModifier: Int) = Costume(mightModifier = 0, damageModifier = damageModifier, healModifier = 0)
+            fun healCostume(healModifier: Int) = Costume(mightModifier = 0, damageModifier = 0, healModifier = healModifier)
         }
     }
 
@@ -192,6 +209,10 @@ sealed interface Item {
     ) : Item {
         companion object {
             val NONE = Gloves(mightModifier = 0, damageModifier = 0, healModifier = 0)
+            val BASIC = Gloves(mightModifier = 1, damageModifier = 0, healModifier = 0)
+            fun mightGloves(mightModifier: Int) = Gloves(mightModifier = mightModifier, damageModifier = 0, healModifier = 0)
+            fun damageGloves(damageModifier: Int) = Gloves(mightModifier = 0, damageModifier = damageModifier, healModifier = 0)
+            fun healGloves(healModifier: Int) = Gloves(mightModifier = 0, damageModifier = 0, healModifier = healModifier)
         }
     }
 
@@ -202,6 +223,10 @@ sealed interface Item {
     ) : Item {
         companion object {
             val NONE = Helmet(mightModifier = 0, damageModifier = 0, healModifier = 0)
+            val BASIC = Helmet(mightModifier = 1, damageModifier = 0, healModifier = 0)
+            fun mightHelmet(mightModifier: Int) = Helmet(mightModifier = mightModifier, damageModifier = 0, healModifier = 0)
+            fun damageHelmet(damageModifier: Int) = Helmet(mightModifier = 0, damageModifier = damageModifier, healModifier = 0)
+            fun healHelmet(healModifier: Int) = Helmet(mightModifier = 0, damageModifier = 0, healModifier = healModifier)
         }
     }
 
@@ -212,6 +237,10 @@ sealed interface Item {
     ) : Item {
         companion object {
             val NONE = Mask(mightModifier = 0, damageModifier = 0, healModifier = 0)
+            val BASIC = Mask(mightModifier = 1, damageModifier = 0, healModifier = 0)
+            fun mightMask(mightModifier: Int) = Mask(mightModifier = mightModifier, damageModifier = 0, healModifier = 0)
+            fun damageMask(damageModifier: Int) = Mask(mightModifier = 0, damageModifier = damageModifier, healModifier = 0)
+            fun healMask(healModifier: Int) = Mask(mightModifier = 0, damageModifier = 0, healModifier = healModifier)
         }
     }
 
@@ -222,6 +251,10 @@ sealed interface Item {
     ) : Item {
         companion object {
             val NONE = Necklace(mightModifier = 0, damageModifier = 0, healModifier = 0)
+            val BASIC = Necklace(mightModifier = 1, damageModifier = 0, healModifier = 0)
+            fun mightNecklace(mightModifier: Int) = Necklace(mightModifier = mightModifier, damageModifier = 0, healModifier = 0)
+            fun damageNecklace(damageModifier: Int) = Necklace(mightModifier = 0, damageModifier = damageModifier, healModifier = 0)
+            fun healNecklace(healModifier: Int) = Necklace(mightModifier = 0, damageModifier = 0, healModifier = healModifier)
         }
     }
 
@@ -232,8 +265,10 @@ sealed interface Item {
     ) : Item {
         companion object {
             val NONE = Weapon(mightModifier = 0, damageModifier = 0, healModifier = 0)
-            val BASIC = Weapon(mightModifier = 0, damageModifier = 1, healModifier = 0)
+            val BASIC = Weapon(mightModifier = 1, damageModifier = 0, healModifier = 0)
+            fun mightWeapon(mightModifier: Int) = Weapon(mightModifier = mightModifier, damageModifier = 0, healModifier = 0)
             fun damageWeapon(damageModifier: Int) = Weapon(mightModifier = 0, damageModifier = damageModifier, healModifier = 0)
+            fun healWeapon(healModifier: Int) = Weapon(mightModifier = 0, damageModifier = 0, healModifier = healModifier)
         }
     }
 
@@ -244,6 +279,10 @@ sealed interface Item {
     ) : Item {
         companion object {
             val NONE = Ring(mightModifier = 0, damageModifier = 0, healModifier = 0)
+            val BASIC = Ring(mightModifier = 1, damageModifier = 0, healModifier = 0)
+            fun mightRing(mightModifier: Int) = Ring(mightModifier = mightModifier, damageModifier = 0, healModifier = 0)
+            fun damageRing(damageModifier: Int) = Ring(mightModifier = 0, damageModifier = damageModifier, healModifier = 0)
+            fun healRing(healModifier: Int) = Ring(mightModifier = 0, damageModifier = 0, healModifier = healModifier)
         }
     }
 
@@ -254,7 +293,10 @@ sealed interface Item {
     ) : Item {
         companion object {
             val NONE = Shield(mightModifier = 0, damageModifier = 0, healModifier = 0)
+            val BASIC = Shield(mightModifier = 1, damageModifier = 0, healModifier = 0)
             fun mightShield(mightModifier: Int) = Shield(mightModifier = mightModifier, damageModifier = 0, healModifier = 0)
+            fun damageShield(damageModifier: Int) = Shield(mightModifier = 0, damageModifier = damageModifier, healModifier = 0)
+            fun healShield(healModifier: Int) = Shield(mightModifier = 0, damageModifier = 0, healModifier = healModifier)
         }
     }
 
@@ -265,6 +307,10 @@ sealed interface Item {
     ) : Item {
         companion object {
             val NONE = Wristbands(mightModifier = 0, damageModifier = 0, healModifier = 0)
+            val BASIC = Wristbands(mightModifier = 1, damageModifier = 0, healModifier = 0)
+            fun mightWristbands(mightModifier: Int) = Wristbands(mightModifier = mightModifier, damageModifier = 0, healModifier = 0)
+            fun damageWristbands(damageModifier: Int) = Wristbands(mightModifier = 0, damageModifier = damageModifier, healModifier = 0)
+            fun healWristbands(healModifier: Int) = Wristbands(mightModifier = 0, damageModifier = 0, healModifier = healModifier)
         }
     }
 }

@@ -1,7 +1,7 @@
-package vokorpg.domain.hero
+package core.domain.hero
 
-import vokorpg.domain.Dice
-import vokorpg.domain.hero.Age.Companion.random
+import core.domain.sharedkernel.Dice
+import core.domain.hero.Age.Companion.random
 
 data class Identity(
     val name: String,

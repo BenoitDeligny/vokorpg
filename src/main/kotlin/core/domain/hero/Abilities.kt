@@ -1,8 +1,8 @@
-package vokorpg.domain.hero
+package core.domain.hero
 
-import vokorpg.domain.Dice
-import vokorpg.domain.GameMode.EASY
-import vokorpg.domain.GameMode.NORMAL
+import core.domain.sharedkernel.Dice
+import core.domain.sharedkernel.GameMode.EASY
+import core.domain.sharedkernel.GameMode.NORMAL
 
 data class Abilities(
     val strength: Ability,
@@ -42,4 +42,6 @@ value class Ability(val value: Int) {
     init {
         require(value > 0) { "An ability should be positive. Value = $value." }
     }
+
+    operator fun plus(other: Int) = value + other
 }

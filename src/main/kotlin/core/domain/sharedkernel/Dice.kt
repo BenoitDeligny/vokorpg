@@ -1,4 +1,4 @@
-package vokorpg.domain
+package core.domain.sharedkernel
 
 import kotlin.random.Random
 

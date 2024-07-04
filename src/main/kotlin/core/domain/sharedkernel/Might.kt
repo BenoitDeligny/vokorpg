@@ -1,4 +1,4 @@
-package vokorpg.domain
+package core.domain.sharedkernel
 
 data class Might(
     val level: Int,

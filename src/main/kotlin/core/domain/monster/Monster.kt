@@ -1,14 +1,13 @@
-package vokorpg.domain.monster
+package core.domain.monster
 
-import vokorpg.domain.Dice
-import vokorpg.domain.Gear
-import vokorpg.domain.Item.Armor.Companion.mightArmor
-import vokorpg.domain.Item.Shield.Companion.mightShield
-import vokorpg.domain.Item.Weapon.Companion.damageWeapon
-import vokorpg.domain.Might
-import vokorpg.domain.Might.Companion.initialized
-import vokorpg.domain.hero.HeroCombatChart
-import vokorpg.domain.monster.MonsterCombatChart.Companion.chartBy
+import core.domain.sharedkernel.Dice
+import core.domain.sharedkernel.Gear
+import core.domain.sharedkernel.Item.Armor.Companion.mightArmor
+import core.domain.sharedkernel.Item.Shield.Companion.mightShield
+import core.domain.sharedkernel.Item.Weapon.Companion.damageWeapon
+import core.domain.sharedkernel.Might
+import core.domain.sharedkernel.Might.Companion.initialized
+import core.domain.monster.MonsterCombatChart.Companion.chartBy
 
 
 data class Monster(
@@ -46,9 +45,10 @@ data class Monster(
         )
     }
 
+    fun initiative() = (might.level / 3) + dicePoolRoll()
+    fun attacks() = dicePoolRoll() + gear.totalDamagesBonus()
     infix fun damagedBy(damages: Int) = copy(might = might.decreasedLifePoints(damages))
     infix fun healedBy(heal: Int) = copy(might = might.increasedLifePoints(heal))
-    fun attacks() = combatDicePool().sumOf { dice -> dice.sixSidedRoll() } + gear.totalDamagesBonus()
     private fun combatDicePool(): List<Dice> = List(chartBy(might).numberOfDice) { Dice }
-
+    private fun dicePoolRoll() = combatDicePool().sumOf { dice -> dice.sixSidedRoll() }
 }

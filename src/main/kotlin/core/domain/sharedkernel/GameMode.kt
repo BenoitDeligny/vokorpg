@@ -1,4 +1,4 @@
-package vokorpg.domain
+package core.domain.sharedkernel
 
 // TODO: naming -> difficulty ?
 enum class GameMode(val abilityModifier: Int) {

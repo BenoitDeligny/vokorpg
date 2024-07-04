@@ -1,17 +1,18 @@
-package vokorpg.domain.hero
+package core.domain.hero
 
-import vokorpg.domain.Dice
-import vokorpg.domain.Gear
-import vokorpg.domain.Gear.Companion.EASY_MODE_STARTING_PACK
-import vokorpg.domain.Gear.Companion.NONE
-import vokorpg.domain.Gear.Companion.NORMAL_MODE_STARTING_PACK
-import vokorpg.domain.Item
-import vokorpg.domain.Might
-import vokorpg.domain.Might.Companion.initialized
-import vokorpg.domain.hero.Abilities.Companion.randomInEasyMode
-import vokorpg.domain.hero.Abilities.Companion.randomInNormalMode
-import vokorpg.domain.hero.HeroCombatChart.Companion.chartBy
-import vokorpg.domain.hero.Identity.Companion.withRandomAge
+import core.domain.sharedkernel.Dice
+import core.domain.sharedkernel.Gear
+import core.domain.sharedkernel.Gear.Companion.EASY_MODE_STARTING_PACK
+import core.domain.sharedkernel.Gear.Companion.NONE
+import core.domain.sharedkernel.Gear.Companion.NORMAL_MODE_STARTING_PACK
+import core.domain.sharedkernel.Item
+import core.domain.sharedkernel.Might
+import core.domain.sharedkernel.Might.Companion.initialized
+import core.domain.hero.Abilities.Companion.randomInEasyMode
+import core.domain.hero.Abilities.Companion.randomInNormalMode
+import core.domain.hero.HeroCombatChart.Companion.chartBy
+import core.domain.hero.Identity.Companion.withRandomAge
+import core.domain.sharedkernel.Dice.sixSidedRoll
 
 data class Hero(
     val identity: Identity,
@@ -40,9 +41,11 @@ data class Hero(
         require(might.level == theoreticalMaxMight) { "Might level should always be the sum of abilities. Level = ${might.level}. Sum = $theoreticalMaxMight" }
     }
 
+    fun initiative() = abilities.agility + dicePoolRoll()
+    fun attacks() = dicePoolRoll() + gear.totalDamagesBonus()
+
     infix fun damagedBy(damages: Int) = copy(might = might.decreasedLifePoints(damages))
     infix fun healedBy(heal: Int) = copy(might = might.increasedLifePoints(heal))
-    fun attacks() = combatDicePool().sumOf { dice -> dice.sixSidedRoll() } + gear.totalDamagesBonus()
 
     // TODO: i would like to make this private --> outsiders must not call this
     // TODO: also it should be "automatic" when the hero comes to 0 life points
@@ -62,4 +65,5 @@ data class Hero(
     // TODO: private fun runAway(): Int = agility.value + rollSixSidedDice(2)
 
     private fun combatDicePool(): List<Dice> = List(chartBy(might).numberOfDice) { Dice }
+    private fun dicePoolRoll() = combatDicePool().sumOf { dice -> dice.sixSidedRoll() }
 }

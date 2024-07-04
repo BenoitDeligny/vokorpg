@@ -1,6 +1,6 @@
-package vokorpg.domain.monster
+package core.domain.monster
 
-import vokorpg.domain.Might
+import core.domain.sharedkernel.Might
 
 // TODO: Temporary as i don't have database for now
 enum class MonsterCombatChart(

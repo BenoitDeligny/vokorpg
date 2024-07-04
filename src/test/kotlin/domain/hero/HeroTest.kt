@@ -7,16 +7,16 @@ import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Test
-import vokorpg.domain.Gear
-import vokorpg.domain.Item.Armor.Companion.mightArmor
-import vokorpg.domain.Item.Weapon.Companion.damageWeapon
-import vokorpg.domain.Might
-import vokorpg.domain.hero.Abilities
-import vokorpg.domain.hero.Ability
-import vokorpg.domain.hero.Hero
-import vokorpg.domain.hero.Hero.Companion.randomInEasyMode
-import vokorpg.domain.hero.Hero.Companion.randomInNormalMode
-import vokorpg.domain.hero.Identity.Companion.withRandomAge
+import core.domain.sharedkernel.Gear
+import core.domain.sharedkernel.Item.Armor.Companion.mightArmor
+import core.domain.sharedkernel.Item.Weapon.Companion.damageWeapon
+import core.domain.sharedkernel.Might
+import core.domain.hero.Abilities
+import core.domain.hero.Ability
+import core.domain.hero.Hero
+import core.domain.hero.Hero.Companion.randomInEasyMode
+import core.domain.hero.Hero.Companion.randomInNormalMode
+import core.domain.hero.Identity.Companion.withRandomAge
 
 class HeroTest {
     @Nested
