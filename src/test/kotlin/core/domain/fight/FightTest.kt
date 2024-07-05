@@ -6,14 +6,12 @@ import org.junit.jupiter.api.Test
 
 class FightTest {
     @Test
-    fun `should sort fighters by initiative`() {
+    fun `foo`() {
         // given
-        val hero = Hero.randomInNormalMode("hero")
+        val hero = Hero.randomInEasyMode("Pouet")
         val monster = Monster.mediumMonster()
-        val fight = Fight(hero, monster)
 
         // when
-        val fighters = fight.foo()
 
         // then
 
